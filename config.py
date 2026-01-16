@@ -11,5 +11,9 @@ class Config:
         f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
         f"?charset=utf8mb4"
     )
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "pool_pre_ping": True,  # detecta conexoes mortas antes de usar
+        "pool_recycle": 280,    # evita timeout do MySQL remoto
+    }
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.getenv('SECRET_KEY')
