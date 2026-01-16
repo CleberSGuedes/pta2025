@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/proj5954/pta2025/
+    - /bin/cp -R * $DEPLOYPATH
