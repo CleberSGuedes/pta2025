@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from flask import Flask, app, flash, jsonify, render_template, request, redirect, url_for
-from sqlalchemy import String, and_, cast, func, not_, or_
+from sqlalchemy import String, and_, cast, func, not_, or_, text
 from config import Config
 from extensions import db
 from datetime import datetime, timedelta
@@ -28,6 +28,16 @@ app = Flask(__name__)
 app.config.from_object(Config)
 db.init_app(app)
 usuarios_online = {}
+
+# Mantem a conexao valida em hospedagem compartilhada (retry simples no 1o acesso).
+@app.before_request
+def _ping_db():
+    try:
+        db.session.execute(text("SELECT 1"))
+    except Exception:
+        # Recria a sessao e tenta mais uma vez.
+        db.session.remove()
+        db.session.execute(text("SELECT 1"))
 
 # Cria o Dash e o incorpora ao Flask
 criar_dash_teto_por_fonte(app)
