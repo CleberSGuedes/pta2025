@@ -33,11 +33,12 @@ usuarios_online = {}
 @app.before_request
 def _ping_db():
     try:
-        db.session.execute(text("SELECT 1"))
+        # Consome o resultado para evitar "Command out of Sync".
+        db.session.execute(text("SELECT 1")).scalar()
     except Exception:
         # Recria a sessao e tenta mais uma vez.
         db.session.remove()
-        db.session.execute(text("SELECT 1"))
+        db.session.execute(text("SELECT 1")).scalar()
 
 # Cria o Dash e o incorpora ao Flask
 criar_dash_teto_por_fonte(app)
