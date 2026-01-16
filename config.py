@@ -13,7 +13,8 @@ class Config:
     )
     SQLALCHEMY_ENGINE_OPTIONS = {
         "pool_pre_ping": True,  # detecta conexoes mortas antes de usar
-        "pool_recycle": 280,    # evita timeout do MySQL remoto
+        "pool_recycle": 60,     # evita timeout do MySQL remoto
+        "pool_timeout": 30,
     }
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.getenv('SECRET_KEY')
