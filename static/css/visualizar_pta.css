@@ -75,3 +75,18 @@
     flex-grow: 1;
     margin-right: 1rem;
 }
+
+/* Botão terciário (ex: QOMP) */
+.btn-padrao-terciario {
+    background-color: #666b6a;
+    color: white;
+    border: none;
+}
+
+.botoes-acao {
+    display: flex;
+    flex-direction: row; /* mantemos a ordem visual como Baixar Excel -> Voltar */
+    align-items: center;
+    gap: 10px;
+}
+

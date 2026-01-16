@@ -1,3 +1,4 @@
+// ===================== memorica_calculo.js
 // =====================
 // 🔽 DEFINIÇÕES INICIAIS
 // =====================
@@ -12,7 +13,7 @@ const opcoesGrupo = {
         "4 - Investimentos",
         "5 - Inversões Financeiras",
         "6 - Amortização da Dívida",
-        "9 - Reserva de Contingência"
+        // "9 - Reserva de Contingência"
     ]
 };
 
@@ -358,7 +359,7 @@ window.fecharFormularioMemoria = function () {
 window.atualizarContadorItem = function () {
     const input = document.getElementById("item_despesa");
     const contador = document.getElementById("contador_item");
-    contador.textContent = `${input.value.length} / 50 caracteres`;
+    contador.textContent = `${input.value.length} / 120 caracteres`;
 };
 
 window.addEventListener("beforeunload", function () {

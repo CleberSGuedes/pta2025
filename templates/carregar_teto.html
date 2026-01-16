@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% block title %}Carregar Teto{% endblock %}
+
+{% block head %}
+  {{ super() }}
+
+  <!-- SweetAlert2: tenta local -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/sweetalert2/sweetalert2.min.css') }}">
+  <script>
+    // injeta CDN caso o JS local não exista ou demore
+    (function () {
+      var onload = function () {
+        if (!window.Swal) {
+          var s = document.createElement('script');
+          s.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js';
+          s.defer = true;
+          document.head.appendChild(s);
+        }
+      };
+      // tenta carregar o js local
+      var sLocal = document.createElement('script');
+      sLocal.src = "{{ url_for('static', filename='vendor/sweetalert2/sweetalert2.all.min.js') }}";
+      sLocal.defer = true;
+      sLocal.onerror = onload;  // se 404/local indisponível -> usa CDN
+      sLocal.onload  = function(){ /* ok */ };
+      document.head.appendChild(sLocal);
+
+      // se nem local nem CDN vingarem, cria um shim compatível
+      window.addEventListener('DOMContentLoaded', function () {
+        setTimeout(function () {
+          if (!window.Swal) {
+            console.warn('SweetAlert2 não foi carregado; usando shim.');
+            const shim = {
+              fire: (o) => { alert((o && (o.title || o.text || o.html)) || 'Mensagem'); return Promise.resolve(); },
+              showLoading: function () {},
+              close: function () {},
+              mixin: function () {
+                return {
+                  fire: (o) => { alert((o && (o.title || o.text || o.html)) || 'Mensagem'); return Promise.resolve(); }
+                };
+              }
+            };
+            window.Swal = shim;
+          }
+        }, 800); // dá um tempinho pro script externo carregar
+      });
+    })();
+  </script>
+{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/teto.css') }}">
+
+  <div class="container-fluid px-1 py-1">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div class="etapa-titulo px-3 py-2 rounded-top">Carregar Teto</div>
+      <div class="d-flex gap-2">
+        <a href="/cadastrar_momp" class="btn btn-padrao btn-sm">Cadastrar MOMP</a>
+        <a href="/visualizar_qomp" class="btn btn-padrao-terciario btn-sm">Visualizar QOMP</a>
+        <a href="/teto_orcamentario" class="btn btn-padrao btn-sm">Teto Orçamentário</a>
+      </div>
+    </div>
+
+    <div class="p-1 bg-light border rounded">
+      <form id="form-upload-teto" method="post" action="{{ url_for('carregar_teto') }}"
+            enctype="multipart/form-data" class="row g-3 p-2" novalidate autocomplete="off">
+        <div class="col-sm-2">
+          <label for="exercicio" class="form-label mb-1">Exercício</label>
+          <input type="text" id="exercicio" name="exercicio" class="form-control form-control-sm"
+                 placeholder="ex.: 20.. (ano a atualizar)" inputmode="numeric" pattern="[0-9]*"
+                 title="Digite apenas números - Informe o ANO do exercício que será atualizado."
+                 oninput="this.value = this.value.replace(/\D/g,'')" required>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="tabela" class="form-label mb-1">Relatório FIPLAN</label>
+          <select id="tabela" name="tabela" class="form-select form-select-sm" required>
+            <option value="" selected disabled>Selecione</option>
+            <option value="dbo.momp">Plan 23 - Teto Orçamentário</option>
+            <option value="dbo.politicateto">Plan 134 - PTA Detalhado</option>
+          </select>
+        </div>
+
+        <div class="col-sm-6">
+          <label for="arquivo" class="form-label mb-1">Arquivo Excel (.xlsx)</label>
+          <input type="file" id="arquivo" name="arquivo"
+                 class="form-control form-control-sm" accept=".xlsx" required>
+        </div>
+
+        <div class="col-12 d-flex justify-content-end">
+          <button id="btn-carregar" type="button" class="btn btn-padrao btn-sm">Carregar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    const form   = document.getElementById('form-upload-teto');
+    const btn    = document.getElementById('btn-carregar');
+    const tabela = document.getElementById('tabela');
+    const arq    = document.getElementById('arquivo');
+    const exerc  = document.getElementById('exercicio');
+
+    function resetForm() {
+      if (!form) return;
+      form.reset();
+      tabela.selectedIndex = 0;
+      exerc.value = '';
+      if (arq) { arq.value = ''; }
+    }
+    document.addEventListener('DOMContentLoaded', resetForm);
+    window.addEventListener('pageshow', function (e) { if (e.persisted) resetForm(); });
+
+    btn.addEventListener('click', function () {
+      if (!form.reportValidity()) return;
+
+      const fd  = new FormData(form);
+      const url = form.action + '?ajax=1';
+
+      btn.disabled = true;
+
+      Swal.fire({
+        title: 'Enviando...',
+        text: 'Processando o arquivo, aguarde.',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        didOpen: () => { Swal.showLoading(); }
+      });
+
+      fetch(url, { method: 'POST', body: fd })
+        .then(async (res) => {
+          let data;
+          try { data = await res.json(); } catch (e) { data = {status:'error', message:'Resposta inválida do servidor.'}; }
+          return data;
+        })
+        .then((data) => {
+          const icon  = (data.status === 'success') ? 'success' : (data.status === 'warning' ? 'warning' : 'error');
+          const title = (icon === 'success') ? 'Sucesso' : (icon === 'warning' ? 'Atenção' : 'Erro');
+
+          // estiliza o botão OK
+          const swalStyled = Swal.mixin({
+            buttonsStyling: false,
+            customClass: { confirmButton: 'btn btn-padrao-terciario btn-sm' }
+          });
+
+          return swalStyled.fire({
+            icon, title,
+            html: data.message || '',
+            confirmButtonText: 'OK'
+          });
+        })
+        .then(() => {
+          resetForm();
+          window.location.reload();
+        })
+        .catch(() => {
+          const swalStyled = Swal.mixin({
+            buttonsStyling: false,
+            customClass: { confirmButton: 'btn btn-padrao-terciario btn-sm' }
+          });
+          swalStyled.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Falha ao enviar a requisição.',
+            confirmButtonText: 'OK'
+          }).then(() => resetForm());
+        })
+        .finally(() => {
+          btn.disabled = false;
+        });
+    });
+  })();
+  </script>
+{% endblock %}

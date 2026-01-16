@@ -55,7 +55,7 @@ const idusoMap = {
         "12 - PROGESTÃO PRINCIPAL - PROG PR",
         "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd"
     ],
-    "4491 - Pagamento de verbas indenizatórias a servidores estaduais.":[
+    "4491 - Pagamento de verbas indenizatórias a servidores estaduais":[
         "Selecione...",
         "01 - OUTRAS DESPESAS - OD",
         "02 - CONTRAPARTIDA DE CONVÊNIOS - RCC",
@@ -98,13 +98,17 @@ const idusoMap = {
         "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd"
     ],
     "2957 - Desenvolvimento da Educação Especial":[
-        "14 - PRIORIDADE DE GOVERNO - PG"
+        "14 - PRIORIDADE DE GOVERNO - PG",
+        "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd"
     ],
     "4172 - Desenvolvimento do Ensino Fundamental":[
-        "14 - PRIORIDADE DE GOVERNO - PG"
+        "03 - DESPESAS OBRIGATÓRIAS - DO",
+        "14 - PRIORIDADE DE GOVERNO - PG",
+        "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd"
     ],
     "4174 - Desenvolvimento do Ensino Médio":[
-        "14 - PRIORIDADE DE GOVERNO - PG"
+        "14 - PRIORIDADE DE GOVERNO - PG",
+        "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd"
     ],
     "2895 - Alimentação Escolar da Educação de Jovens e Adultos":[
         "Selecione...",

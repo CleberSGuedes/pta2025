@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "sweetalert2": "11.23.0"
+  },
+  "name": "pta",
+  "version": "1.0.0",
+  "description": "PTA 2026 - Sistema de Planejamento do Trabalho Anual",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

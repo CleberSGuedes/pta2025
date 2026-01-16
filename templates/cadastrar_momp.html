@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+{% block title %}Cadastrar MOMP{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/teto.css') }}">
+
+<div class="row">
+
+  <!-- COLUNA ESQUERDA: LISTA + FILTROS -->
+  <div class="col-md-6">
+    <div class="card shadow-sm mb-3">
+      <div class="etapa-titulo">Cadastrar MOMP</div>
+      <div class="card-body font-sistema">
+
+        <!-- ====== NOVO: Construtor de Filtros ====== -->
+        <div class="card border-0 mb-3" style="background:#f8f9fa">
+          <div class="card-body p-3">
+            <div class="row g-2 align-items-end" id="filtro-toolbar">
+            <div class="col-12 col-md-3">
+                <label class="form-label">Campo</label>
+                <select id="filtro-campo" class="form-select">
+                <option value="exercicio">Exercício*</option>
+                <option value="fonte">Fonte</option>
+                <option value="grupo de despesa">Grupo de Despesa</option>
+                <option value="teto de despesa momp">Teto de Despesa MOMP</option>
+                <option value="subteto de despesa momp">Tipificação de Despesa</option>
+                </select>
+            </div>
+
+            <div class="col-12 col-md-3">
+                <label class="form-label">Operador</label>
+                <select id="filtro-operador" class="form-select">
+                <option value="igual">Igual a</option>
+                <option value="contem">Contém</option>
+                </select>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label class="form-label">Valor</label>
+                <div class="input-group">
+                <input id="filtro-valor" class="form-control" placeholder="Digite o valor">
+                <button id="btn-add-criterio" type="button" class="btn btn-secondary btn-reduzido">Adicionar</button>
+                </div>
+            </div>
+            </div>
+
+            <div class="mt-3">
+              <div class="d-flex align-items-center justify-content-between mb-1">
+                <small class="text-muted">* Exercício é obrigatório quando houver outros filtros.</small>
+                <div class="d-flex gap-2">
+                  <button id="btn-remover-criterio" type="button" class="btn btn-outline-danger btn-sm">Remover</button>
+                  <button id="btn-limpar-criterios" type="button" class="btn btn-outline-secondary btn-sm">Limpar</button>
+                  <button id="btn-consultar" type="button" class="btn btn-padrao btn-sm">Consultar</button>
+                </div>
+              </div>
+
+              <!-- Lista dos critérios adicionados -->
+              <ul id="criterios-list" class="list-group list-group-flush border rounded small"
+                  style="max-height:160px; overflow:auto">
+                <!-- itens gerados via JS -->
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- ====== /NOVO ====== -->
+
+        <p class="text-muted small mb-2">Tabela do Marco Orçamentário de Médio Prazo - MOMP</p>
+
+        <div class="table-responsive mb-3" style="overflow-x: auto; white-space: nowrap;">
+          <table class="table table-bordered table-hover">
+            <thead class="table-light">
+              <tr>
+                <th class="text-center">Selecionar</th>
+                <th class="text-start">Exercício</th>
+                <th class="text-start">Fonte</th>
+                <th class="text-start">Grupo de Despesa</th>
+                <th class="text-start">Teto de Despesa MOMP</th>
+                <th class="text-start">Tipificação de Despesa</th>
+                <th class="text-center">Teto Anual</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-momp">
+              {% for m in momps %}
+                {% if m.ativo %}
+                <tr data-id="{{ m.id }}">
+                  <td class="text-center">
+                    <input type="radio" name="selecionar_momp" value="{{ m.id }}">
+                  </td>
+                  <td class="text-start">{{ m.exercicio }}</td>
+                  <td class="text-start">{{ m.fonte }}</td>
+                  <td class="text-start">{{ m.grupo_despesa }}</td>
+                  <td class="text-start">{{ m.teto_despesa_momp }}</td>
+                  <td class="text-start">{{ m.subteto_despesa_momp }}</td>
+                  <td class="text-center">
+                    {{ "{:,.2f}".format(m.teto_anual).replace(",", "v").replace(".", ",").replace("v", ".") }}
+                  </td>
+                </tr>
+                {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="d-flex justify-content-center gap-2 flex-wrap">
+          <a href="/teto_orcamentario" class="btn btn-secondary btn-reduzido">Voltar</a>
+          <button class="btn btn-padrao btn-reduzido" onclick="abrirFormularioMomp()">+ Cadastrar</button>
+          <button class="btn btn-warning btn-reduzido" onclick="abrirFormularioMomp(true)">Alterar</button>
+          <button class="btn btn-danger btn-reduzido" onclick="excluirMomp()">Excluir</button>
+          <button class="btn btn-padrao btn-reduzido" onclick="abrirPoliticaSelecionada()">Políticas</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- ETAPA 3: Formulário de Cadastro/Alteração -->
+<div class="col-md-6" id="formulario-momp" style="display: none;">
+    <div class="card shadow-sm mb-4">
+        <div class="card-header etapa-titulo">Incluir MOMP</div>
+        <div class="card-body font-sistema">
+            <form id="form-momp" method="POST" action="{{ url_for('inserir_momp') }}">
+                <input type="hidden" id="id" name="id">
+
+                <div class="mb-3">
+                    <label for="exercicio">Exercício:</label>
+                    <input type="text" id="exercicio" name="exercicio" class="form-control" placeholder="Informe o ano (ex: 2026)" required autocomplete="off">
+                </div>
+
+                <div class="mb-3">
+                    <label for="fonte">Fonte de Recursos:</label>
+                    <select name="fonte" id="fonte" class="form-select select2" required>
+                        <option value="" disabled selected>Selecione um item</option>
+                        <option>15000000 - Recursos não vinculados de Impostos</option>
+                        <option>15001001 - Recursos destinados à Manutenção e Desenvolvimento do Ensino</option>
+                        <option>15010000 - Outros Recursos não Vinculados</option>
+                        <option>15010100 - Outros Recursos não vinculados destinados ao Tesouro</option>
+                        <option>15400000 - Transferência de recursos do FUNDEB desenvolvimento do Ensino</option>
+                        <option>15401070 - Transferência de recursos do FUNDEB Remuneração Educação Básica</option>
+                        <option>15500000 - Recursos da Contribuição ao Salário Educação</option>
+                        <option>15510000 - Transferências de Recursos do FNDE referente ao Programa Dinheiro Direto na Escola (PDDE)</option>
+                        <option>15520000 - Transferências de Recursos do FNDE referente ao Programa Nacional de Alimentação Escolar (PNAE)</option>
+                        <option>15530000 - Transferências de Recursos do FNDE referente ao P. N. de Apoio ao Transporte Escolar (PNATE)</option>
+                        <option>15690000 - Outras Transferências de Recursos do FNDE</option>
+                        <option>15700000 - Transferências do Governo Federal ref. a Convênios e outros Repasses vinculados à Educação</option>
+                        <option>15740000 - Recursos de Operações de Crédito Educação</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="grupo_despesa">Grupo de Despesa:</label>
+                    <select id="grupo_despesa" name="grupo_despesa" class="form-select" required>
+                        <option value="">Selecione uma fonte primeiro</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="teto_despesa_momp">Teto de Despesa MOMP:</label>
+                    <select name="teto_despesa_momp" id="teto_despesa_momp" class="form-select" required>
+                        <option value="" disabled selected>Selecione um item</option>
+                        <option>1 - Orçamento Base de Gasto (OBG)</option>
+                        <option>2 - Orçamento de Novas Iniciativas (ONI)</option>
+                        <option>3 - Orçamento Discricionário (OD)</option>
+                        <option>4 - A Classificar</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="subteto_despesa_momp">Tipificação de Despesa:</label>
+                    <select id="subteto_despesa_momp" name="subteto_despesa_momp" class="form-select select2" required>
+                        <option value="">Selecione o Teto primeiro</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="teto_anual">Teto Anual:</label>
+                    <input type="text" name="teto_anual" id="teto_anual" class="form-control" autocomplete="off">
+                    <input type="hidden" name="teto_anual_real" id="teto_anual_real">
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary btn-reduzido" onclick="fecharFormularioMomp()">Voltar</button>
+                    <button type="button" id="btn-salvar-momp" class="btn btn-padrao btn-reduzido" onclick="enviarFormularioMomp()">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/autonumeric@4.6.0"></script>
+<script src="{{ url_for('static', filename='js/cadastrar_momp.js') }}?v={{ versao }}"></script>
+
+{% if mensagem_popup %}
+<script>
+    sessionStorage.setItem("mensagem_popup", "{{ mensagem_popup }}");
+</script>
+{% endif %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const mensagem = sessionStorage.getItem("mensagem_popup");
+    if (mensagem) {
+        alert(mensagem);
+        sessionStorage.removeItem("mensagem_popup");
+    }
+});
+</script>
+
+<script>
+function abrirPoliticaSelecionada() {
+    const selecionado = document.querySelector('input[name="selecionar_momp"]:checked');
+    if (selecionado) {
+        const mompId = selecionado.value;
+        window.location.href = `/politicateto?momp_id=${mompId}`;
+    } else {
+        alert("Selecione um MOMP para visualizar as políticas.");
+    }
+}
+</script>
+
+{% endblock %}

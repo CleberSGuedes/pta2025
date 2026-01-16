@@ -1,0 +1,91 @@
+/* static/css/teto.css */
+
+/* Paleta de cores */
+:root {
+    --cor-base: #d7e3e2;
+    --cor-escura: #a6bcba;
+    --cor-clara: #f5f9f9;
+    --cor-hover: #b0b9b8;
+    --cor-texto: #000;
+    --cor-titulo: #444;
+}
+
+/* Título das etapas */
+.etapa-titulo {
+    background-color: var(--cor-base);
+    color: var(--cor-texto);
+    font-weight: bold;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-top-left-radius: 0.375rem;
+    border-top-right-radius: 0.375rem;
+}
+
+/* Botões principais */
+.btn-padrao {
+    background-color: var(--cor-base);
+    color: var(--cor-texto);
+    border: none;
+}
+
+.btn-padrao:hover {
+    background-color: var(--cor-hover);
+    color: var(--cor-texto);
+}
+
+/* Botão secundário (ex: Nº Matrícula) */
+.btn-padrao-secundario {
+    background-color: var(--cor-escura);
+    color: white;
+    border: none;
+}
+
+.btn-padrao-secundario:hover {
+    background-color: #8a9190;
+    color: white;
+}
+
+/* Botão terciário (ex: QOMP) */
+.btn-padrao-terciario {
+    background-color: #666b6a;
+    color: white;
+    border: none;
+}
+
+.btn-padrao-terciario:hover {
+    background-color: #444747;
+    color: white;
+}
+
+/* Tabela */
+.table thead th {
+    background-color: var(--cor-clara);
+    color: var(--cor-texto);
+    text-align: left;
+}
+
+.table th.text-center, .table td.text-center {
+    text-align: center !important;
+}
+
+.table td.text-start {
+    text-align: left !important;
+}
+
+/* Botões reduzidos */
+.btn-reduzido {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+.momp-info p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.3rem;
+}
+
+#filtro-toolbar { display:flex; flex-wrap: wrap; gap: .5rem; }
+#filtro-toolbar > * { flex: 1 1 220px; }
+#btn-add-criterio { white-space: nowrap; }
+

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Teto Orçamentário{% endblock %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/teto.css') }}">
+
+    <div class="container-fluid px-1 py-1">  <!-- margens mínimas -->
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="etapa-titulo px-3 py-2 rounded-top">Teto Orçamentário</div>
+            <div class="d-flex gap-2">
+                <a href="/cadastrar_momp" class="btn btn-padrao btn-sm">Cadastrar MOMP</a>
+                <a href="/visualizar_qomp" class="btn btn-padrao-terciario btn-sm">Visualizar QOMP</a>
+                <a href="/carregar_teto" class="btn btn-padrao btn-sm">Carregar Teto</a>
+            </div>
+        </div>
+
+        <div class="p-1 bg-light border rounded">
+            <!-- display:block evita “baseline gap” e height inicial evita jitter antes da 1ª mensagem -->
+            <iframe
+                id="dashboardFrame"
+                src="/dashboard-teto/"
+                width="100%"
+                frameborder="0"
+                style="display:block; height:720px; transition: height 0.2s ease;"
+            ></iframe>
+        </div>
+    </div>
+
+    <script>
+    (function () {
+        const iframe = document.getElementById('dashboardFrame');
+        let lastH = 720;
+        let rafId = null;
+
+        // Aplica altura apenas se a mudança for relevante (≥2px) e em RAF (suave)
+        function setHeightDebounced(newH) {
+        const h = Number(newH);
+        if (!Number.isFinite(h)) return;
+        if (Math.abs(h - lastH) < 2) return; // ignora jitter
+        lastH = h;
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+            iframe.style.height = Math.ceil(h) + 'px';
+        });
+        }
+
+        // Ouve mensagens do Dash (dentro do iframe)
+        window.addEventListener('message', function (event) {
+        if (event.origin !== window.location.origin) return;
+        const data = event.data || {};
+        if (data.type === 'resizeDashboard' || data.type === 'dashboard-height') {
+            setHeightDebounced(data.height);
+        }
+        });
+    })();
+    </script>
+{% endblock %}

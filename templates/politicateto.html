@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{% block title %}Cadastrar Política{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/teto.css') }}">
+<div class="row">
+
+<!-- ETAPA 4: Cadastrar Política -->
+<div class="col-md-6">
+    <div class="card shadow-sm mb-4">
+        <div class="etapa-titulo">Etapa 4 - Cadastrar Política</div>
+        <div class="card-body font-sistema">
+            <p class="text-muted small">Vincular Política ao MOMP</p>
+            <!-- Informações do MOMP Selecionado -->
+            <div class="row mb-3 font-sistema">
+                <div class="col-md-12 momp-info">
+                    <p><strong>Fonte:</strong> {{ momp.fonte }}</p>
+                    <p><strong>Grupo de Despesa:</strong> {{ momp.grupo_despesa }}</p>
+                    <p><strong>Teto de Despesa MOMP:</strong> {{ momp.teto_despesa_momp }}</p>
+                    <p><strong>Subteto MOMP:</strong> {{ momp.subteto_despesa_momp }}</p>
+                    <p><strong>Saldo Anual:</strong> R$ {{ "{:,.2f}".format(saldo_anual).replace(",", "X").replace(".", ",").replace("X", ".") if saldo_anual is not none else "0,00" }}</p>
+                </div>
+            </div>
+            <div class="table-responsive mb-3" style="overflow-x: auto; white-space: nowrap;">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="text-center">Selecionar</th>
+                            <th>Ação PAOE</th>
+                            <th>Chave de Planejamento</th>
+                            <th class="text-end">Teto Política do Decreto</th>
+                            <th>Região</th>
+                            <th>Subfunção + UG</th>
+                            <th>ADJ</th>
+                            <th>Macropolítica</th>
+                            <th>Pilar</th>
+                            <th>Eixo</th>
+                            <th>Política do Decreto</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-politicateto">
+                        {% for p in politicas %}
+                            {% if p.ativo %}
+                            <tr>
+                                <td class="text-center">
+                                    <input type="radio" name="selecionar_politica" value="{{ p.id }}">
+                                </td>
+                                <td>{{ p.acao_paoe }}</td>
+                                <td>{{ p.chave_planejamento }}</td>
+                                <td class="text-end">
+                                    R$ {{ "{:,.2f}".format(p.teto_politica_decreto).replace(",", "X").replace(".", ",").replace("X", ".") }}
+                                </td>
+                                <td>{{ p.regiao }}</td>
+                                <td>{{ p.subfuncao_ug }}</td>
+                                <td>{{ p.adj }}</td>
+                                <td>{{ p.macropolitica }}</td>
+                                <td>{{ p.pilar }}</td>
+                                <td>{{ p.eixo }}</td>
+                                <td>{{ p.politica_decreto }}</td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-center gap-2 flex-wrap">
+                <a href="#" onclick="limparMensagemEVoltar()" class="btn btn-secondary btn-reduzido">Voltar</a>
+                <button class="btn btn-padrao btn-reduzido" onclick="abrirFormularioPolitica()">+ Cadastrar</button>
+                <button class="btn btn-warning btn-reduzido" onclick="abrirFormularioPolitica(true)">Alterar</button>
+                <button class="btn btn-danger btn-reduzido" onclick="excluirPolitica()">Excluir</button>
+                <a href="/teto_orcamentario" class="btn btn-padrao btn-reduzido">Finalizar Cadastro</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ETAPA 5: Incluir MOMP -->
+<div class="col-md-6" id="formulario-politica" style="display: none;">
+    <div class="card shadow-sm mb-4">
+        <div class="card-header etapa-titulo">Etapa 5 - Incluir MOMP</div>
+        <div class="card-body font-sistema">
+            <form id="form-politicateto" method="POST" action="{{ url_for('inserir_politicateto') }}">
+                <input type="hidden" id="id" name="id">
+                <input type="hidden" id="momp_id" name="momp_id" value="{{ momp.id }}">
+
+                <div class="mb-3">
+                    <label for="acao_paoe">Ação/PAOE:</label>
+                    <select id="acao_paoe" name="acao_paoe" class="form-select" required>
+                        <option value="" disabled selected>Selecione uma ação</option>
+                        <!-- [opções mantidas conforme original] -->
+                        <option>2009 - Manutenção de ações de informática</option>
+                        <option>2010 - Manutenção de órgãos colegiados</option>
+                        <option>2014 - Publicidade institucional e propaganda</option>
+                        <option>2284 - Manutenção do Conselho Estadual de Educação - CEE</option>
+                        <option>2895 - Alimentação Escolar da Educação de Jovens e Adultos</option>
+                        <option>2897 - Alimentação Escolar da Educação Especial</option>
+                        <option>2898 - Alimentação Escolar do Ensino Fundamental</option>
+                        <option>2899 - Alimentação Escolar do Ensino Médio</option>
+                        <option>2900 - Desenvolvimento da Educação de Jovens e Adultos</option>
+                        <option>2936 - Desenvolvimento das Modalidades de Ensino</option>
+                        <option>2957 - Desenvolvimento da Educação Especial</option>
+                        <option>4172 - Desenvolvimento do Ensino Fundamental</option>
+                        <option>4173 - Infraestrutura do Ensino Fundamental</option>
+                        <option>4174 - Desenvolvimento do Ensino Médio</option>
+                        <option>4175 - Infraestrutura da Educação de Jovens e Adultos</option>
+                        <option>4177 - Infraestrutura do Ensino Médio</option>
+                        <option>4178 - Infraestrutura da Educação Especial</option>
+                        <option>4179 - Transporte Escolar da Educação Especial</option>
+                        <option>4180 - Infraestrutura de Administração e Gestão</option>
+                        <option>4181 - Transporte Escolar do Ensino Fundamental</option>
+                        <option>4182 - Transporte Escolar do Ensino Médio</option>
+                        <option>4491 - Pagamento de verbas indenizatórias a servidores estaduais</option>
+                        <option>4524 - FMTE - Ensino Fundamental</option>
+                        <option>4525 - FMTE - Educação Infantil</option>
+                        <option>8002 - Recolhimento do PIS-PASEP e pagamento do abono</option>
+                        <option>8003 - Cumprimento de sentenças judiciais transitadas em julgado - Adm. Direta</option>
+                        <option>8026 - Pagamento de emendas parlamentares impositivas</option>
+                        <option>8040 - Recolhimento de encargos e obrigações previdenciárias de inativos e pensionistas do Estado de Mato Grosso</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="regiao">Região:</label>
+                    <select name="regiao" id="regiao" class="form-select" required>
+                        <option value="" disabled selected>Selecione um item</option>
+                        <option>R100</option>
+                        <option>R200</option>
+                        <option>R300</option>
+                        <option>R400</option>
+                        <option>R500</option>
+                        <option>R600</option>
+                        <option>R700</option>
+                        <option>R800</option>
+                        <option>R900</option>
+                        <option>R1000</option>
+                        <option>R1100</option>
+                        <option>R1200</option>
+                        <option>R9900</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="subfuncao_ug">Subfunção + UG:</label>
+                    <select name="subfuncao_ug" id="subfuncao_ug" class="form-control" required>
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="adj">ADJ:</label>
+                    <select name="adj" id="adj" class="form-control" required>
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="macropolitica">Macropolítica:</label>
+                    <select name="macropolitica" id="macropolitica" class="form-control" required>
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="pilar">Pilar:</label>
+                    <select name="pilar" id="pilar" class="form-control" required>
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="eixo">Eixo:</label>
+                    <select name="eixo" id="eixo" class="form-control" required>
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="politica_decreto">Política do Decreto:</label>
+                    <select name="politica_decreto" id="politica_decreto" class="form-control" required>
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="chave_planejamento">Chave de Planejamento:</label>
+                    <textarea name="chave_planejamento" id="chave_planejamento" class="form-control" 
+                              rows="2" style="overflow-x: auto; white-space: nowrap;" required readonly></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="teto_politica_decreto">Teto Política do Decreto:</label>
+                    <input type="text" name="teto_politica_decreto" id="teto_politica_decreto" class="form-control"
+                           data-saldo-anual="{{ saldo_anual }}" required>
+                    <input type="hidden" name="teto_politica_decreto_real" id="teto_politica_decreto_real">
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary btn-reduzido" onclick="fecharFormularioPolitica()">Voltar</button>
+                    <button type="button" id="btn-salvar-politica" class="btn btn-padrao btn-reduzido" onclick="enviarFormularioPolitica()">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- AutoNumeric -->
+<script src="https://cdn.jsdelivr.net/npm/autonumeric@4.6.0"></script>
+
+<!-- Script principal da página -->
+<script src="{{ url_for('static', filename='js/politicateto.js') }}?v={{ versao }}"></script>
+
+<!-- Campo auxiliar com saldo anual -->
+<div id="info-saldo-anual" data-saldo="{{ saldo_anual }}"></div>
+
+<!-- Função auxiliar para botão Voltar -->
+<script>
+function limparMensagemEVoltar() {
+    sessionStorage.removeItem("mensagem_popup");
+    window.location.href = "/cadastrar_momp";
+}
+</script>
+
+{% if session.get("mensagem_popup") %}
+<script>
+    sessionStorage.setItem("mensagem_popup", "{{ session.pop('mensagem_popup') }}");
+</script>
+{% endif %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const mensagem = sessionStorage.getItem("mensagem_popup");
+    if (mensagem) {
+        alert(mensagem);
+        sessionStorage.removeItem("mensagem_popup");
+    }
+});
+</script>
+{% endblock %}

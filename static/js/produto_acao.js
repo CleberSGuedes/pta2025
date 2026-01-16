@@ -1,7 +1,7 @@
 // === Lista de produtos vinculados às ações ===
 const produtosPorAcao = {
     "2900": ["Acesso e permanência desenvolvido", "Avaliação (Avalia MT) desenvolvida", "Bem-estar escolar desenvolvido", "Educação para jovens e adultos (EJA) desenvolvida", "Formação continuada de professores realizada", "Línguas estrangeiras desenvolvidas", "Materiais escolares disponibilizados", "Projetos pedagógicos integrados implantados", "Sistema estruturado de ensino implantado", "Uniformes escolares disponibilizados"],
-    "2936": ["Acesso e permanência desenvolvido", "Alfabetização desenvolvida", "Avaliação (Avalia MT) desenvolvida", "Bem-estar escolar desenvolvido", "Educação em tempo integral desenvolvida", "Educação escolar do campo desenvolvida", "Educação escolar indígena desenvolvida", "Educação escolar quilombola desenvolvida", "Educação especial desenvolvida", "Educação para jovens e adultos (EJA) desenvolvida", "Escolas militares desenvolvidas", "Formação continuada de professores realizada", "Línguas estrangeiras desenvolvidas", "Projetos pedagógicos integrados implantados", "Sistema estruturado de ensino implantado"],
+    "2936": ["Acesso e permanência desenvolvido", "Alfabetização desenvolvida", "Avaliação (Avalia MT) desenvolvida", "Bem-estar escolar desenvolvido", "Educação em tempo integral desenvolvida", "Educação escolar do campo desenvolvida", "Educação escolar indígena desenvolvida", "Educação escolar quilombola desenvolvida", "Educação especial desenvolvida", "Educação para jovens e adultos (EJA) desenvolvida", "Escolas militares desenvolvidas", "Formação continuada de professores realizada", "Línguas estrangeiras desenvolvidas", "Projetos pedagógicos integrados implantados", "Regime de colaboração desenvolvido", "Sistema estruturado de ensino implantado"],
     "2957": ["Acesso e permanência desenvolvido", "Alfabetização desenvolvida", "Avaliação (Avalia MT) desenvolvida", "Bem-estar escolar desenvolvido", "Educação especial desenvolvida", "Formação continuada de professores realizada", "Línguas estrangeiras desenvolvidas", "Materiais escolares disponibilizados", "Projetos pedagógicos integrados implantados", "Sistema estruturado de ensino implantado", "Uniformes escolares disponibilizados"],
     "4172": ["Acesso e permanência desenvolvido", "Alfabetização desenvolvida", "Avaliação (Avalia MT) desenvolvida", "Bem-estar escolar desenvolvido", "Educação em tempo integral desenvolvida", "Educação escolar do campo desenvolvida", "Educação escolar indígena desenvolvida", "Educação escolar quilombola desenvolvida", "Escolas militares desenvolvidas", "Formação continuada de professores realizada", "Línguas estrangeiras desenvolvidas", "Materiais escolares disponibilizados", "Projetos pedagógicos integrados implantados", "Remuneração professores e profissionais da educação com recursos do MDE, Art 70 Lei 9394/1996", "Remuneração professores e profissionais da educação, FUNDEB 30%, Arts 26-A, 14.113/20 e 70, 9394/96", "Remuneração professores e profissionais da educação, FUNDEB 70%, Art 26, § 1º, II, Lei 14.113/20", "Sistema estruturado de ensino implantado", "Uniformes escolares disponibilizados"],
     "4174": ["Acesso e permanência desenvolvido", "Avaliação (Avalia MT) desenvolvida", "Bem-estar escolar desenvolvido", "Educação em tempo integral desenvolvida", "Educação escolar do campo desenvolvida", "Educação escolar indígena desenvolvida", "Educação escolar quilombola desenvolvida", "Escolas militares desenvolvidas", "Formação continuada de professores realizada", "Línguas estrangeiras desenvolvidas", "Materiais escolares disponibilizados", "Novo ensino médio e ensino técnico profissionalizante desenvolvido", "Projetos pedagógicos integrados implantados", "Sistema estruturado de ensino implantado", "Uniformes escolares disponibilizados"],
@@ -14,7 +14,7 @@ const produtosPorAcao = {
     "4175": ["Gestão do patrimônio realizada", "Gestão escolar desenvolvida", "Infraestrutura escolar modernizada", "Tecnologia no ambiente escolar disponibilizada"],
     "4177": ["Gestão do patrimônio realizada", "Gestão escolar desenvolvida", "Infraestrutura escolar modernizada", "Tecnologia no ambiente escolar disponibilizada"],
     "4178": ["Gestão do patrimônio realizada", "Gestão escolar desenvolvida", "Infraestrutura escolar modernizada", "Tecnologia no ambiente escolar disponibilizada"],
-    "4180": ["Gestão do patrimônio realizada", "Gestão escolar desenvolvida", "Gestão estratégica de pessoas implementada", "Gestão integrada desenvolvida", "Infraestrutura escolar modernizada", "Regime de colaboração desenvolvido", "Valorização profissional desenvolvida"],
+    "4180": ["Gestão do patrimônio realizada", "Gestão escolar desenvolvida", "Gestão estratégica de pessoas implementada", "Gestão integrada desenvolvida", "Infraestrutura escolar modernizada", "Valorização profissional desenvolvida"],
     "4524": ["Infraestrutura escolar modernizada", "Regime de colaboração desenvolvido"],
     "4525": ["Infraestrutura escolar modernizada", "Regime de colaboração desenvolvido"],
     "4179": ["Transporte escolar mantido"],
@@ -46,7 +46,7 @@ function carregarProdutosPorAcao(acaoPaoeCodigo) {
     });
 }
 
-// === Abrir formulário de produto ===
+// === Abrir formulário para cadastro ou alteração ===
 function abrirFormularioProduto(alterando = false) {
     const form = document.getElementById("formularioProduto");
     if (!form) return;
@@ -57,14 +57,23 @@ function abrirFormularioProduto(alterando = false) {
     const btn = document.getElementById("btnCadastrarProduto");
     const produtoId = document.getElementById("produto_id");
 
-    const unMedidaSelect = document.getElementById("un_medida");
+    const unMedidaInput = document.getElementById("un_medida");
     const quantidadeInput = document.getElementById("quantidade");
+    const quantidadeRealInput = document.getElementById("quantidade_real");
 
     btn.innerText = "Cadastrar";
     produtoId.value = "";
     select.selectedIndex = 0;
-    unMedidaSelect.selectedIndex = 0;
-    quantidadeInput.value = "";
+    unMedidaInput.value = "";
+
+    const an = AutoNumeric.getAutoNumericElement(quantidadeInput);
+    if (an) {
+        an.clear();
+    } else {
+        quantidadeInput.value = "";
+    }
+
+    quantidadeRealInput.value = "";
 
     if (alterando) {
         const selecionado = document.querySelector('input[name="produtoSelecionado"]:checked');
@@ -83,12 +92,14 @@ function abrirFormularioProduto(alterando = false) {
             if (opt.textContent === nome) opt.selected = true;
         });
 
-        Array.from(unMedidaSelect.options).forEach(opt => {
-            if (opt.textContent === unMedida) opt.selected = true;
-        });
+        unMedidaInput.value = unMedida;
 
-        quantidadeInput.value = quantidade;
+        const valorNumerico = parseFloat(quantidade.replace(/\./g, '').replace(',', '.'));
+        if (!isNaN(valorNumerico) && an) {
+            an.set(valorNumerico);
+        }
 
+        quantidadeRealInput.value = valorNumerico;
         produtoId.value = selecionado.value;
         btn.innerText = "Salvar Alterações";
     }
@@ -104,7 +115,6 @@ function fecharFormularioProduto() {
     document.getElementById("produto_id").value = "";
     document.getElementById("btnCadastrarProduto").innerText = "Cadastrar";
 
-    // 🧹 Desmarca o radio selecionado ao voltar
     const selecionado = document.querySelector('input[name="produtoSelecionado"]:checked');
     if (selecionado) selecionado.checked = false;
 }
@@ -112,14 +122,18 @@ function fecharFormularioProduto() {
 // === Validar e submeter ===
 function validarProduto() {
     const nomeSelect = document.getElementById("produto_acao");
-    const unMedidaSelect = document.getElementById("un_medida");
+    const unMedidaInput = document.getElementById("un_medida");
     const quantidadeInput = document.getElementById("quantidade");
+    const quantidadeRealInput = document.getElementById("quantidade_real");
 
     const nome = nomeSelect?.value;
-    const unMedida = unMedidaSelect?.value;
-    const quantidade = parseFloat(quantidadeInput?.value);
+    const unMedida = unMedidaInput?.value.trim();
 
-    // Validações
+    const an = AutoNumeric.getAutoNumericElement(quantidadeInput);
+    const valorBruto = an ? an.getNumber() : quantidadeInput.value;
+
+    const quantidade = parseFloat(valorBruto);
+
     if (!nome) {
         alert("Selecione um produto da ação.");
         nomeSelect.focus();
@@ -127,8 +141,8 @@ function validarProduto() {
     }
 
     if (!unMedida) {
-        alert("Selecione a unidade de medida.");
-        unMedidaSelect.focus();
+        alert("A unidade de medida não foi preenchida.");
+        unMedidaInput.focus();
         return;
     }
 
@@ -138,14 +152,13 @@ function validarProduto() {
         return;
     }
 
-    // ✅ Nova Regra: se for Percentual, quantidade não pode ultrapassar 100
-    if (unMedida === "Percentual" && quantidade > 100) {
+    if (unMedida.toLowerCase() === "percentual" && quantidade > 100) {
         alert("Para unidade Percentual, a quantidade não pode ser maior que 100.");
         quantidadeInput.focus();
         return;
     }
 
-    // Se tudo estiver certo, envia o formulário
+    quantidadeRealInput.value = quantidade;
     document.getElementById("formProdutoAcao").submit();
 }
 
@@ -169,16 +182,64 @@ function excluirProduto() {
 // === Inicialização DOM ===
 document.addEventListener("DOMContentLoaded", () => {
     const acaoPaoe = document.getElementById("acao_paoe_info");
+    const programa = document.getElementById("programa_nome")?.value;
+    const subfuncao = document.getElementById("subfuncao_nome")?.value;
+    const produtoSelect = document.getElementById("produto_acao");
+    const metaFisicaTexto = document.getElementById("metaFisicaTexto");
+    const unidadeInput = document.getElementById("un_medida");
+    const quantidadeInput = document.getElementById("quantidade");
+    const quantidadeRealInput = document.getElementById("quantidade_real");
+
+    // Instanciar AutoNumeric apenas uma vez
+    if (quantidadeInput && quantidadeRealInput && !AutoNumeric.getAutoNumericElement(quantidadeInput)) {
+        const an = new AutoNumeric(quantidadeInput, {
+            decimalCharacter: ",",
+            digitGroupSeparator: ".",
+            decimalPlaces: 2,
+            minimumValue: "0",
+            modifyValueOnWheel: false
+        });
+
+        const form = document.getElementById("formProdutoAcao");
+        if (form) {
+            form.addEventListener("submit", () => {
+                quantidadeRealInput.value = an.getNumber();
+            });
+        }
+    }
+
+    // Carregar produtos da ação
     if (acaoPaoe) carregarProdutosPorAcao(acaoPaoe.value);
 
-    const cpfInput = document.getElementById("cpfProduto");
-    if (cpfInput) {
-        cpfInput.addEventListener("input", () => {
-            cpfInput.value = formatarCPF(cpfInput.value);
+    // Exibir meta física e unidade de medida ao trocar o produto
+    if (produtoSelect && metaFisicaTexto && programa && subfuncao && acaoPaoe) {
+        produtoSelect.addEventListener("change", function () {
+            const produtoSelecionado = this.value;
+            const acao = acaoPaoe.value;
+
+            if (
+                metaMap[programa] &&
+                metaMap[programa][subfuncao] &&
+                metaMap[programa][subfuncao][acao] &&
+                metaMap[programa][subfuncao][acao][produtoSelecionado]
+            ) {
+                const meta = metaMap[programa][subfuncao][acao][produtoSelecionado];
+                metaFisicaTexto.textContent = meta;
+                metaFisicaTexto.classList.add("text-success");
+                metaFisicaTexto.classList.remove("text-danger");
+
+                const match = meta.trim().match(/^([^\=]+)=/);
+                unidadeInput.value = match ? match[1].trim() : "";
+            } else {
+                metaFisicaTexto.textContent = "Meta física não cadastrada para este produto.";
+                metaFisicaTexto.classList.remove("text-success");
+                metaFisicaTexto.classList.add("text-danger");
+                unidadeInput.value = "";
+            }
         });
     }
 
-    // 🧹 Desmarcar seleção ao recarregar a página
+    // Reset de seleção inicial
     const selecionado = document.querySelector('input[name="produtoSelecionado"]:checked');
     if (selecionado) selecionado.checked = false;
 });

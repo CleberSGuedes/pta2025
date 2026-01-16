@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Visualizar QOMP{% endblock %}
+
+{% block content %}
+<div class="titulo-barra d-flex justify-content-between align-items-center">
+    <h1>Visualização do Quadro Orçamentário de Médio Prazo (QOMP)</h1>
+    <div class="botoes-acao d-flex">
+        <a href="{{ url_for('baixar_excel_qomp') }}" class="btn-download-excel">
+            ⬇️ Baixar Excel
+        </a>
+        <a href="/teto_orcamentario" class="btn btn-padrao-terciario btn-sm ml-2">Voltar</a>
+    </div>
+</div>
+
+<div class="pta-container">
+    <table id="qomp-tabela" class="pta-table display nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>Exercício</th>
+                <th>Fonte</th>
+                <th>Grupo de Despesa</th>
+                <th>Teto de Despesa MOMP</th>
+                <th>Subteto de Despesa MOMP</th>
+                <th>Teto Anual</th>
+                <th>Ação/PAOE</th>
+                <th>Região Política</th>
+                <th>Subfunção + UG</th>
+                <th>ADJ</th>
+                <th>Macropolítica</th>
+                <th>Pilar</th>
+                <th>Eixo</th>
+                <th>Política do Decreto</th>
+                <th>Chave de Planejamento</th>
+                <th>Teto da Política do Decreto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in dados %}
+            <tr>
+                <td>{{ item['Exercício'] }}</td>
+                <td>{{ item['Fonte'] }}</td>
+                <td>{{ item['Grupo de Despesa'] }}</td>
+                <td>{{ item['Teto de Despesa MOMP'] }}</td>
+                <td>{{ item['Subteto de Despesa MOMP'] }}</td>
+                <td>{{ item['Teto Anual'] }}</td>
+                <td>{{ item['Ação/PAOE'] }}</td>
+                <td>{{ item['Região Política'] }}</td>
+                <td>{{ item['Subfunção + UG'] }}</td>
+                <td>{{ item['ADJ'] }}</td>
+                <td>{{ item['Macropolítica'] }}</td>
+                <td>{{ item['Pilar'] }}</td>
+                <td>{{ item['Eixo'] }}</td>
+                <td>{{ item['Política do Decreto'] }}</td>
+                <td>{{ item['Chave de Planejamento'] }}</td>
+                <td>{{ item['Teto da Política do Decreto'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+<!-- jQuery e DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script>
+$(document).ready(function () {
+    // Adiciona linha de filtro por coluna
+    $('#qomp-tabela thead tr').clone(true).appendTo('#qomp-tabela thead');
+    $('#qomp-tabela thead tr:eq(1) th').each(function (i) {
+        const title = $(this).text();
+        $(this).html('<input type="text" placeholder="Filtrar ' + title + '" style="width: 100%; font-size: 10px;"/>');
+
+        $('input', this).on('keyup change', function () {
+            if ($('#qomp-tabela').DataTable().column(i).search() !== this.value) {
+                $('#qomp-tabela').DataTable().column(i).search(this.value).draw();
+            }
+        });
+    });
+
+    $('#qomp-tabela').DataTable({
+        orderCellsTop: true,
+        fixedHeader: true,
+        scrollX: true,
+        pageLength: 20,
+        language: {
+            url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json"
+        }
+    });
+});
+</script>
+{% endblock %}

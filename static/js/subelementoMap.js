@@ -291,7 +291,10 @@ const subelementoMap = {
         "029 - Obrigações Patronais da Procuradoria Geral de Justiça- Pensionistas",
         "030 - Cota Patronal AL - Pessoal Ativo",
         "031 - Cota Patronal AL - Pessoal Inativo (Aposentados e Pensionistas)",
-        "032 - Contribuições Previdenciárias - RPPS - Pessoal Pensionista - Plano Financeiro"
+        "032 - Contribuições Previdenciárias - RPPS - Pessoal Pensionista - Plano Financeiro",
+        "33 - Contribuições Previdenciárias - RPPS - Pessoal Ativo - Plano Previdenciário",
+        "34 - Contribuições Previdenciárias - RPPS - Pessoal Inativo - Plano Previdenciário",
+        "35 - Contribuições Previdenciárias - RPPS - Pessoal Pensionista - Plano Previdenciário"
     ],
     "14 - DIARIAS - PESSOAL CIVIL":[
         "001 - Diárias Dentro do Estado",
@@ -755,7 +758,18 @@ const subelementoMap = {
         "047 - Serviços hospitalares -SIH - Queimados",
         "048 - Serviços ambulatoriais - SIA - Estratégico",
         "049 - Serviços ambulatoriais - SIA - Alta complexidade",
-        "050 - Serviços ambulatoriais - SIA - Média complexidade"
+        "050 - Serviços ambulatoriais - SIA - Média complexidade",
+        "051 - TREINAMENTO E CAPACITAÇÃO DE PESSOAL",
+        "052 - Serviço de entrega de correspondência",
+        "059 - Serviços de Energia Elétrica",
+        "063 - Serviços Gráficos e Clicheria",
+        "069 - Serviço de manutenção e conservação de bens imóveis",
+        "070 - Serviço de Manutenção e Conservação Máquinas e Equipamentos",
+        "072 - Serviço de manutenção e conservação de veículos",
+        "076 - Serviço de manutenção e conservação de bens móveis",
+        "077 - Serviços de publicidade e propaganda",
+        "82 - Serviços de Seleção e Treinamento",
+        "119 - Serviços referente Ticket Log para gerenciamento de fornecimento de combustíveis"
     ],
     "40 - SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO E COMUNICAÇÃO - PESSOA JURÍDICA":[
         "001 - Aquisição desenvolvimento licenciamento e manutenção de Softwares de aplicação",
@@ -1164,6 +1178,9 @@ const subelementoMap = {
         "052 - Indenização de despesas no desempenho da função - Agente da Infância e Juventude",
         "053 - Indenização Danos Pessoais",
         "054 - Serviços Bancários",
+        "57 - Verba Indenizatória Art. 7 da LC 720/2022",
+        "64 - Verba Indenizatória Art. 2 da LC 754/2022",
+        "65 - Verba do Cargos em Comissão ou Função de Confiança Indenizatória Art. 2 da LC 755/2023",
         "099 - Outras Indenizações e Restituições",
         "122 - Restituição de Depósitos Judiciais",
         "123 - JETON"
@@ -1173,6 +1190,7 @@ const subelementoMap = {
         "003 - Indenização de proventos - vantagem anterior à aposentadoria - ativo militar - não exclusivamente comissionado",
         "005 - Indenização de subsídio servidor de carreira - pessoal militar - não exclusivamente comissionado",
         "006 - Restituição subsídio servidor de carreira - pessoal civil - não exclusivamente comissionado",
+        "010 - Indenização de salário família - pessoal civil",
         "011 - Indenização de auxílio natalidade e maternidade - pessoal civil - não exclusivamente comissionado",
         "012 - Indenização de auxílio natalidade e maternidade - pessoal militar - não exclusivamente comissionado",
         "013 - Indenização de adicional de férias - pessoal civil - não exclusivamente comissionado",

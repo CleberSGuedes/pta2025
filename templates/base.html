@@ -8,7 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v={{ versao }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/visualizar_pta.css') }}?v={{ versao }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}?v={{ versao }}" type="image/x-icon">
+
+    <!-- Select2 padrão -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
     <header class="d-flex align-items-stretch">
@@ -38,6 +42,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/visualizar">Visualizar PTA</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('teto_orcamentario') }}">Teto Orçamentário</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -59,13 +66,26 @@
     <!-- RODAPÉ -->
     <footer class="bg-light text-center text-muted py-2 border-top small">
         <div class="container">
-            <span>© 2025 SEDUC-MT | Núcleo de Gestão Estratégica para Resultados - NGER | Sistema PTA 2026 | Desenvolvido por Cleber S. Guedes | RELEASE_1_20250703.4</span>
+            <span>© 2025 SEDUC-MT | Núcleo de Gestão Estratégica para Resultados - NGER | Sistema PTA 2026 | Desenvolvido por Cleber S. Guedes | RELEASE_1_2025_09_30.1</span>
         </div>
     </footer>
 
     <!-- JavaScript (ordem importa!) -->
-    <script src="{{ url_for('static', filename='js/utils.js') }}?v={{ versao }}"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Utils.js -->
+    <script src="{{ url_for('static', filename='js/utils.js') }}?v={{ versao }}"></script>
 
     <!-- Script para exibir número de usuários online -->
     <script>
@@ -84,7 +104,7 @@
     window.onload = atualizarUsuariosOnline;
     </script>
 
-    <!-- SUGESTÃO 1: Função para limpar cookies do navegador (somente cookies acessíveis via JS) -->
+    <!-- Limpar cookies -->
     <script>
     function limparCookies() {
         document.cookie.split(";").forEach(function(c) {
@@ -94,7 +114,7 @@
     }
     </script>
 
-    <!-- SUGESTÃO 2: Função para limpar cache do navegador (usado por PWA ou service workers) -->
+    <!-- Limpar cache -->
     <script>
     function limparCache() {
         if ('caches' in window) {
@@ -107,15 +127,17 @@
     }
     </script>
 
-    <!-- ATENÇÃO: só descomente o trecho abaixo se realmente quiser limpar automaticamente -->
-    
-    <!-- <script>
+    <!-- Descomente se necessário -->
+    <!--
+    <script>
     window.onload = function () {
-        limparCookies();  // ⚠️ Cuidado: isso pode apagar sessões
-        limparCache();    // ⚠️ Isso remove cache de service workers
-        atualizarUsuariosOnline(); // mantém a funcionalidade já existente
+        limparCookies();
+        limparCache();
+        atualizarUsuariosOnline();
     };
-    </script> -->
-   
+    </script>
+    -->
+
+    {% block scripts %}{% endblock %}
 </body>
 </html>

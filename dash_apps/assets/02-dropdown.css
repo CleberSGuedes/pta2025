@@ -1,0 +1,72 @@
+/* assets/02-dropdown.css  – layout dos filtros + ajustes de tipografia  */
+
+/* Mantém os tamanhos mínimos dos controles Mantine que você já usava */
+.mantine-Combobox-dropdown,
+.mantine-Combobox-dropdown .mantine-Combobox-option { font-size: 9px !important; }
+
+.mantine-Combobox-dropdown .mantine-Combobox-option {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
+
+/* chips e input ainda menores */
+.mantine-Input-input,
+.mantine-Pill-root,
+.mantine-PillsInput-input { font-size: 9px !important; }
+
+/* =========================================================
+   GRID dos filtros (como nas imagens 2 e 3)
+   ========================================================= */
+:root { --filtros-gap: 8px; }
+
+/* Aplica à nova estrutura por ID e também à classe antiga .filtros-grid */
+#dashboard-teto-root #grid-filtros-top,
+#dashboard-teto-root #grid-filtros-bottom,
+.filtros-grid,
+.grid-5 {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(180px, 1fr)) !important;
+  gap: var(--filtros-gap) !important;
+  width: 100% !important;
+}
+
+/* Os dropdowns ocupam 100% da célula */
+#dashboard-teto-root .dash-dropdown { width: 100% !important; }
+
+/* Tipografia consistente dos selects do dcc.Dropdown (React-Select) */
+#dashboard-teto-root .Select,
+#dashboard-teto-root .Select * {
+  font-family: Arial, sans-serif !important;
+  font-size: 12px !important;
+  line-height: 1.25 !important;
+}
+
+/* Responsivo: em telas menores, 2 colunas */
+@media (max-width: 1200px) {
+  #dashboard-teto-root #grid-filtros-top,
+  #dashboard-teto-root #grid-filtros-bottom,
+  .filtros-grid,
+  .grid-5 {
+    grid-template-columns: repeat(2, minmax(160px, 1fr)) !important;
+  }
+}
+
+/* Cabeçalhos e células das tabelas */
+#dashboard-teto-root .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner table thead th {
+  background-color: #007b7f !important;
+  color: #fff !important;
+  font-weight: bold !important;
+  text-align: center !important;
+  padding: 8px !important;
+  min-height: 44px !important;
+  line-height: 20px !important;
+}
+
+#dashboard-teto-root .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner table td {
+  padding: 6px !important;
+  white-space: normal !important;
+  height: auto !important;
+}

@@ -23,36 +23,36 @@ function carregarSelectRegiao() {
 }
 
 const subfuncaoUGMap = {
-  "036 - Apoio administrativo": {
-    "126 - TECNOLOGIA DA INFORMAÇÃO": { "2009": "1" },
+	"036 - Apoio administrativo": {
+    "126 - TECNOLOGIA DA INFORMAÇÃO": {"2009": "1"},
     "122 - ADMINISTRAÇÃO GERAL": {
-      "2010": "6",
-      "2284": "6",
-      "4491": "6"
-    },
-    "131 - COMUNICACAO SOCIAL": { "2014": "1" }
-  },
+      "2010": "1",
+      "2284": "1",
+      "4491": "1"
+	},
+    "131 - COMUNICACAO SOCIAL": {"2014": "1"}
+	},
   "533 - Educação 10 Anos": {
-    "366 - EDUCACAO DE JOVENS E ADULTOS": { "2900": "4" },
-    "122 - ADMINISTRAÇÃO GERAL": { "2936": "8" },
-    "367 - EDUCACAO ESPECIAL": { "2957": "5" },
-    "361 - ENSINO FUNDAMENTAL": { "4172": "2" },
-    "362 - ENSINO MEDIO": { "4174": "3" }
+    "366 - EDUCACAO DE JOVENS E ADULTOS": {"2900": "4"},
+    "122 - ADMINISTRAÇÃO GERAL": {"2936": "8"},
+    "367 - EDUCACAO ESPECIAL": {"2957": "5"},
+    "361 - ENSINO FUNDAMENTAL":{ "4172": "2"},
+    "362 - ENSINO MEDIO": {"4174":"3"}
   },
   "534 - Infraestrutura Educacional": {
     "366 - EDUCACAO DE JOVENS E ADULTOS": {
-      "2895": "4",
-      "4175": "4"
+		"2895": "4",
+	  "4175": "4"
     },
     "367 - EDUCACAO ESPECIAL": {
       "2897": "5",
       "4178": "5",
-      "4179": "7"
+      "4179":"7"
     },
     "361 - ENSINO FUNDAMENTAL": {
       "2898": "2",
       "4173": "2",
-      "4181": "7",
+      "4181": "7",	  
       "4524": "9"
     },
     "362 - ENSINO MEDIO": {
@@ -60,18 +60,18 @@ const subfuncaoUGMap = {
       "4177": "3",
       "4182": "7"
     },
-    "122 - ADMINISTRAÇÃO GERAL": { "4180": "6" },
-    "365 - EDUCACAO INFANTIL": { "4525": "10" }
+    "122 - ADMINISTRAÇÃO GERAL": {"4180": "6"},
+    "365 - EDUCACAO INFANTIL": {"4525": "10"}
   },
   "996 - Operações especiais: outras": {
-    "846 - OUTROS ENCARGOS ESPECIAIS": { "8002": "1" },
-    "845 - OUTRAS TRANSFERÊNCIAS": { "8026": "1" }
+    "846 - OUTROS ENCARGOS ESPECIAIS":{"8002": "1"},
+    "845 - OUTRAS TRANSFERÊNCIAS": {"8026": "1"}
   },
   "997 - Previdência de inativos e pensionistas do Estado": {
-    "272 - PREVIDENCIA DO REGIME ESTATUTARIO": { "8040": "1" }
+    "272 - PREVIDENCIA DO REGIME ESTATUTARIO": {"8040": "1"}
   },
   "998 - Operações especiais: cumprimento de sentenças judiciais": {
-    "846 - OUTROS ENCARGOS ESPECIAIS": { "8003": "1" }
+    "846 - OUTROS ENCARGOS ESPECIAIS": {"8003": "1"}
   }
 };
 
@@ -98,28 +98,28 @@ function carregarSubfuncaoUG(programa, subfuncao, paoe) {
 }
 
 const adjMap = {
-  "036 - Apoio administrativo": {
+	"036 - Apoio administrativo": {
     "126 - TECNOLOGIA DA INFORMAÇÃO": {
       "2009 - Manutenção de ações de informática": {
         "1": {
           "Produto exclusivo para ação padronizada": "SAEX"
+          }
         }
-      }
-    },
+      },
     "122 - ADMINISTRAÇÃO GERAL": {
       "2010 - Manutenção de órgãos colegiados": {
-        "6": {
+        "1": {
           "Produto exclusivo para ação padronizada": "GAB"
         }
       },
-      "2284 - Manutenção do Conselho Estadual de Educação - CEE": {
-        "6": {
+	      "2284 - Manutenção do Conselho Estadual de Educação - CEE": {
+        "1": {
           "Conselho mantido": "GAB"
         }
       },
       "4491 - Pagamento de verbas indenizatórias a servidores estaduais": {
-        "6": {
-          "Produto exclusivo para ação padronizada": "SAGP"
+        "1": {
+          "Produto exclusivo para ação padronizada": ["SAGP", "SARC"]
         }
       }
     },
@@ -131,28 +131,28 @@ const adjMap = {
       }
     }
   },
-
   "533 - Educação 10 Anos": {
     "366 - EDUCACAO DE JOVENS E ADULTOS": {
       "2900 - Desenvolvimento da Educação de Jovens e Adultos": {
         "4": {
           "Avaliação (Avalia MT) desenvolvida": "SAGE",
-          "Educação para jovens e adultos (EJA) desenvolvida": "SAGE",
+          "Educação para jovens e adultos (EJA) desenvolvida": ["SAGE", "SARC"],
           "Sistema estruturado de ensino implantado": "SAGE",
           "Línguas estrangeiras desenvolvidas": "SAGE",
           "Projetos pedagógicos integrados implantados": "SAGE",
-          "Formação continuada de professores realizada": "SAGP",
+          "Formação continuada de professores realizada": ["SAGP","SAGE", "SAGR", "SARC"],
           "Acesso e permanência desenvolvido": "SAGR",
           "Materiais escolares disponibilizados": "SAGR",
-          "Uniformes escolares disponibilizados": "SAGR",
+          "Uniformes escolares disponibilizados": ["SAGR", "SAGE"],
           "Bem-estar escolar desenvolvido": "SAGR"
+          }
         }
-      }
-    },
+      },
     "122 - ADMINISTRAÇÃO GERAL": {
       "2936 - Desenvolvimento das Modalidades de Ensino": {
         "8": {
           "Alfabetização desenvolvida": "SARC",
+		      "Regime de colaboração desenvolvido": "SARC",  
           "Avaliação (Avalia MT) desenvolvida": ["SAGE", "SARC"],
           "Educação em tempo integral desenvolvida": "SAGE",
           "Educação escolar do campo desenvolvida": "SAGE",
@@ -166,24 +166,24 @@ const adjMap = {
           "Formação continuada de professores realizada": "SAGP",
           "Acesso e permanência desenvolvido": "SAGR",
           "Bem-estar escolar desenvolvido": "SAGR",
-          "Escolas militares desenvolvidas": "SARC"
+          "Escolas militares desenvolvidas": "SAEX"
         }
       }
     },
     "367 - EDUCACAO ESPECIAL": {
       "2957 - Desenvolvimento da Educação Especial": {
         "5": {
-          "Alfabetização desenvolvida": "SAGE",
+          "Alfabetização desenvolvida": "SARC",
           "Avaliação (Avalia MT) desenvolvida": "SAGE",
           "Educação especial desenvolvida": "SAGE",
           "Línguas estrangeiras desenvolvidas": "SAGE",
           "Projetos pedagógicos integrados implantados": "SAGE",
           "Sistema estruturado de ensino implantado": "SAGE",
-          "Formação continuada de professores realizada": "SAGP",
+          "Formação continuada de professores realizada": ["SAGP","SAGE", "SAGR", "SARC"],
           "Acesso e permanência desenvolvido": "SAGR",
           "Bem-estar escolar desenvolvido": "SAGR",
           "Materiais escolares disponibilizados": "SAGR",
-          "Uniformes escolares disponibilizados": "SAGR"
+          "Uniformes escolares disponibilizados": ["SAGR", "SARC"]
         }
       }
     },
@@ -199,15 +199,15 @@ const adjMap = {
           "Línguas estrangeiras desenvolvidas": "SAGE",
           "Projetos pedagógicos integrados implantados": "SAGE",
           "Sistema estruturado de ensino implantado": "SAGE",
-          "Formação continuada de professores realizada": "SAGP",
+          "Formação continuada de professores realizada": ["SAGP","SAGE", "SAGR", "SARC"],
           "Remuneração professores e profissionais da educação com recursos do MDE, Art 70 Lei 9394/1996": "SAGP",
           "Remuneração professores e profissionais da educação, FUNDEB 30%, Arts 26-A, 14.113/20 e 70, 9394/96": "SAGP",
           "Remuneração professores e profissionais da educação, FUNDEB 70%, Art 26, § 1º, II, Lei 14.113/20": "SAGP",
           "Acesso e permanência desenvolvido": "SAGR",
           "Bem-estar escolar desenvolvido": "SAGR",
-          "Escolas militares desenvolvidas": "SARC",
+          "Escolas militares desenvolvidas": "SAEX",
           "Materiais escolares disponibilizados": "SAGR",
-          "Uniformes escolares disponibilizados": "SAGR"
+          "Uniformes escolares disponibilizados": ["SAGR", "SARC"]
         }
       }
     },
@@ -223,28 +223,27 @@ const adjMap = {
           "Novo ensino médio e ensino técnico profissionalizante desenvolvido": "SAGE",
           "Projetos pedagógicos integrados implantados": "SAGE",
           "Sistema estruturado de ensino implantado": "SAGE",
-          "Formação continuada de professores realizada": "SAGP",
+          "Formação continuada de professores realizada": ["SAGP","SAGE", "SAGR", "SARC"],
           "Acesso e permanência desenvolvido": "SAGR",
           "Bem-estar escolar desenvolvido": "SAGR",
-          "Escolas militares desenvolvidas": "SARC",
+          "Escolas militares desenvolvidas": "SAEX",
           "Materiais escolares disponibilizados": "SAGR",
-          "Uniformes escolares disponibilizados": "SAGR"
+          "Uniformes escolares disponibilizados": ["SAGR", "SARC"]
         }
       }
     }
   },
-
   "534 - Infraestrutura Educacional": {
     "366 - EDUCACAO DE JOVENS E ADULTOS": {
       "2895 - Alimentação Escolar da Educação de Jovens e Adultos": {
         "4": {
-          "Alimentação escolar mantida": "SAGR"
+          "Alimentação escolar mantida": ["SAGR", "SARC"],
         }
       },
       "4175 - Infraestrutura da Educação de Jovens e Adultos": {
         "4": {
           "Gestão do patrimônio realizada": ["SAAS", "SAIP"],
-          "Tecnologia no ambiente escolar disponibilizada": "SAGE",
+          "Tecnologia no ambiente escolar disponibilizada": ["SAGE", "SAEX"],
           "Gestão escolar desenvolvida": "SAGR",
           "Infraestrutura escolar modernizada": "SAIP"
         }
@@ -259,7 +258,7 @@ const adjMap = {
       "4178 - Infraestrutura da Educação Especial": {
         "5": {
           "Gestão do patrimônio realizada": ["SAAS", "SAIP"],
-          "Tecnologia no ambiente escolar disponibilizada": "SAGE",
+          "Tecnologia no ambiente escolar disponibilizada": ["SAGE", "SAEX"],
           "Gestão escolar desenvolvida": "SAGR",
           "Infraestrutura escolar modernizada": "SAIP"
         }
@@ -279,7 +278,7 @@ const adjMap = {
       "4173 - Infraestrutura do Ensino Fundamental": {
         "2": {
           "Gestão do patrimônio realizada": ["SAAS", "SAIP"],
-          "Tecnologia no ambiente escolar disponibilizada": "SAGE",
+          "Tecnologia no ambiente escolar disponibilizada": ["SAGE", "SAEX"],
           "Gestão escolar desenvolvida": "SAGR",
           "Infraestrutura escolar modernizada": "SAIP"
         }
@@ -288,11 +287,11 @@ const adjMap = {
         "7": {
           "Transporte escolar mantido": "SARC"
         }
-      },
+      },	  
       "4524 - FMTE - Ensino Fundamental": {
         "9": {
-          "Infraestrutura escolar modernizada": "SAIP",
-          "Regime de colaboração desenvolvido": "SARC"
+          "Infraestrutura escolar modernizada": ["SAIP","EPI"],
+          "Regime de colaboração desenvolvido": "SAAS"
         }
       }
     },
@@ -305,8 +304,8 @@ const adjMap = {
       "4177 - Infraestrutura do Ensino Médio": {
         "3": {
           "Gestão do patrimônio realizada": ["SAAS", "SAIP"],
-          "Tecnologia no ambiente escolar disponibilizada": "SAGE",
-          "Gestão escolar desenvolvida": "SAGR",
+          "Tecnologia no ambiente escolar disponibilizada": ["SAGE", "SAEX"],
+          "Gestão escolar desenvolvida": ["SAGR", "SAGE"],
           "Infraestrutura escolar modernizada": "SAIP"
         }
       },
@@ -321,24 +320,22 @@ const adjMap = {
         "6": {
           "Gestão integrada desenvolvida": ["GAB", "SAAS", "SAGE", "SAGR"],
           "Gestão do patrimônio realizada": ["SAAS", "SAIP"],
-          "Gestão escolar desenvolvida": ["SAEX", "SAGR"],
+          "Gestão escolar desenvolvida": "SAGR",
           "Gestão estratégica de pessoas implementada": "SAGP",
-          "Valorização profissional desenvolvida": "SAGP",
-          "Infraestrutura escolar modernizada": "SAIP",
-          "Regime de colaboração desenvolvido": "SARC"
+          "Valorização profissional desenvolvida": ["SAGP", "GAB", "SAAS", "SAEX", "SAIP", "SAGE", "SAGR", "SARC"],
+          "Infraestrutura escolar modernizada": ["SAIP", "SAAS"]
         }
       }
     },
     "365 - EDUCACAO INFANTIL": {
       "4525 - FMTE - Educação Infantil": {
         "10": {
-          "Infraestrutura escolar modernizada": ["SAIP", "EMD"],
-          "Regime de colaboração desenvolvido": "SARC"
+          "Infraestrutura escolar modernizada": ["SAIP", "EPI"],
+          "Regime de colaboração desenvolvido": "SAAS"
         }
       }
     }
   },
-
   "996 - Operações especiais: outras": {
     "846 - OUTROS ENCARGOS ESPECIAIS": {
       "8002 - Recolhimento do PIS-PASEP e pagamento do abono": {
@@ -350,12 +347,11 @@ const adjMap = {
     "845 - OUTRAS TRANSFERÊNCIAS": {
       "8026 - Pagamento de emendas parlamentares impositivas": {
         "1": {
-          "Produto exclusivo para ação padronizada": "EMD"
+          "Produto exclusivo para ação padronizada": "EPI"
         }
       }
     }
   },
-
   "997 - Previdência de inativos e pensionistas do Estado": {
     "272 - PREVIDENCIA DO REGIME ESTATUTARIO": {
       "8040 - Recolhimento de encargos e obrigações previdenciárias de inativos e pensionistas do Estado de Mato Grosso": {
@@ -365,7 +361,6 @@ const adjMap = {
       }
     }
   },
-
   "998 - Operações especiais: cumprimento de sentenças judiciais": {
     "846 - OUTROS ENCARGOS ESPECIAIS": {
       "8003 - Cumprimento de sentenças judiciais transitadas em julgado - Adm. Direta": {
@@ -450,467 +445,547 @@ function carregarAdj(programa, subfuncao, paoe, ug, produto) {
 }
 
 const macropoliticaMap = {
-  "036 - Apoio administrativo": {
+	"036 - Apoio administrativo": {
     "126 - TECNOLOGIA DA INFORMAÇÃO": {
       "2009 - Manutenção de ações de informática": {
-        "Produto exclusivo para ação padronizada": {
-          "SAEX": "GESTÃO_INOVAÇÃO"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "SAEX": "GESTÃO_INOVAÇÃO"
+            }
+          }
         }
-      }
-    },
+      },
     "122 - ADMINISTRAÇÃO GERAL": {
       "2010 - Manutenção de órgãos colegiados": {
-        "Produto exclusivo para ação padronizada": {
-          "GAB": "GESTÃO_INOVAÇÃO"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "GAB": "GESTÃO_INOVAÇÃO"
+          }
         }
       },
       "2284 - Manutenção do Conselho Estadual de Educação - CEE": {
-        "Conselho mantido": {
-          "GAB": "GESTÃO_INOVAÇÃO"
+        "1": {
+          "Conselho mantido": {
+            "GAB": "GESTÃO_INOVAÇÃO"
+          }
         }
       },
       "4491 - Pagamento de verbas indenizatórias a servidores estaduais": {
-        "Produto exclusivo para ação padronizada": {
-          "SAGP": "VALORIZAÇÃO_PRO"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "SAGP": "VALORIZAÇÃO_PRO",
+            "SARC": "VALORIZAÇÃO_PRO"
+          }
         }
       }
     },
     "131 - COMUNICACAO SOCIAL": {
       "2014 - Publicidade institucional e propaganda": {
-        "Produto exclusivo para ação padronizada": {
-          "GAB": "GESTÃO_INOVAÇÃO"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "GAB": "GESTÃO_INOVAÇÃO"
+          }
         }
       }
     }
   },
-
   "533 - Educação 10 Anos": {
     "366 - EDUCACAO DE JOVENS E ADULTOS": {
       "2900 - Desenvolvimento da Educação de Jovens e Adultos": {
-        "Avaliação (Avalia MT) desenvolvida": {
-          "SAGE": "AVALIAÇÃO"
-        },
-        "Educação para jovens e adultos (EJA) desenvolvida": {
-          "SAGE": "DESENV_EDUCACIONAL",
-          "SARC": "EQUIDADE_DIVERSID"
-        },
-        "Sistema estruturado de ensino implantado": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Línguas estrangeiras desenvolvidas": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Projetos pedagógicos integrados implantados": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Formação continuada de professores realizada": {
-          "SAGP": "VALORIZAÇÃO_PRO"
-        },
-        "Acesso e permanência desenvolvido": {
-          "SAGR": "ACESSO_E_PERM"
-        },
-        "Materiais escolares disponibilizados": {
-          "SAGR": "ACESSO_E_PERM"
-        },
-        "Uniformes escolares disponibilizados": {
-          "SAGR": "ACESSO_E_PERM"
-        },
-        "Bem-estar escolar desenvolvido": {
-          "SAGR": "CULTURA_DE_PAZ"
+        "4": {
+          "Avaliação (Avalia MT) desenvolvida": {
+            "SAGE": "AVALIAÇÃO"
+          },
+          "Educação para jovens e adultos (EJA) desenvolvida": {
+            "SAGE": "EQUIDADE_DIVERSID",
+            "SARC": "EQUIDADE_DIVERSID"
+          },
+          "Sistema estruturado de ensino implantado": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Línguas estrangeiras desenvolvidas": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": "VALORIZAÇÃO_PRO",
+            "SAGE": "VALORIZAÇÃO_PRO",
+            "SAGR": "VALORIZAÇÃO_PRO",
+            "SARC": "VALORIZAÇÃO_PRO"
+          },
+          "Acesso e permanência desenvolvido": {
+            "SAGR": "ACESSO_E_PERM"
+          },
+          "Materiais escolares disponibilizados": {
+            "SAGR": "ACESSO_E_PERM"
+          },
+          "Uniformes escolares disponibilizados": {
+            "SAGR": "ACESSO_E_PERM",
+            "SAGE": "ACESSO_E_PERM"
+          },
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": "CULTURA_DE_PAZ"
+            }
+          }
         }
-      }
-    },
+      },
     "122 - ADMINISTRAÇÃO GERAL": {
       "2936 - Desenvolvimento das Modalidades de Ensino": {
-        "Alfabetização desenvolvida": {
-          "SARC": "REGIME_COLABORAÇÃO"
-        },
-        "Avaliação (Avalia MT) desenvolvida": {
-          "SAGE": "AVALIAÇÃO",
-          "SARC": "AVALIAÇÃO"
-        },
-        "Educação em tempo integral desenvolvida": {
-          "SAGE": "CURRÍCULO_AMPLIADO"
-        },
-        "Educação escolar do campo desenvolvida": {
-          "SAGE": "EQUIDADE_DIVERSID"
-        },
-        "Educação escolar indígena desenvolvida": {
-          "SAGE": "EQUIDADE_DIVERSID"
-        },
-        "Educação escolar quilombola desenvolvida": {
-          "SAGE": "EQUIDADE_DIVERSID"
-        },
-        "Educação especial desenvolvida": {
-          "SAGE": "EQUIDADE_DIVERSID"
-        },
-        "Educação para jovens e adultos (EJA) desenvolvida": {
-          "SAGE": "EQUIDADE_DIVERSID",
-          "SARC": "EQUIDADE_DIVERSID"
-        },
-        "Línguas estrangeiras desenvolvidas": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Projetos pedagógicos integrados implantados": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Sistema estruturado de ensino implantado": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Formação continuada de professores realizada": {
-          "SAGP": "VALORIZAÇÃO_PRO"
-        },
-        "Acesso e permanência desenvolvido": {
-          "SAGR": "ACESSO_E_PERM"
-        },
-        "Bem-estar escolar desenvolvido": {
-          "SAGR": "CULTURA_DE_PAZ"
-        },
-        "Escolas militares desenvolvidas": {
-          "SARC": "GESTÃO_INOVAÇÃO"
+        "8": {
+          "Alfabetização desenvolvida": {
+            "SARC": "REGIME_COLABORAÇÃO"
+          },
+		  "Regime de colaboração desenvolvido": {
+            "SARC": "REGIME_COLABORAÇÃO"
+          },  
+          "Avaliação (Avalia MT) desenvolvida": {
+            "SAGE": "AVALIAÇÃO",
+		    "SARC": "AVALIAÇÃO"
+		  },
+          "Educação em tempo integral desenvolvida": {
+            "SAGE": "CURRÍCULO_AMPLIADO"
+          },
+          "Educação escolar do campo desenvolvida": {
+            "SAGE": "EQUIDADE_DIVERSID"
+          },
+          "Educação escolar indígena desenvolvida": {
+            "SAGE": "EQUIDADE_DIVERSID"
+          },
+          "Educação escolar quilombola desenvolvida": {
+            "SAGE": "EQUIDADE_DIVERSID"
+          },
+          "Educação especial desenvolvida": {
+            "SAGE": "EQUIDADE_DIVERSID"
+          },
+          "Educação para jovens e adultos (EJA) desenvolvida": {
+            "SAGE": "EQUIDADE_DIVERSID",
+            "SARC": "EQUIDADE_DIVERSID"
+          },
+          "Línguas estrangeiras desenvolvidas": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Sistema estruturado de ensino implantado": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": "VALORIZAÇÃO_PRO"
+          },
+          "Acesso e permanência desenvolvido": {
+            "SAGR": "ACESSO_E_PERM"
+          },
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": "CULTURA_DE_PAZ"
+		   },
+          "Escolas militares desenvolvidas": {
+            "SAEX": "GESTÃO_INOVAÇÃO"
+          }
         }
       }
     },
     "367 - EDUCACAO ESPECIAL": {
       "2957 - Desenvolvimento da Educação Especial": {
-        "Alfabetização desenvolvida": {
-          "SARC": "EQUIDADE_DIVERSID"
-        },
-        "Avaliação (Avalia MT) desenvolvida": {
-          "SAGE": "AVALIAÇÃO"
-        },
-        "Educação especial desenvolvida": {
-          "SAGE": ["DESENV_EDUCACIONAL", "EQUIDADE_DIVERSID"]
-        },
-        "Línguas estrangeiras desenvolvidas": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Projetos pedagógicos integrados implantados": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Sistema estruturado de ensino implantado": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Formação continuada de professores realizada": {
-          "SAGP": "VALORIZAÇÃO_PRO"
-        },
-        "Acesso e permanência desenvolvido": {
-          "SAGR": "ACESSO_E_PERM"
-        },
-        "Bem-estar escolar desenvolvido": {
-          "SAGR": "CULTURA_DE_PAZ"
-        },
-        "Materiais escolares disponibilizados": {
-          "SAGR": "ACESSO_E_PERM"
-        },
-        "Uniformes escolares disponibilizados": {
-          "SAGR": "ACESSO_E_PERM"
+        "5": {
+          "Alfabetização desenvolvida": {
+            "SARC": "REGIME_COLABORAÇÃO"
+          },
+          "Avaliação (Avalia MT) desenvolvida": {
+            "SAGE": "AVALIAÇÃO"
+          },
+          "Educação especial desenvolvida": {
+            "SAGE": "EQUIDADE_DIVERSID"
+          },
+          "Línguas estrangeiras desenvolvidas": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Sistema estruturado de ensino implantado": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": "VALORIZAÇÃO_PRO",
+            "SAGE": "VALORIZAÇÃO_PRO",
+            "SAGR": "VALORIZAÇÃO_PRO",
+            "SARC": "VALORIZAÇÃO_PRO"
+          },
+          "Acesso e permanência desenvolvido": {
+            "SAGR": "ACESSO_E_PERM"
+          },
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": "CULTURA_DE_PAZ"
+            },
+          "Materiais escolares disponibilizados": {
+            "SAGR": "ACESSO_E_PERM"
+          },
+          "Uniformes escolares disponibilizados": {
+            "SAGR": "ACESSO_E_PERM",
+            "SARC": "ACESSO_E_PERM"
+          }
         }
       }
     },
     "361 - ENSINO FUNDAMENTAL": {
       "4172 - Desenvolvimento do Ensino Fundamental": {
-        "Alfabetização desenvolvida": {
-          "SARC": "DESENV_EDUCACIONAL"
-        },
-        "Avaliação (Avalia MT) desenvolvida": {
-          "SAGE": "AVALIAÇÃO"
-        },
-        "Educação em tempo integral desenvolvida": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Educação escolar do campo desenvolvida": {
-          "SAGE": [
-            "DESENV_EDUCACIONAL",
-            "EQUIDADE_DIVERSID"
-          ]
-        },
-        "Educação escolar indígena desenvolvida": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Educação escolar quilombola desenvolvida": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Línguas estrangeiras desenvolvidas": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Projetos pedagógicos integrados implantados": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Sistema estruturado de ensino implantado": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Formação continuada de professores realizada": {
-          "SAGP": "VALORIZAÇÃO_PRO"
-        },
-        "Remuneração professores e profissionais da educação com recursos do MDE, Art 70 Lei 9394/1996": {
-          "SAGP": "VALORIZAÇÃO_PRO"
-        },
-        "Remuneração professores e profissionais da educação, FUNDEB 30%, Arts 26-A, 14.113/20 e 70, 9394/96": {
-          "SAGP": "VALORIZAÇÃO_PRO"
-        },
-        "Remuneração professores e profissionais da educação, FUNDEB 70%, Art 26, § 1º, II, Lei 14.113/20": {
-          "SAGP": "VALORIZAÇÃO_PRO"
-        },
-        "Acesso e permanência desenvolvido": {
-          "SAGR": "ACESSO_E_PERM"
-        },
-        "Bem-estar escolar desenvolvido": {
-          "SAGR": "CULTURA_DE_PAZ"
-        },
-        "Escolas militares desenvolvidas": {
-          "SARC": "DESENV_EDUCACIONAL"
-        },
-        "Materiais escolares disponibilizados": {
-          "SAGR": "ACESSO_E_PERM"
-        },
-        "Uniformes escolares disponibilizados": {
-          "SAGR": "ACESSO_E_PERM"
+        "2": {
+          "Alfabetização desenvolvida": {
+            "SARC": "REGIME_COLABORAÇÃO"
+          },
+          "Avaliação (Avalia MT) desenvolvida": {
+            "SAGE": "AVALIAÇÃO"
+          },
+          "Educação em tempo integral desenvolvida": {
+            "SAGE": "CURRÍCULO_AMPLIADO"
+          },
+          "Educação escolar do campo desenvolvida": {
+            "SAGE": "EQUIDADE_DIVERSID"
+          },
+          "Educação escolar indígena desenvolvida": {
+            "SAGE": "EQUIDADE_DIVERSID"
+          },
+          "Educação escolar quilombola desenvolvida": {
+            "SAGE": "EQUIDADE_DIVERSID"
+          },
+          "Línguas estrangeiras desenvolvidas": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Sistema estruturado de ensino implantado": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": "VALORIZAÇÃO_PRO",
+            "SAGE": "VALORIZAÇÃO_PRO",
+            "SAGR": "VALORIZAÇÃO_PRO",
+            "SARC": "VALORIZAÇÃO_PRO"
+          },
+          "Remuneração professores e profissionais da educação com recursos do MDE, Art 70 Lei 9394/1996": {
+            "SAGP": "VALORIZAÇÃO_PRO"
+          },
+          "Remuneração professores e profissionais da educação, FUNDEB 30%, Arts 26-A, 14.113/20 e 70, 9394/96": {
+            "SAGP": "VALORIZAÇÃO_PRO"
+          },
+          "Remuneração professores e profissionais da educação, FUNDEB 70%, Art 26, § 1º, II, Lei 14.113/20": {
+            "SAGP": "VALORIZAÇÃO_PRO"
+          },
+          "Acesso e permanência desenvolvido": {
+            "SAGR": "ACESSO_E_PERM"
+          },
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": "CULTURA_DE_PAZ"
+            },
+          "Escolas militares desenvolvidas": {
+            "SAEX": "GESTÃO_INOVAÇÃO"
+          },
+          "Materiais escolares disponibilizados": {
+            "SAGR": "ACESSO_E_PERM"
+          },
+          "Uniformes escolares disponibilizados": {
+            "SAGR": "ACESSO_E_PERM",
+            "SARC": "ACESSO_E_PERM"
+          }
         }
       }
     },
     "362 - ENSINO MEDIO": {
       "4174 - Desenvolvimento do Ensino Médio": {
-        "Avaliação (Avalia MT) desenvolvida": {
-          "SAGE": "AVALIAÇÃO"
-        },
-        "Educação em tempo integral desenvolvida": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Educação escolar do campo desenvolvida": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Educação escolar indígena desenvolvida": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Educação escolar quilombola desenvolvida": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Línguas estrangeiras desenvolvidas": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Novo ensino médio e ensino técnico profissionalizante desenvolvido": {
-          "SAGE": ["CURRÍCULO_AMPLIADO", "DESENV_EDUCACIONAL"]
-        },
-        "Projetos pedagógicos integrados implantados": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Sistema estruturado de ensino implantado": {
-          "SAGE": "DESENV_EDUCACIONAL"
-        },
-        "Formação continuada de professores realizada": {
-          "SAGP": "VALORIZAÇÃO_PRO"
-        },
-        "Acesso e permanência desenvolvido": {
-          "SAGR": "ACESSO_E_PERM"
-        },
-        "Bem-estar escolar desenvolvido": {
-          "SAGR": "CULTURA_DE_PAZ"
-        },
-        "Escolas militares desenvolvidas": {
-          "SARC": "DESENV_EDUCACIONAL"
-        },
-        "Materiais escolares disponibilizados": {
-          "SAGR": "ACESSO_E_PERM"
-        },
-        "Uniformes escolares disponibilizados": {
-          "SAGR": "ACESSO_E_PERM"
+        "3": {
+          "Avaliação (Avalia MT) desenvolvida": {
+            "SAGE": "AVALIAÇÃO"
+          },
+          "Educação em tempo integral desenvolvida": {
+            "SAGE": "CURRÍCULO_AMPLIADO"
+          },
+          "Educação escolar do campo desenvolvida": {
+            "SAGE": "EQUIDADE_DIVERSID"
+          },
+          "Educação escolar indígena desenvolvida": {
+            "SAGE": "EQUIDADE_DIVERSID"
+          },
+          "Educação escolar quilombola desenvolvida": {
+            "SAGE": "EQUIDADE_DIVERSID"
+          },
+          "Línguas estrangeiras desenvolvidas": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Novo ensino médio e ensino técnico profissionalizante desenvolvido": {
+            "SAGE": ["CURRÍCULO_AMPLIADO",
+              "DESENV_EDUCACIONAL"]
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Sistema estruturado de ensino implantado": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": "VALORIZAÇÃO_PRO",
+            "SAGE": "VALORIZAÇÃO_PRO",
+            "SAGR": "VALORIZAÇÃO_PRO",
+            "SARC": "VALORIZAÇÃO_PRO"
+          },
+          "Acesso e permanência desenvolvido": {
+            "SAGR": "ACESSO_E_PERM"
+          },
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": "CULTURA_DE_PAZ"
+            },
+          "Escolas militares desenvolvidas": {
+            "SAEX": "GESTÃO_INOVAÇÃO"
+          },
+          "Materiais escolares disponibilizados": {
+            "SAGR": "ACESSO_E_PERM"
+          },
+          "Uniformes escolares disponibilizados": {
+            "SAGR": "ACESSO_E_PERM",
+            "SARC": "ACESSO_E_PERM"
+          }
         }
       }
     }
   },
-
   "534 - Infraestrutura Educacional": {
     "366 - EDUCACAO DE JOVENS E ADULTOS": {
       "2895 - Alimentação Escolar da Educação de Jovens e Adultos": {
-        "Alimentação escolar mantida": {
-          "SAGR": "ACESSO_E_PERM"
+        "4": {
+          "Alimentação escolar mantida": {
+            "SAGR": "ACESSO_E_PERM",
+            "SARC": "ACESSO_E_PERM"
+          }
         }
       },
       "4175 - Infraestrutura da Educação de Jovens e Adultos": {
-        "Gestão do patrimônio realizada": {
-          "SAAS": "INFRAESTRUTURA",
-          "SAIP": "INFRAESTRUTURA"
-        },
-        "Tecnologia no ambiente escolar disponibilizada": {
-          "SAGE": "CURRÍCULO_AMPLIADO"
-        },
-        "Gestão escolar desenvolvida": {
-          "SAGR": "GESTÃO_INOVAÇÃO"
-        },
-        "Infraestrutura escolar modernizada": {
-          "SAIP": "INFRAESTRUTURA"
+        "4": {
+          "Gestão do patrimônio realizada": {
+            "SAAS": "INFRAESTRUTURA",
+            "SAIP": "INFRAESTRUTURA"
+          },
+          "Tecnologia no ambiente escolar disponibilizada": {
+            "SAGE": "CURRÍCULO_AMPLIADO",
+            "SAEX": "CURRÍCULO_AMPLIADO"
+          },
+          "Gestão escolar desenvolvida": {
+            "SAGR": "GESTÃO_INOVAÇÃO"
+          },
+          "Infraestrutura escolar modernizada": {
+            "SAIP": "INFRAESTRUTURA"
+          }
         }
       }
     },
     "367 - EDUCACAO ESPECIAL": {
       "2897 - Alimentação Escolar da Educação Especial": {
-        "Alimentação escolar mantida": {
-          "SAGR": "ACESSO_E_PERM"
+        "5": {
+          "Alimentação escolar mantida": {
+            "SAGR": "ACESSO_E_PERM"
+          }
         }
       },
       "4178 - Infraestrutura da Educação Especial": {
-        "Gestão do patrimônio realizada": {
-          "SAAS": "INFRAESTRUTURA",
-          "SAIP": "INFRAESTRUTURA"
-        },
-        "Tecnologia no ambiente escolar disponibilizada": {
-          "SAGE": "CURRÍCULO_AMPLIADO"
-        },
-        "Gestão escolar desenvolvida": {
-          "SAGR": "GESTÃO_INOVAÇÃO"
-        },
-        "Infraestrutura escolar modernizada": {
-          "SAIP": "INFRAESTRUTURA"
+        "5": {
+          "Gestão do patrimônio realizada": {
+            "SAAS": "INFRAESTRUTURA",
+            "SAIP": "INFRAESTRUTURA"
+          },
+          "Tecnologia no ambiente escolar disponibilizada": {
+            "SAGE": "CURRÍCULO_AMPLIADO",
+            "SAEX": "CURRÍCULO_AMPLIADO"
+          },
+          "Gestão escolar desenvolvida": {
+            "SAGR": "GESTÃO_INOVAÇÃO"
+          },
+          "Infraestrutura escolar modernizada": {
+            "SAIP": "INFRAESTRUTURA"
+          }
         }
       },
       "4179 - Transporte Escolar da Educação Especial": {
-        "Transporte escolar mantido": {
-          "SARC": "REGIME_COLABORAÇÃO"
+        "7": {
+          "Transporte escolar mantido": {
+            "SARC": "REGIME_COLABORAÇÃO"
+          }
         }
       }
     },
     "361 - ENSINO FUNDAMENTAL": {
       "2898 - Alimentação Escolar do Ensino Fundamental": {
-        "Alimentação escolar mantida": {
-          "SAGR": "ACESSO_E_PERM"
+        "2": {
+          "Alimentação escolar mantida": {
+            "SAGR": "ACESSO_E_PERM"
+          }
         }
       },
       "4173 - Infraestrutura do Ensino Fundamental": {
-        "Gestão do patrimônio realizada": {
-          "SAAS": "INFRAESTRUTURA",
-          "SAIP": "INFRAESTRUTURA"
-        },
-        "Tecnologia no ambiente escolar disponibilizada": {
-          "SAGE": "CURRÍCULO_AMPLIADO"
-        },
-        "Gestão escolar desenvolvida": {
-          "SAGR": "GESTÃO_INOVAÇÃO"
-        },
-        "Infraestrutura escolar modernizada": {
-          "SAIP": "INFRAESTRUTURA"
+        "2": {
+          "Gestão do patrimônio realizada": {
+            "SAAS": "INFRAESTRUTURA",
+            "SAIP": "INFRAESTRUTURA"
+          },
+          "Tecnologia no ambiente escolar disponibilizada": {
+            "SAGE": "CURRÍCULO_AMPLIADO",
+            "SAEX": "CURRÍCULO_AMPLIADO"
+          },
+          "Gestão escolar desenvolvida": {
+            "SAGR": "GESTÃO_INOVAÇÃO"
+          },
+          "Infraestrutura escolar modernizada": {
+            "SAIP": "INFRAESTRUTURA"
+          }
         }
       },
       "4181 - Transporte Escolar do Ensino Fundamental": {
-        "Transporte escolar mantido": {
-          "SARC": "REGIME_COLABORAÇÃO"
+        "7": {
+          "Transporte escolar mantido": {
+            "SARC": "REGIME_COLABORAÇÃO"
+          }
         }
-      },
+      },	  
       "4524 - FMTE - Ensino Fundamental": {
-        "Infraestrutura escolar modernizada": {
-          "SAIP": "INFRAESTRUTURA"
-        },
-        "Regime de colaboração desenvolvido": {
-          "SARC": "REGIME_COLABORAÇÃO"
+        "9": {
+          "Infraestrutura escolar modernizada": {
+            "SAIP": "INFRAESTRUTURA",
+            "EPI": "EPI"
+          },
+          "Regime de colaboração desenvolvido": {
+            "SAAS": "REGIME_COLABORAÇÃO"
+          }
         }
       }
     },
     "362 - ENSINO MEDIO": {
       "2899 - Alimentação Escolar do Ensino Médio": {
-        "Alimentação escolar mantida": {
-          "SAGR": "ACESSO_E_PERM"
+        "3": {
+          "Alimentação escolar mantida": {
+            "SAGR": "ACESSO_E_PERM"
+          }
         }
       },
       "4177 - Infraestrutura do Ensino Médio": {
-        "Gestão do patrimônio realizada": {
-          "SAAS": "INFRAESTRUTURA",
-          "SAIP": "INFRAESTRUTURA"
-        },
-        "Tecnologia no ambiente escolar disponibilizada": {
-          "SAGE": "CURRÍCULO_AMPLIADO"
-        },
-        "Gestão escolar desenvolvida": {
-          "SAGR": "GESTÃO_INOVAÇÃO"
-        },
-        "Infraestrutura escolar modernizada": {
-          "SAIP": "INFRAESTRUTURA"
+        "3": {
+          "Gestão do patrimônio realizada": {
+            "SAAS": "INFRAESTRUTURA",
+            "SAIP": "INFRAESTRUTURA"
+          },
+          "Tecnologia no ambiente escolar disponibilizada": {
+            "SAGE": "CURRÍCULO_AMPLIADO",
+            "SAEX": "CURRÍCULO_AMPLIADO"
+          },
+          "Gestão escolar desenvolvida": {
+            "SAGR": "GESTÃO_INOVAÇÃO",
+            "SAGE": "GESTÃO_INOVAÇÃO"
+          },
+          "Infraestrutura escolar modernizada": {
+            "SAIP": "INFRAESTRUTURA"
+          }
         }
       },
       "4182 - Transporte Escolar do Ensino Médio": {
-        "Transporte escolar mantido": {
-          "SARC": "REGIME_COLABORAÇÃO"
+        "7": {
+          "Transporte escolar mantido": {
+            "SARC": "REGIME_COLABORAÇÃO"
+          }
         }
       }
     },
     "122 - ADMINISTRAÇÃO GERAL": {
       "4180 - Infraestrutura de Administração e Gestão": {
-        "Gestão integrada desenvolvida": {
-          "GAB": "GESTÃO_INOVAÇÃO",
-          "SAAS": "GESTÃO_INOVAÇÃO",
-          "SAGE": "GESTÃO_INOVAÇÃO",
-          "SAGR": "GESTÃO_INOVAÇÃO"
-        },
-        "Gestão do patrimônio realizada": {
-          "SAAS": "INFRAESTRUTURA",
-          "SAIP": "INFRAESTRUTURA"
-        },
-        "Gestão escolar desenvolvida": {
-          "SAEX": "GESTÃO_INOVAÇÃO",
-          "SAGR": "GESTÃO_INOVAÇÃO"
-        },
-        "Gestão estratégica de pessoas implementada": {
-          "SAGP": "VALORIZAÇÃO_PRO"
-        },
-        "Valorização profissional desenvolvida": {
-          "SAGP": "VALORIZAÇÃO_PRO"
-        },
-        "Infraestrutura escolar modernizada": {
-          "SAIP": "INFRAESTRUTURA"
-        },
-        "Regime de colaboração desenvolvido": {
-          "SARC": "REGIME_COLABORAÇÃO"
+        "6": {
+          "Gestão integrada desenvolvida": {
+            "GAB": "GESTÃO_INOVAÇÃO",
+            "SAAS": "GESTÃO_INOVAÇÃO",
+            "SAGE": "GESTÃO_INOVAÇÃO",
+            "SAGR": "GESTÃO_INOVAÇÃO"
+          },
+          "Gestão do patrimônio realizada": {
+            "SAAS": "INFRAESTRUTURA",
+            "SAIP": "INFRAESTRUTURA"
+          },
+          "Gestão escolar desenvolvida": { 
+            "SAGR": "GESTÃO_INOVAÇÃO"
+          },
+          "Gestão estratégica de pessoas implementada": {
+            "SAGP": "VALORIZAÇÃO_PRO"
+          },
+          "Valorização profissional desenvolvida": {
+            "SAGP": "VALORIZAÇÃO_PRO",
+            "GAB": "VALORIZAÇÃO_PRO",
+            "SAAS": "VALORIZAÇÃO_PRO",
+            "SAEX": "VALORIZAÇÃO_PRO",
+            "SAIP": "VALORIZAÇÃO_PRO",
+            "SAGE": "VALORIZAÇÃO_PRO",
+            "SAGR": "VALORIZAÇÃO_PRO",
+            "SARC": "VALORIZAÇÃO_PRO"
+          },
+          "Infraestrutura escolar modernizada": {
+            "SAIP": "INFRAESTRUTURA",
+            "SAAS": "INFRAESTRUTURA"
+          }
         }
       }
     },
     "365 - EDUCACAO INFANTIL": {
       "4525 - FMTE - Educação Infantil": {
-        "Infraestrutura escolar modernizada": {
-          "SAIP": "INFRAESTRUTURA",
-          "EMD": "EMD"
-        },
-        "Regime de colaboração desenvolvido": {
-          "SARC": "REGIME_COLABORAÇÃO"
+        "10": {
+          "Infraestrutura escolar modernizada": {
+            "SAIP": "INFRAESTRUTURA",
+            "EPI": "EPI"
+          },
+          "Regime de colaboração desenvolvido": {
+            "SAAS": "REGIME_COLABORAÇÃO"
+          }
         }
       }
     }
   },
-
   "996 - Operações especiais: outras": {
     "846 - OUTROS ENCARGOS ESPECIAIS": {
       "8002 - Recolhimento do PIS-PASEP e pagamento do abono": {
-        "Produto exclusivo para ação padronizada": {
-          "SAAS": "GESTÃO_INOVAÇÃO"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "SAAS": "GESTÃO_INOVAÇÃO"
+          }
         }
       }
     },
     "845 - OUTRAS TRANSFERÊNCIAS": {
       "8026 - Pagamento de emendas parlamentares impositivas": {
-        "Produto exclusivo para ação padronizada": {
-          "EMD": "EMD"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "EPI": "EPI"
+          }
         }
       }
     }
   },
-
   "997 - Previdência de inativos e pensionistas do Estado": {
     "272 - PREVIDENCIA DO REGIME ESTATUTARIO": {
       "8040 - Recolhimento de encargos e obrigações previdenciárias de inativos e pensionistas do Estado de Mato Grosso": {
-        "Produto exclusivo para ação padronizada": {
-          "SAGP": "VALORIZAÇÃO_PRO"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "SAGP": "VALORIZAÇÃO_PRO"
+          }
         }
       }
     }
   },
-
   "998 - Operações especiais: cumprimento de sentenças judiciais": {
     "846 - OUTROS ENCARGOS ESPECIAIS": {
       "8003 - Cumprimento de sentenças judiciais transitadas em julgado - Adm. Direta": {
-        "Produto exclusivo para ação padronizada": {
-          "SAGP": "VALORIZAÇÃO_PRO"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "SAGP": "VALORIZAÇÃO_PRO"
+          }
         }
       }
     }
-  },
+  }
 };
 
 function carregarMacropolitica(programa, subfuncao, paoe, ug, produto, adj) {
@@ -932,22 +1007,22 @@ function carregarMacropolitica(programa, subfuncao, paoe, ug, produto, adj) {
     console.log("Produto:", produto);
     console.log("ADJ:", adj);
 
-    const produtos = macropoliticaMap?.[programa]?.[subfuncao]?.[paoeCompleto];
-    if (!produtos) {
-      console.warn("⚠️ PAOE não mapeado em macropoliticaMap.");
+    const produtoMap = macropoliticaMap?.[programa]?.[subfuncao]?.[paoeCompleto]?.[ug];
+    if (!produtoMap) {
+      console.warn("⚠️ Caminho até UG não encontrado no macropoliticaMap.");
       return;
     }
 
     let macros = null;
 
-    for (const chaveProduto in produtos) {
+    for (const chaveProduto in produtoMap) {
       const chaveNormalizada = normalizarTexto(chaveProduto);
       if (
         chaveNormalizada === produtoNormalizado ||
         chaveNormalizada.includes(produtoNormalizado) ||
         produtoNormalizado.includes(chaveNormalizada)
       ) {
-        const adjMap = produtos[chaveProduto];
+        const adjMap = produtoMap[chaveProduto];
         for (const adjChave in adjMap) {
           const adjChaveNormalizada = normalizarTexto(adjChave);
           if (
@@ -962,8 +1037,24 @@ function carregarMacropolitica(programa, subfuncao, paoe, ug, produto, adj) {
         if (macros) break;
       }
     }
+    let lista = [];
+    if (macros) {
+      if (typeof macros === "string") {
+        lista = [macros];
+      } else if (typeof macros === "object") {
+        for (const sigla in macros) {
+          const valor = macros[sigla];
+          if (Array.isArray(valor)) {
+            lista.push(...valor);
+          } else if (typeof valor === "string") {
+            lista.push(valor);
+          }
+        }
+      }
 
-    const lista = Array.isArray(macros) ? macros : macros ? [macros] : [];
+      lista = [...new Set(lista)];
+    }
+
 
     if (lista.length === 0) {
       console.warn("⚠️ Nenhuma Macropolítica encontrada para os dados fornecidos.");
@@ -983,730 +1074,854 @@ function carregarMacropolitica(programa, subfuncao, paoe, ug, produto, adj) {
 }
 
 const pilarMap = {
-  "036 - Apoio administrativo": {
+	"036 - Apoio administrativo": {
     "126 - TECNOLOGIA DA INFORMAÇÃO": {
       "2009 - Manutenção de ações de informática": {
-        "Produto exclusivo para ação padronizada": {
-          "SAEX": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "SAEX": {
+              "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+              }
+            }
           }
         }
-      }
-    },
+      },
     "122 - ADMINISTRAÇÃO GERAL": {
       "2010 - Manutenção de órgãos colegiados": {
-        "Produto exclusivo para ação padronizada": {
-          "GAB": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "GAB": {
+              "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+            }
           }
         }
       },
       "2284 - Manutenção do Conselho Estadual de Educação - CEE": {
-        "Conselho mantido": {
-          "GAB": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+        "1": {
+          "Conselho mantido": {
+            "GAB": {
+              "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+            }
           }
         }
       },
       "4491 - Pagamento de verbas indenizatórias a servidores estaduais": {
-        "Produto exclusivo para ação padronizada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SARC": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            }
           }
         }
       }
-    },
+      },
     "131 - COMUNICACAO SOCIAL": {
       "2014 - Publicidade institucional e propaganda": {
-        "Produto exclusivo para ação padronizada": {
-          "GAB": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "GAB": {
+              "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+            }
           }
         }
       }
     }
   },
-
   "533 - Educação 10 Anos": {
     "366 - EDUCACAO DE JOVENS E ADULTOS": {
       "2900 - Desenvolvimento da Educação de Jovens e Adultos": {
-        "Avaliação (Avalia MT) desenvolvida": {
-          "SAGE": {
-            "AVALIAÇÃO": "P_IMPACTO_"
-          }
-        },
-        "Educação para jovens e adultos (EJA) desenvolvida": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_EQUIDADE_",
-            "EQUIDADE_DIVERSID": "P_EQUIDADE_"
-          }
-        },
-        "Sistema estruturado de ensino implantado": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Línguas estrangeiras desenvolvidas": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Projetos pedagógicos integrados implantados": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_TECNOLOGIA_"
-          }
-        },
-        "Formação continuada de professores realizada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
-          }
-        },
-        "Acesso e permanência desenvolvido": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_EQUIDADE_"
-          }
-        },
-        "Materiais escolares disponibilizados": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_EQUIDADE_"
-          }
-        },
-        "Uniformes escolares disponibilizados": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_EQUIDADE_"
-          }
-        },
-        "Bem-estar escolar desenvolvido": {
-          "SAGR": {
-            "CULTURA_DE_PAZ": "P_EQUIDADE_"
+        "4": {
+          "Avaliação (Avalia MT) desenvolvida": {
+            "SAGE": {
+              "AVALIAÇÃO": "P_IMPACTO_"
+            }
+          },
+          "Educação para jovens e adultos (EJA) desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+            },
+            "SARC": {
+              "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+            }
+          },
+          "Sistema estruturado de ensino implantado": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": "P_IMPACTO_"
+            }
+          },
+          "Línguas estrangeiras desenvolvidas": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": "P_IMPACTO_"
+            }
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": "P_TECNOLOGIA_"
+            }
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SAGE": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SAGR": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SARC": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            }
+          },
+          "Acesso e permanência desenvolvido": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            }
+          },
+          "Materiais escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            }
+          },
+          "Uniformes escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            },
+            "SAGE": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            }
+          },
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": {
+              "CULTURA_DE_PAZ": "P_EQUIDADE_"
+              }
+            }
           }
         }
-      }
-    },
+      },
     "122 - ADMINISTRAÇÃO GERAL": {
       "2936 - Desenvolvimento das Modalidades de Ensino": {
-        "Alfabetização desenvolvida": {
-          "SARC": {
-            "REGIME_COLABORAÇÃO": "P_IMPACTO_"
-          }
-        },
-        "Avaliação (Avalia MT) desenvolvida": {
-          "SAGE": {
-            "AVALIAÇÃO": "P_IMPACTO_"
+        "8": {
+          "Alfabetização desenvolvida": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": "P_IMPACTO_"
+            }
           },
-          "SARC": {
-            "AVALIAÇÃO": "P_IMPACTO_"
-          }
-        },
-        "Educação em tempo integral desenvolvida": {
-          "SAGE": {
-            "CURRÍCULO_AMPLIADO": "P_IMPACTO_"
-          }
-        },
-        "Educação escolar do campo desenvolvida": {
-          "SAGE": {
-            "EQUIDADE_DIVERSID": "P_EQUIDADE_"
-          }
-        },
-        "Educação escolar indígena desenvolvida": {
-          "SAGE": {
-            "EQUIDADE_DIVERSID": "P_EQUIDADE_"
-          }
-        },
-        "Educação escolar quilombola desenvolvida": {
-          "SAGE": {
-            "EQUIDADE_DIVERSID": "P_EQUIDADE_"
-          }
-        },
-        "Educação especial desenvolvida": {
-          "SAGE": {
-            "EQUIDADE_DIVERSID": "P_EQUIDADE_"
-          }
-        },
-        "Educação para jovens e adultos (EJA) desenvolvida": {
-          "SAGE": {
-            "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+		  "Regime de colaboração desenvolvido": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": "P_GESTÃO_"
+            }
+          },  
+          "Avaliação (Avalia MT) desenvolvida": {
+            "SAGE": {
+              "AVALIAÇÃO": "P_IMPACTO_"
+            },
+            "SARC": {
+              "AVALIAÇÃO": "P_IMPACTO_"
+            }
           },
-          "SARC": {
-            "EQUIDADE_DIVERSID": "P_EQUIDADE_"
-          }
-        },
-        "Línguas estrangeiras desenvolvidas": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Projetos pedagógicos integrados implantados": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_TECNOLOGIA_"
-          }
-        },
-        "Sistema estruturado de ensino implantado": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Formação continuada de professores realizada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
-          }
-        },
-        "Acesso e permanência desenvolvido": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_EQUIDADE_"
-          }
-        },
-        "Bem-estar escolar desenvolvido": {
-          "SAGR": {
-            "CULTURA_DE_PAZ": "P_EQUIDADE_"
-          }
-        },
-        "Escolas militares desenvolvidas": {
-          "SARC": {
-            "GESTÃO_INOVAÇÃO": "P_IMPACTO_"
+          "Educação em tempo integral desenvolvida": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": "P_IMPACTO_"
+            }
+          },
+          "Educação escolar do campo desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+            }
+          },
+          "Educação escolar indígena desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+            }
+          },
+          "Educação escolar quilombola desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+            }
+          },
+          "Educação especial desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+            }
+          },
+          "Educação para jovens e adultos (EJA) desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+            },
+            "SARC": {
+              "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+            }
+          },
+          "Línguas estrangeiras desenvolvidas": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": "P_IMPACTO_"
+            }
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": "P_TECNOLOGIA_"
+            }
+          },
+          "Sistema estruturado de ensino implantado": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": "P_IMPACTO_"
+            }
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            }
+          },
+          "Acesso e permanência desenvolvido": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            }
+          },
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": {
+              "CULTURA_DE_PAZ": "P_EQUIDADE_"
+              }
+		   },
+          "Escolas militares desenvolvidas": {
+            "SAEX": {
+              "GESTÃO_INOVAÇÃO": "P_IMPACTO_"
+            }
           }
         }
       }
     },
     "367 - EDUCACAO ESPECIAL": {
       "2957 - Desenvolvimento da Educação Especial": {
-        "Alfabetização desenvolvida": {
-          "SARC": {
-            "EQUIDADE_DIVERSID": "P_IMPACTO_"
-          }
-        },
-        "Avaliação (Avalia MT) desenvolvida": {
-          "SAGE": {
-            "AVALIAÇÃO": "P_IMPACTO_"
-          }
-        },
-        "Educação especial desenvolvida": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_EQUIDADE_",
-            "EQUIDADE_DIVERSID": "P_EQUIDADE_"
-          }
-        },
-        "Línguas estrangeiras desenvolvidas": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Projetos pedagógicos integrados implantados": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_TECNOLOGIA_"
-          }
-        },
-        "Sistema estruturado de ensino implantado": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Formação continuada de professores realizada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
-          }
-        },
-        "Acesso e permanência desenvolvido": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_EQUIDADE_"
-          }
-        },
-        "Bem-estar escolar desenvolvido": {
-          "SAGR": {
-            "CULTURA_DE_PAZ": "P_EQUIDADE_"
-          }
-        },
-        "Materiais escolares disponibilizados": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_EQUIDADE_"
-          }
-        },
-        "Uniformes escolares disponibilizados": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_EQUIDADE_"
+        "5": {
+          "Alfabetização desenvolvida": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": "P_IMPACTO_"
+            }
+          },
+          "Avaliação (Avalia MT) desenvolvida": {
+            "SAGE": {
+              "AVALIAÇÃO": "P_IMPACTO_"
+            }
+          },
+          "Educação especial desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+            }
+          },
+          "Línguas estrangeiras desenvolvidas": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": "P_IMPACTO_"
+            }
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": "P_TECNOLOGIA_"
+            }
+          },
+          "Sistema estruturado de ensino implantado": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": "P_IMPACTO_"
+            }
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SAGE": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SAGR": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SARC": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            }
+          },
+          "Acesso e permanência desenvolvido": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            }
+          },
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": {
+              "CULTURA_DE_PAZ": "P_EQUIDADE_"
+              }
+            },
+          "Materiais escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            }
+          },
+          "Uniformes escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            },
+            "SARC": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            }
           }
         }
       }
     },
     "361 - ENSINO FUNDAMENTAL": {
       "4172 - Desenvolvimento do Ensino Fundamental": {
-        "Alfabetização desenvolvida": {
-          "SARC": {
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Avaliação (Avalia MT) desenvolvida": {
-          "SAGE": {
-            "AVALIAÇÃO": "P_IMPACTO_"
-          }
-        },
-        "Educação em tempo integral desenvolvida": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Educação escolar do campo desenvolvida": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_EQUIDADE_"
-          }
-        },
-        "Educação escolar indígena desenvolvida": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_EQUIDADE_"
-          }
-        },
-        "Educação escolar quilombola desenvolvida": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_EQUIDADE_"
-          }
-        },
-        "Línguas estrangeiras desenvolvidas": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Projetos pedagógicos integrados implantados": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_TECNOLOGIA_"
-          }
-        },
-        "Sistema estruturado de ensino implantado": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Formação continuada de professores realizada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
-          }
-        },
-        "Remuneração professores e profissionais da educação com recursos do MDE, Art 70 Lei 9394/1996": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
-          }
-        },
-        "Remuneração professores e profissionais da educação, FUNDEB 30%, Arts 26-A, 14.113/20 e 70, 9394/96": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
-          }
-        },
-        "Remuneração professores e profissionais da educação, FUNDEB 70%, Art 26, § 1º, II, Lei 14.113/20": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
-          }
-        },
-        "Acesso e permanência desenvolvido": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_EQUIDADE_"
-          }
-        },
-        "Bem-estar escolar desenvolvido": {
-          "SAGR": {
-            "CULTURA_DE_PAZ": "P_EQUIDADE_"
-          }
-        },
-        "Escolas militares desenvolvidas": {
-          "SARC": {
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Materiais escolares disponibilizados": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_EQUIDADE_"
-          }
-        },
-        "Uniformes escolares disponibilizados": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_EQUIDADE_"
+        "2": {
+          "Alfabetização desenvolvida": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": "P_IMPACTO_"
+            }
+          },
+          "Avaliação (Avalia MT) desenvolvida": {
+            "SAGE": {
+              "AVALIAÇÃO": "P_IMPACTO_"
+            }
+          },
+          "Educação em tempo integral desenvolvida": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": "P_IMPACTO_"
+            }
+          },
+          "Educação escolar do campo desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+            }
+          },
+          "Educação escolar indígena desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+            }
+          },
+          "Educação escolar quilombola desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+            }
+          },
+          "Línguas estrangeiras desenvolvidas": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": "P_IMPACTO_"
+            }
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": ["P_IMPACTO_", "P_TECNOLOGIA_"]
+			      }
+          },
+          "Sistema estruturado de ensino implantado": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": "P_IMPACTO_"
+            }
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SAGE": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SAGR": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SARC": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            }
+          },
+          "Remuneração professores e profissionais da educação com recursos do MDE, Art 70 Lei 9394/1996": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            }
+          },
+          "Remuneração professores e profissionais da educação, FUNDEB 30%, Arts 26-A, 14.113/20 e 70, 9394/96": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            }
+          },
+          "Remuneração professores e profissionais da educação, FUNDEB 70%, Art 26, § 1º, II, Lei 14.113/20": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            }
+          },
+          "Acesso e permanência desenvolvido": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            }
+          },
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": {
+              "CULTURA_DE_PAZ": "P_EQUIDADE_"
+              }
+            },
+          "Escolas militares desenvolvidas": {
+            "SAEX": {
+              "GESTÃO_INOVAÇÃO": "P_IMPACTO_"
+            }
+          },
+          "Materiais escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            }
+          },
+          "Uniformes escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            },
+            "SARC": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            }
           }
         }
       }
     },
     "362 - ENSINO MEDIO": {
       "4174 - Desenvolvimento do Ensino Médio": {
-        "Avaliação (Avalia MT) desenvolvida": {
-          "SAGE": {
-            "AVALIAÇÃO": "P_IMPACTO_"
-          }
-        },
-        "Educação em tempo integral desenvolvida": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Educação escolar do campo desenvolvida": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_EQUIDADE_"
-          }
-        },
-        "Educação escolar indígena desenvolvida": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_EQUIDADE_"
-          }
-        },
-        "Educação escolar quilombola desenvolvida": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_EQUIDADE_"
-          }
-        },
-        "Línguas estrangeiras desenvolvidas": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Novo ensino médio e ensino técnico profissionalizante desenvolvido": {
-          "SAGE": {
-            "CURRÍCULO_AMPLIADO": "P_IMPACTO_",
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Projetos pedagógicos integrados implantados": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_TECNOLOGIA_"
-          }
-        },
-        "Sistema estruturado de ensino implantado": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Formação continuada de professores realizada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
-          }
-        },
-        "Acesso e permanência desenvolvido": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_EQUIDADE_"
-          }
-        },
-        "Bem-estar escolar desenvolvido": {
-          "SAGR": {
-            "CULTURA_DE_PAZ": "P_EQUIDADE_"
-          }
-        },
-        "Escolas militares desenvolvidas": {
-          "SARC": {
-            "DESENV_EDUCACIONAL": "P_IMPACTO_"
-          }
-        },
-        "Materiais escolares disponibilizados": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_EQUIDADE_"
-          }
-        },
-        "Uniformes escolares disponibilizados": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_EQUIDADE_"
+        "3": {
+          "Avaliação (Avalia MT) desenvolvida": {
+            "SAGE": {
+              "AVALIAÇÃO": "P_IMPACTO_"
+            }
+          },
+          "Educação em tempo integral desenvolvida": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": "P_IMPACTO_"
+            }
+          },
+          "Educação escolar do campo desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+            }
+          },
+          "Educação escolar indígena desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+            }
+          },
+          "Educação escolar quilombola desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": "P_EQUIDADE_"
+            }
+          },
+          "Línguas estrangeiras desenvolvidas": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": "P_IMPACTO_"
+            }
+          },
+          "Novo ensino médio e ensino técnico profissionalizante desenvolvido": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": ["P_IMPACTO_"],
+              "DESENV_EDUCACIONAL": ["P_IMPACTO_"]
+            }
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": "P_TECNOLOGIA_"
+            }
+          },
+          "Sistema estruturado de ensino implantado": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": "P_IMPACTO_"
+            }
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SAGE": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SAGR": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SARC": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            }
+          },
+          "Acesso e permanência desenvolvido": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            }
+          },
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": {
+              "CULTURA_DE_PAZ": "P_EQUIDADE_"
+              }
+            },
+          "Escolas militares desenvolvidas": {
+            "SAEX": {
+              "GESTÃO_INOVAÇÃO": "P_IMPACTO_"
+            }
+          },
+          "Materiais escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            }
+          },
+          "Uniformes escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            },
+            "SARC": {
+              "ACESSO_E_PERM": "P_EQUIDADE_"
+            }
           }
         }
       }
     }
   },
-
   "534 - Infraestrutura Educacional": {
     "366 - EDUCACAO DE JOVENS E ADULTOS": {
       "2895 - Alimentação Escolar da Educação de Jovens e Adultos": {
-        "Alimentação escolar mantida": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_INFRAESTR_"
+        "4": {
+          "Alimentação escolar mantida": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_INFRAESTR_"
+            },
+            "SARC": {
+              "ACESSO_E_PERM": "P_INFRAESTR_"
+            }
           }
         }
       },
       "4175 - Infraestrutura da Educação de Jovens e Adultos": {
-        "Gestão do patrimônio realizada": {
-          "SAAS": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
+        "4": {
+          "Gestão do patrimônio realizada": {
+            "SAAS": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            },
+            "SAIP": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            }
           },
-          "SAIP": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
-          }
-        },
-        "Tecnologia no ambiente escolar disponibilizada": {
-          "SAGE": {
-            "CURRÍCULO_AMPLIADO": "P_TECNOLOGIA_"
-          }
-        },
-        "Gestão escolar desenvolvida": {
-          "SAGR": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
-          }
-        },
-        "Infraestrutura escolar modernizada": {
-          "SAIP": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
+          "Tecnologia no ambiente escolar disponibilizada": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": "P_TECNOLOGIA_"
+            },
+            "SAEX": {
+              "CURRÍCULO_AMPLIADO": "P_TECNOLOGIA_"
+            }
+          },
+          "Gestão escolar desenvolvida": {
+            "SAGR": {
+              "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+            }
+          },
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            }
           }
         }
       }
     },
     "367 - EDUCACAO ESPECIAL": {
       "2897 - Alimentação Escolar da Educação Especial": {
-        "Alimentação escolar mantida": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_INFRAESTR_"
+        "5": {
+          "Alimentação escolar mantida": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_INFRAESTR_"
+            }
           }
         }
       },
       "4178 - Infraestrutura da Educação Especial": {
-        "Gestão do patrimônio realizada": {
-          "SAAS": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
+        "5": {
+          "Gestão do patrimônio realizada": {
+            "SAAS": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            },
+            "SAIP": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            }
           },
-          "SAIP": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
-          }
-        },
-        "Tecnologia no ambiente escolar disponibilizada": {
-          "SAGE": {
-            "CURRÍCULO_AMPLIADO": "P_TECNOLOGIA_"
-          }
-        },
-        "Gestão escolar desenvolvida": {
-          "SAGR": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
-          }
-        },
-        "Infraestrutura escolar modernizada": {
-          "SAIP": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
+          "Tecnologia no ambiente escolar disponibilizada": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": "P_TECNOLOGIA_"
+            },
+            "SAEX": {
+              "CURRÍCULO_AMPLIADO": "P_TECNOLOGIA_"
+            }
+          },
+          "Gestão escolar desenvolvida": {
+            "SAGR": {
+              "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+            }
+          },
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            }
           }
         }
       },
       "4179 - Transporte Escolar da Educação Especial": {
-        "Transporte escolar mantido": {
-          "SARC": {
-            "REGIME_COLABORAÇÃO": "P_INFRAESTR_"
+        "7": {
+          "Transporte escolar mantido": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": "P_INFRAESTR_"
+            }
           }
         }
       }
     },
     "361 - ENSINO FUNDAMENTAL": {
       "2898 - Alimentação Escolar do Ensino Fundamental": {
-        "Alimentação escolar mantida": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_INFRAESTR_"
+        "2": {
+          "Alimentação escolar mantida": {
+            "SAGR": {
+              "ACESSO_E_PERM": "P_INFRAESTR_"
+            }
           }
         }
       },
       "4173 - Infraestrutura do Ensino Fundamental": {
-        "Gestão do patrimônio realizada": {
-          "SAAS": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
+        "2": {
+          "Gestão do patrimônio realizada": {
+            "SAAS": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            },
+            "SAIP": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            }
           },
-          "SAIP": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
-          }
-        },
-        "Tecnologia no ambiente escolar disponibilizada": {
-          "SAGE": {
-            "CURRÍCULO_AMPLIADO": "P_TECNOLOGIA_"
-          }
-        },
-        "Gestão escolar desenvolvida": {
-          "SAGR": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
-          }
-        },
-        "Infraestrutura escolar modernizada": {
-          "SAIP": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
+          "Tecnologia no ambiente escolar disponibilizada": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": "P_TECNOLOGIA_"
+            },
+            "SAEX": {
+              "CURRÍCULO_AMPLIADO": "P_TECNOLOGIA_"
+            }
+          },
+          "Gestão escolar desenvolvida": {
+            "SAGR": {
+              "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+            }
+          },
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            }
           }
         }
       },
       "4181 - Transporte Escolar do Ensino Fundamental": {
-        "Transporte escolar mantido": {
-          "SARC": {
-            "REGIME_COLABORAÇÃO": "P_INFRAESTR_"
+        "7": {
+          "Transporte escolar mantido": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": "P_INFRAESTR_"
+            }
           }
         }
-      },
+      },	  
       "4524 - FMTE - Ensino Fundamental": {
-        "Infraestrutura escolar modernizada": {
-          "SAIP": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
-          }
-        },
-        "Regime de colaboração desenvolvido": {
-          "SARC": {
-            "REGIME_COLABORAÇÃO": "P_GESTÃO_"
+        "9": {
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            },
+            "EPI": {
+              "EPI": "EPI"
+            }
+          },
+          "Regime de colaboração desenvolvido": {
+            "SAAS": {
+              "REGIME_COLABORAÇÃO": "P_GESTÃO_"
+            }
           }
         }
       }
     },
     "362 - ENSINO MEDIO": {
       "2899 - Alimentação Escolar do Ensino Médio": {
-        "Alimentação escolar mantida": {
-          "SAGR": {
-            "ACESSO_E_PERM": "P_INFRAESTR_"
+        "3": {
+          "Alimentação escolar mantida": {
+            "SAGR": {
+              "ACESSO_E_PERM":  "P_INFRAESTR_"
+            }
           }
         }
       },
       "4177 - Infraestrutura do Ensino Médio": {
-        "Gestão do patrimônio realizada": {
-          "SAAS": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
+        "3": {
+          "Gestão do patrimônio realizada": {
+            "SAAS": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            },
+            "SAIP": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            }
           },
-          "SAIP": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
-          }
-        },
-        "Tecnologia no ambiente escolar disponibilizada": {
-          "SAGE": {
-            "CURRÍCULO_AMPLIADO": "P_TECNOLOGIA_"
-          }
-        },
-        "Gestão escolar desenvolvida": {
-          "SAGR": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
-          }
-        },
-        "Infraestrutura escolar modernizada": {
-          "SAIP": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
+          "Tecnologia no ambiente escolar disponibilizada": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": "P_TECNOLOGIA_"
+            },
+            "SAEX": {
+              "CURRÍCULO_AMPLIADO": "P_TECNOLOGIA_"
+            }
+          },
+          "Gestão escolar desenvolvida": {
+            "SAGR": {
+              "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+            },
+            "SAGE": {
+              "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+            }
+          },
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            }
           }
         }
       },
       "4182 - Transporte Escolar do Ensino Médio": {
-        "Transporte escolar mantido": {
-          "SARC": {
-            "REGIME_COLABORAÇÃO": "P_INFRAESTR_"
+        "7": {
+          "Transporte escolar mantido": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": "P_INFRAESTR_"
+            }
           }
         }
       }
     },
     "122 - ADMINISTRAÇÃO GERAL": {
       "4180 - Infraestrutura de Administração e Gestão": {
-        "Gestão integrada desenvolvida": {
-          "GAB": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+        "6": {
+          "Gestão integrada desenvolvida": {
+            "GAB": {
+              "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+            },
+            "SAAS": {
+              "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+            },
+            "SAGE": {
+              "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+            },
+            "SAGR": {
+              "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+            }
           },
-          "SAAS": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+          "Gestão do patrimônio realizada": {
+            "SAAS": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            },
+            "SAIP": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            }
           },
-          "SAGE": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+          "Gestão escolar desenvolvida": { 
+            "SAGR": {
+              "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+            }
           },
-          "SAGR": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
-          }
-        },
-        "Gestão do patrimônio realizada": {
-          "SAAS": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
+          "Gestão estratégica de pessoas implementada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            }
           },
-          "SAIP": {
-            "INFRAESTRUTURA": "P_GESTÃO_"
-          }
-        },
-        "Gestão escolar desenvolvida": {
-          "SAEX": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+          "Valorização profissional desenvolvida": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "GAB": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SAAS": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SAEX": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SAIP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SAGE": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SAGR": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            },
+            "SAEC": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            }
           },
-          "SAGR": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
-          }
-        },
-        "Gestão estratégica de pessoas implementada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
-          }
-        },
-        "Valorização profissional desenvolvida": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
-          }
-        },
-        "Infraestrutura escolar modernizada": {
-          "SAIP": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
-          }
-        },
-        "Regime de colaboração desenvolvido": {
-          "SARC": {
-            "REGIME_COLABORAÇÃO": "P_GESTÃO_"
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            },
+            "SAAS": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            }
           }
         }
       }
     },
     "365 - EDUCACAO INFANTIL": {
       "4525 - FMTE - Educação Infantil": {
-        "Infraestrutura escolar modernizada": {
-          "SAIP": {
-            "INFRAESTRUTURA": "P_INFRAESTR_"
+        "10": {
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            },
+            "EPI": {
+              "EPI": "EPI"
+            }
           },
-          "EMD": {
-            "EMD": "EMD"
-          }
-        },
-        "Regime de colaboração desenvolvido": {
-          "SARC": {
-            "REGIME_COLABORAÇÃO": "P_GESTÃO_"
+          "Regime de colaboração desenvolvido": {
+            "SAAS": {
+              "REGIME_COLABORAÇÃO": "P_GESTÃO_"
+            }
           }
         }
       }
     }
   },
-
   "996 - Operações especiais: outras": {
     "846 - OUTROS ENCARGOS ESPECIAIS": {
       "8002 - Recolhimento do PIS-PASEP e pagamento do abono": {
-        "Produto exclusivo para ação padronizada": {
-          "SAAS": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "SAAS": {
+              "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
+            }
           }
         }
       }
     },
     "845 - OUTRAS TRANSFERÊNCIAS": {
       "8026 - Pagamento de emendas parlamentares impositivas": {
-        "Produto exclusivo para ação padronizada": {
-          "EMD": {
-            "EMD": "EMD"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "EPI": {
+              "EPI": "EPI"
+            }
           }
         }
       }
     }
   },
-
-  "996 - Operações especiais: outras": {
-    "846 - OUTROS ENCARGOS ESPECIAIS": {
-      "8002 - Recolhimento do PIS-PASEP e pagamento do abono": {
-        "Produto exclusivo para ação padronizada": {
-          "SAAS": {
-            "GESTÃO_INOVAÇÃO": "P_GESTÃO_"
-          }
-        }
-      }
-    },
-    "845 - OUTRAS TRANSFERÊNCIAS": {
-      "8026 - Pagamento de emendas parlamentares impositivas": {
-        "Produto exclusivo para ação padronizada": {
-          "EMD": {
-            "EMD": "EMD"
-          }
-        }
-      }
-    }
-  },
-
   "997 - Previdência de inativos e pensionistas do Estado": {
     "272 - PREVIDENCIA DO REGIME ESTATUTARIO": {
       "8040 - Recolhimento de encargos e obrigações previdenciárias de inativos e pensionistas do Estado de Mato Grosso": {
-        "Produto exclusivo para ação padronizada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            }
           }
         }
       }
     }
   },
-
   "998 - Operações especiais: cumprimento de sentenças judiciais": {
     "846 - OUTROS ENCARGOS ESPECIAIS": {
       "8003 - Cumprimento de sentenças judiciais transitadas em julgado - Adm. Direta": {
-        "Produto exclusivo para ação padronizada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            }
           }
         }
       }
@@ -1735,21 +1950,22 @@ function carregarPilar(programa, subfuncao, paoe, ug, produto, adj, macropolitic
     console.log("ADJ:", adj);
     console.log("Macropolítica:", macropolitica);
 
-    const produtos = pilarMap?.[programa]?.[subfuncao]?.[paoeCompleto];
-    if (!produtos) {
-      console.warn("⚠️ PAOE não encontrado em pilarMap.");
+    const produtoMap = pilarMap?.[programa]?.[subfuncao]?.[paoeCompleto]?.[ug];
+    if (!produtoMap) {
+      console.warn("⚠️ Caminho até UG não encontrado no pilarMap.");
       return;
     }
 
     let pilarEncontrado = [];
-    for (let nomeProduto in produtos) {
+
+    for (let nomeProduto in produtoMap) {
       const nomeProdutoNorm = normalizarTexto(nomeProduto);
       if (
         nomeProdutoNorm === produtoNormalizado ||
         nomeProdutoNorm.includes(produtoNormalizado) ||
         produtoNormalizado.includes(nomeProdutoNorm)
       ) {
-        const adjs = produtos[nomeProduto];
+        const adjs = produtoMap[nomeProduto];
         for (let adjChave in adjs) {
           const adjChaveNorm = normalizarTexto(adjChave);
           if (adjChaveNorm === adjNormalizado) {
@@ -1793,50 +2009,65 @@ const eixoMap = {
   "036 - Apoio administrativo": {
     "126 - TECNOLOGIA DA INFORMAÇÃO": {
       "2009 - Manutenção de ações de informática": {
-        "Produto exclusivo para ação padronizada": {
-          "SAEX": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "SAEX": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+                }
+              }
             }
           }
         }
-      }
-    },
+      },
     "122 - ADMINISTRAÇÃO GERAL": {
       "2010 - Manutenção de órgãos colegiados": {
-        "Produto exclusivo para ação padronizada": {
-          "GAB": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "GAB": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+              }
             }
           }
         }
       },
       "2284 - Manutenção do Conselho Estadual de Educação - CEE": {
-        "Conselho mantido": {
-          "GAB": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+        "1": {
+          "Conselho mantido": {
+            "GAB": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+              }
             }
           }
         }
       },
       "4491 - Pagamento de verbas indenizatórias a servidores estaduais": {
-        "Produto exclusivo para ação padronizada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": {
-              "P_VALORIZ_PRO": "E_GESTÃO_DE_PESSOAS"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_GESTÃO_DE_PESSOAS"
+              }
+            },
+            "SARC": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_GESTÃO_DE_PESSOAS"
+              }
             }
           }
         }
       }
-    },
+      },
     "131 - COMUNICACAO SOCIAL": {
       "2014 - Publicidade institucional e propaganda": {
-        "Produto exclusivo para ação padronizada": {
-          "GAB": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "GAB": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+              }
             }
           }
         }
@@ -1846,76 +2077,102 @@ const eixoMap = {
   "533 - Educação 10 Anos": {
     "366 - EDUCACAO DE JOVENS E ADULTOS": {
       "2900 - Desenvolvimento da Educação de Jovens e Adultos": {
-        "Avaliação (Avalia MT) desenvolvida": {
-          "SAGE": {
-            "AVALIAÇÃO": {
-              "P_IMPACTO_": "E_AVALIAÇÃO"
+        "4": {
+          "Avaliação (Avalia MT) desenvolvida": {
+            "SAGE": {
+              "AVALIAÇÃO": {
+                "P_IMPACTO_": "E_AVALIAÇÃO"
+              }
             }
-          }
-        },
-        "Educação para jovens e adultos (EJA) desenvolvida": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": {
-              "P_EQUIDADE_": "E_EDUC_EJA"
+          },
+          "Educação para jovens e adultos (EJA) desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": {
+                "P_EQUIDADE_": ["E_EDUC_EJA", "E_IMIGRANTES"]
+              }
             },
-            "EQUIDADE_DIVERSID": {
-              "P_EQUIDADE_": "E_EDUC_EJA"
+            "SARC": {
+              "EQUIDADE_DIVERSID": {
+                "P_EQUIDADE_": "E_EDUC_EJA"
+              }
             }
-          }
-        },
-        "Sistema estruturado de ensino implantado": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": {
-              "P_IMPACTO_": "E_SISTEMA_ESTRUT"
+          },
+          "Sistema estruturado de ensino implantado": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_IMPACTO_": "E_SISTEMA_ESTRUT"
+              }
             }
-          }
-        },
-        "Línguas estrangeiras desenvolvidas": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": {
-              "P_IMPACTO_": "E_LÍNG_ESTRANGEIRAS"
+          },
+          "Línguas estrangeiras desenvolvidas": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_IMPACTO_": "E_LÍNG_ESTRANGEIRAS"
+              }
             }
-          }
-        },
-        "Projetos pedagógicos integrados implantados": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": {
-              "P_TECNOLOGIA_": "E_PROJ_PED_INTEGRAD"
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_TECNOLOGIA_": "E_PROJ_PED_INTEGRAD"
+              }
             }
-          }
-        },
-        "Formação continuada de professores realizada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": {
-              "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
+            },
+            "SAGE": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
+            },
+            "SAGR": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
+            },
+            "SARC": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
             }
-          }
-        },
-        "Acesso e permanência desenvolvido": {
-          "SAGR": {
-            "ACESSO_E_PERM": {
-              "P_EQUIDADE_": "E_BUSCA_ATIVA"
+          },
+          "Acesso e permanência desenvolvido": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_BUSCA_ATIVA"
+              }
             }
-          }
-        },
-        "Materiais escolares disponibilizados": {
-          "SAGR": {
-            "ACESSO_E_PERM": {
-              "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+          },
+          "Materiais escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+              }
             }
-          }
-        },
-        "Uniformes escolares disponibilizados": {
-          "SAGR": {
-            "ACESSO_E_PERM": {
-              "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+          },
+          "Uniformes escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+              }
+            },
+            "SAGE": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+              }
             }
-          }
-        },
-        "Bem-estar escolar desenvolvido": {
-          "SAGR": {
-            "CULTURA_DE_PAZ": {
-              "P_EQUIDADE_": "E_CULTURA_DE_PAZ"
+          },
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": {
+              "CULTURA_DE_PAZ": {
+                "P_EQUIDADE_":
+                  ["E_BEM-ESTAR_ESCOLAR",
+                  "E_CULTURA_DE_PAZ"]
+              }
             }
           }
         }
@@ -1923,118 +2180,129 @@ const eixoMap = {
     },
     "122 - ADMINISTRAÇÃO GERAL": {
       "2936 - Desenvolvimento das Modalidades de Ensino": {
-        "Alfabetização desenvolvida": {
-          "SARC": {
-            "REGIME_COLABORAÇÃO": {
-              "P_IMPACTO_": "E_ALFABETIZAÇÃO"
-            }
-          }
-        },
-        "Avaliação (Avalia MT) desenvolvida": {
-          "SAGE": {
-            "AVALIAÇÃO": {
-              "P_IMPACTO_": "E_AVALIAÇÃO"
+        "8": {
+          "Alfabetização desenvolvida": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": {
+                "P_IMPACTO_": "E_ALFABETIZAÇÃO"
+              }
             }
           },
-          "SARC": {
-            "AVALIAÇÃO": {
-              "P_IMPACTO_": "E_AVALIAÇÃO"
+		  "Regime de colaboração desenvolvido": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": {
+                "P_GESTÃO_": "E_REGIME_COLABORAÇÃO"
+              }
             }
-          }
-        },
-        "Educação em tempo integral desenvolvida": {
-          "SAGE": {
-            "CURRÍCULO_AMPLIADO": {
-              "P_IMPACTO_": "E_ESCOLA_TEMPO_INTEG"
-            }
-          }
-        },
-        "Educação escolar do campo desenvolvida": {
-          "SAGE": {
-            "EQUIDADE_DIVERSID": {
-              "P_EQUIDADE_": "E_EDUC_CAMPO"
-            }
-          }
-        },
-        "Educação escolar indígena desenvolvida": {
-          "SAGE": {
-            "EQUIDADE_DIVERSID": {
-              "P_EQUIDADE_": "E_EDUC_INDÍGENA"
-            }
-          }
-        },
-        "Educação escolar quilombola desenvolvida": {
-          "SAGE": {
-            "EQUIDADE_DIVERSID": {
-              "P_EQUIDADE_": "E_EDUC_QUILOMBOLA"
-            }
-          }
-        },
-        "Educação especial desenvolvida": {
-          "SAGE": {
-            "EQUIDADE_DIVERSID": {
-              "P_EQUIDADE_": "E_EDUC_ESPECIAL"
-            }
-          }
-        },
-        "Educação para jovens e adultos (EJA) desenvolvida": {
-          "SAGE": {
-            "EQUIDADE_DIVERSID": {
-              "P_EQUIDADE_": "E_EDUC_EJA"
+          },  
+          "Avaliação (Avalia MT) desenvolvida": {
+            "SAGE": {
+              "AVALIAÇÃO": {
+                "P_IMPACTO_": "E_AVALIAÇÃO"
+              }
+            },
+            "SARC": {
+              "AVALIAÇÃO": {
+                "P_IMPACTO_": "E_AVALIAÇÃO"
+              }
             }
           },
-          "SARC": {
-            "EQUIDADE_DIVERSID": {
-              "P_EQUIDADE_": "E_EDUC_EJA"
+          "Educação em tempo integral desenvolvida": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_IMPACTO_": "E_ESCOLA_TEMPO_INTEG"
+              }
             }
-          }
-        },
-        "Línguas estrangeiras desenvolvidas": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": {
-              "P_IMPACTO_": "E_LÍNG_ESTRANGEIRAS"
+          },
+          "Educação escolar do campo desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": {
+                "P_EQUIDADE_": "E_EDUC_CAMPO"
+              }
             }
-          }
-        },
-        "Projetos pedagógicos integrados implantados": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": {
-              "P_TECNOLOGIA_": "E_PROJ_PED_INTEGRAD"
+          },
+          "Educação escolar indígena desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": {
+                "P_EQUIDADE_": "E_EDUC_INDÍGENA"
+              }
             }
-          }
-        },
-        "Sistema estruturado de ensino implantado": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": {
-              "P_IMPACTO_": "E_SISTEMA_ESTRUT"
+          },
+          "Educação escolar quilombola desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": {
+                "P_EQUIDADE_": "E_EDUC_QUILOMBOLA"
+              }
             }
-          }
-        },
-        "Formação continuada de professores realizada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": {
-              "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+          },
+          "Educação especial desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": {
+                "P_EQUIDADE_": "E_EDUC_ESPECIAL"
+              }
             }
-          }
-        },
-        "Acesso e permanência desenvolvido": {
-          "SAGR": {
-            "ACESSO_E_PERM": {
-              "P_EQUIDADE_": "E_BUSCA_ATIVA"
+          },
+          "Educação para jovens e adultos (EJA) desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": {
+                "P_EQUIDADE_": "E_EDUC_EJA"
+              }
+            },
+            "SARC": {
+              "EQUIDADE_DIVERSID": {
+                "P_EQUIDADE_": "E_EDUC_EJA"
+              }
             }
-          }
-        },
-        "Bem-estar escolar desenvolvido": {
-          "SAGR": {
-            "CULTURA_DE_PAZ": {
-              "P_EQUIDADE_": "E_BEM-ESTAR_ESCOLAR"
+          },
+          "Línguas estrangeiras desenvolvidas": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_IMPACTO_": "E_LÍNG_ESTRANGEIRAS"
+              }
             }
-          }
-        },
-        "Escolas militares desenvolvidas": {
-          "SARC": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_IMPACTO_": "E_ESCOLAS_MILITARES"
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_TECNOLOGIA_": "E_PROJ_PED_INTEGRAD"
+              }
+            }
+          },
+          "Sistema estruturado de ensino implantado": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_IMPACTO_": "E_SISTEMA_ESTRUT"
+              }
+            }
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
+            }
+          },
+          "Acesso e permanência desenvolvido": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_BUSCA_ATIVA"
+              }
+            }
+          },
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": {
+              "CULTURA_DE_PAZ": {
+                "P_EQUIDADE_": [
+                  "E_BEM-ESTAR_ESCOLAR",
+                  "E_CULTURA_DE_PAZ"]
+              }
+            }
+          },
+          "Escolas militares desenvolvidas": {
+            "SAEX": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_IMPACTO_": "E_ESCOLAS_MILITARES"
+              }
             }
           }
         }
@@ -2042,382 +2310,457 @@ const eixoMap = {
     },
     "367 - EDUCACAO ESPECIAL": {
       "2957 - Desenvolvimento da Educação Especial": {
-        "Alfabetização desenvolvida": {
-          "SARC": {
-            "EQUIDADE_DIVERSID": {
-              "P_IMPACTO_": "E_EDUC_ESPECIAL"
+        "5": {
+          "Alfabetização desenvolvida": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": {
+                "P_IMPACTO_": "E_ALFABETIZAÇÃO"
+              }
             }
-          }
-        },
-        "Avaliação (Avalia MT) desenvolvida": {
-          "SAGE": {
-            "AVALIAÇÃO": {
-              "P_IMPACTO_": "E_AVALIAÇÃO"
+          },
+          "Avaliação (Avalia MT) desenvolvida": {
+            "SAGE": {
+              "AVALIAÇÃO": {
+                "P_IMPACTO_": "E_AVALIAÇÃO"
+              }
             }
-          }
-        },
-        "Educação especial desenvolvida": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": {
-              "P_EQUIDADE_": "E_ENSINO_FUNDAMENTAL"
+          },
+          "Educação especial desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": {
+                "P_EQUIDADE_": ["E_EDUC_ESPECIAL", "E_DISTÚRB_APRENDIZ",  "E_ALTAS_HABILIDADES"]
+              }
+            }
+          },
+          "Línguas estrangeiras desenvolvidas": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_IMPACTO_": "E_LÍNG_ESTRANGEIRAS"
+              }
+            }
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_TECNOLOGIA_": "E_PROJ_PED_INTEGRAD"
+              }
+            }
+          },
+          "Sistema estruturado de ensino implantado": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_IMPACTO_": "E_SISTEMA_ESTRUT"
+              }
+            }
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
             },
-            "EQUIDADE_DIVERSID": {
-              "P_EQUIDADE_": "E_EDUC_ESPECIAL"
+            "SAGE": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
+            },
+            "SAGR": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
+            },
+            "SARC": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
             }
-          }
-        },
-        "Línguas estrangeiras desenvolvidas": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": {
-              "P_IMPACTO_": "E_LÍNG_ESTRANGEIRAS"
+          },
+          "Acesso e permanência desenvolvido": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_BUSCA_ATIVA"
+              }
             }
-          }
-        },
-        "Projetos pedagógicos integrados implantados": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": {
-              "P_TECNOLOGIA_": "E_PROJ_PED_INTEGRAD"
+          },
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": {
+              "CULTURA_DE_PAZ": {
+                "P_EQUIDADE_": [
+                  "E_BEM-ESTAR_ESCOLAR",
+                  "E_CULTURA_DE_PAZ"]
+              }
             }
-          }
-        },
-        "Sistema estruturado de ensino implantado": {
-          "SAGE": {
-            "DESENV_EDUCACIONAL": {
-              "P_IMPACTO_": "E_SISTEMA_ESTRUT"
+          },
+          "Materiais escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+              }
             }
-          }
-        },
-        "Formação continuada de professores realizada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": {
-              "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
-            }
-          }
-        },
-        "Acesso e permanência desenvolvido": {
-          "SAGR": {
-            "ACESSO_E_PERM": {
-              "P_EQUIDADE_": "E_BUSCA_ATIVA"
-            }
-          }
-        },
-        "Bem-estar escolar desenvolvido": {
-          "SAGR": {
-            "CULTURA_DE_PAZ": {
-              "P_EQUIDADE_": "E_BEM-ESTAR_ESCOLAR"
-            }
-          }
-        },
-        "Materiais escolares disponibilizados": {
-          "SAGR": {
-            "ACESSO_E_PERM": {
-              "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
-            }
-          }
-        },
-        "Uniformes escolares disponibilizados": {
-          "SAGR": {
-            "ACESSO_E_PERM": {
-              "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+          },
+          "Uniformes escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+              }
+            },
+            "SARC": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+              }
             }
           }
         }
       }
     },
-  "361 - ENSINO FUNDAMENTAL": {
-    "4172 - Desenvolvimento do Ensino Fundamental": {
-      "Alfabetização desenvolvida": {
-        "SARC": {
-          "DESENV_EDUCACIONAL": {
-            "P_IMPACTO_": "E_ENSINO_FUNDAMENTAL"
-          }
-        }
-      },
-      "Avaliação (Avalia MT) desenvolvida": {
-        "SAGE": {
-          "AVALIAÇÃO": {
-            "P_IMPACTO_": "E_AVALIAÇÃO"
-          }
-        }
-      },
-      "Educação em tempo integral desenvolvida": {
-        "SAGE": {
-          "DESENV_EDUCACIONAL": {
-            "P_IMPACTO_": "E_ESCOLA_TEMPO_INTEG"
-          }
-        }
-      },
-      "Educação escolar do campo desenvolvida": {
-        "SAGE": {
-          "EQUIDADE_DIVERSID": {
-            "P_EQUIDADE_": "E_EDUC_CAMPO"
+    "361 - ENSINO FUNDAMENTAL": {
+      "4172 - Desenvolvimento do Ensino Fundamental": {
+        "2": {
+          "Alfabetização desenvolvida": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": {
+                "P_IMPACTO_": "E_ALFABETIZAÇÃO"
+              }
+            }
           },
-          "DESENV_EDUCACIONAL": {
-            "P_EQUIDADE_": "E_ENSINO_FUNDAMENTAL"
-          }
-        }
-      },
-      "Educação escolar indígena desenvolvida": {
-        "SAGE": {
-          "EQUIDADE_DIVERSID": {
-            "P_EQUIDADE_": "E_EDUC_INDÍGENA"
+          "Avaliação (Avalia MT) desenvolvida": {
+            "SAGE": {
+              "AVALIAÇÃO": {
+                "P_IMPACTO_": "E_AVALIAÇÃO"
+              }
+            }
           },
-          "DESENV_EDUCACIONAL": {
-            "P_EQUIDADE_": "E_ENSINO_FUNDAMENTAL"
-          }
-        }
-      },
-      "Educação escolar quilombola desenvolvida": {
-        "SAGE": {
-          "EQUIDADE_DIVERSID": {
-            "P_EQUIDADE_": "E_EDUC_QUILOMBOLA"
+          "Educação em tempo integral desenvolvida": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_IMPACTO_": "E_ESCOLA_TEMPO_INTEG"
+              }
+            }
           },
-          "DESENV_EDUCACIONAL": {
-            "P_EQUIDADE_": "E_ENSINO_FUNDAMENTAL"
+          "Educação escolar do campo desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": {
+                "P_EQUIDADE_": "E_EDUC_CAMPO"
+              }
+            }
+          },
+          "Educação escolar indígena desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": {
+                "P_EQUIDADE_": "E_EDUC_INDÍGENA"
+              }
+            }
+          },
+          "Educação escolar quilombola desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": {
+                "P_EQUIDADE_": "E_EDUC_QUILOMBOLA"
+              }
+            }
+          },
+          "Línguas estrangeiras desenvolvidas": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_IMPACTO_": "E_LÍNG_ESTRANGEIRAS"
+              }
+            }
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_TECNOLOGIA_": "E_PROJ_PED_INTEGRAD",
+                "P_IMPACTO_": "E_ENSINO_FUNDAMENTAL"
+			        }
+            }
+          },
+          "Sistema estruturado de ensino implantado": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_IMPACTO_": "E_SISTEMA_ESTRUT"
+              }
+            }
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
+            },
+            "SAGE": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
+            },
+            "SAGR": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
+            },
+            "SARC": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
+            }
+          },
+          "Remuneração professores e profissionais da educação com recursos do MDE, Art 70 Lei 9394/1996": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
+              }
+            }
+          },
+          "Remuneração professores e profissionais da educação, FUNDEB 30%, Arts 26-A, 14.113/20 e 70, 9394/96": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
+              }
+            }
+          },
+          "Remuneração professores e profissionais da educação, FUNDEB 70%, Art 26, § 1º, II, Lei 14.113/20": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
+              }
+            }
+          },
+          "Acesso e permanência desenvolvido": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_BUSCA_ATIVA"
+              }
+            }
+          },
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": {
+              "CULTURA_DE_PAZ": {
+                "P_EQUIDADE_": [
+                  "E_BEM-ESTAR_ESCOLAR",
+                  "E_CULTURA_DE_PAZ"]
+              }
+            }
+          },
+          "Escolas militares desenvolvidas": {
+            "SAEX": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_IMPACTO_": "E_ESCOLAS_MILITARES"
+              }
+            }
+          },
+          "Materiais escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+              }
+            }
+          },
+          "Uniformes escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+              }
+            },
+            "SARC": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+              }
+            }
           }
         }
-      },
-      "Línguas estrangeiras desenvolvidas": {
-        "SAGE": {
-          "DESENV_EDUCACIONAL": {
-            "P_IMPACTO_": "E_LÍNG_ESTRANGEIRAS"
-          }
-        }
-      },
-      "Projetos pedagógicos integrados implantados": {
-        "SAGE": {
-          "DESENV_EDUCACIONAL": {
-            "P_TECNOLOGIA_": "E_PROJ_PED_INTEGRAD"
-          }
-        }
-      },
-      "Sistema estruturado de ensino implantado": {
-        "SAGE": {
-          "DESENV_EDUCACIONAL": {
-            "P_IMPACTO_": "E_SISTEMA_ESTRUT"
-          }
-        }
-      },
-      "Formação continuada de professores realizada": {
-        "SAGP": {
-          "VALORIZAÇÃO_PRO": {
-            "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
-          }
-        }
-      },
-      "Remuneração professores e profissionais da educação com recursos do MDE, Art 70 Lei 9394/1996": {
-        "SAGP": {
-          "VALORIZAÇÃO_PRO": {
-            "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
-          }
-        }
-      },
-      "Remuneração professores e profissionais da educação, FUNDEB 30%, Arts 26-A, 14.113/20 e 70, 9394/96": {
-        "SAGP": {
-          "VALORIZAÇÃO_PRO": {
-            "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
-          }
-        }
-      },
-      "Remuneração professores e profissionais da educação, FUNDEB 70%, Art 26, § 1º, II, Lei 14.113/20": {
-        "SAGP": {
-          "VALORIZAÇÃO_PRO": {
-            "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
-          }
-        }
-      },
-      "Acesso e permanência desenvolvido": {
-        "SAGR": {
-          "ACESSO_E_PERM": {
-            "P_EQUIDADE_": "E_BUSCA_ATIVA"
-          }
-        }
-      },
-      "Bem-estar escolar desenvolvido": {
-        "SAGR": {
-          "CULTURA_DE_PAZ": {
-            "P_EQUIDADE_": "E_BEM-ESTAR_ESCOLAR"
-          }
-        }
-      },
-      "Escolas militares desenvolvidas": {
-        "SARC": {
-          "DESENV_EDUCACIONAL": {
-            "P_IMPACTO_": "E_ESCOLAS_MILITARES"
-          }
-        }
-      },
-      "Materiais escolares disponibilizados": {
-        "SAGR": {
-          "ACESSO_E_PERM": {
-            "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
-          }
-        }
-      },
-      "Uniformes escolares disponibilizados": {
-        "SAGR": {
-          "ACESSO_E_PERM": {
-            "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+      }
+    },
+    "362 - ENSINO MEDIO": {
+      "4174 - Desenvolvimento do Ensino Médio": {
+        "3": {
+          "Avaliação (Avalia MT) desenvolvida": {
+            "SAGE": {
+              "AVALIAÇÃO": {
+                "P_IMPACTO_": "E_AVALIAÇÃO"
+              }
+            }
+          },
+          "Educação em tempo integral desenvolvida": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_IMPACTO_": "E_ESCOLA_TEMPO_INTEG"
+              }
+            }
+          },
+          "Educação escolar do campo desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": {
+                "P_EQUIDADE_": "E_EDUC_CAMPO"
+              }
+            }
+          },
+          "Educação escolar indígena desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": {
+                "P_EQUIDADE_": "E_EDUC_INDÍGENA"
+              }
+            }
+          },
+          "Educação escolar quilombola desenvolvida": {
+            "SAGE": {
+              "EQUIDADE_DIVERSID": {
+                "P_EQUIDADE_": "E_EDUC_QUILOMBOLA"
+              }
+            }
+          },
+          "Línguas estrangeiras desenvolvidas": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_IMPACTO_": "E_LÍNG_ESTRANGEIRAS"
+              }
+            }
+          },
+          "Novo ensino médio e ensino técnico profissionalizante desenvolvido": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_IMPACTO_": "E_EDUC_PROF_TEC"
+              },
+              "DESENV_EDUCACIONAL": {
+                "P_IMPACTO_": "E_ENSINO_MÉDIO"
+              }
+            }
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_TECNOLOGIA_": "E_PROJ_PED_INTEGRAD"
+              }
+            }
+          },
+          "Sistema estruturado de ensino implantado": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_IMPACTO_": "E_SISTEMA_ESTRUT"
+              }
+            }
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
+            },
+            "SAGE": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
+            },
+            "SAGR": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
+            },
+            "SARC": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
+            }
+          },
+          "Acesso e permanência desenvolvido": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_BUSCA_ATIVA"
+              }
+            }
+          },
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": {
+              "CULTURA_DE_PAZ": {
+                "P_EQUIDADE_": [
+                  "E_BEM-ESTAR_ESCOLAR",
+                  "E_CULTURA_DE_PAZ"]
+              }
+            }
+          },
+          "Escolas militares desenvolvidas": {
+            "SAEX": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_IMPACTO_": "E_ESCOLAS_MILITARES"
+              }
+            }
+          },
+          "Materiais escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+              }
+            }
+          },
+          "Uniformes escolares disponibilizados": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+              }
+            },
+            "SARC": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+              }
+            }
           }
         }
       }
     }
   },
-  "362 - ENSINO MEDIO": {
-    "4174 - Desenvolvimento do Ensino Médio": {
-      "Avaliação (Avalia MT) desenvolvida": {
-        "SAGE": {
-          "AVALIAÇÃO": {
-            "P_IMPACTO_": "E_AVALIAÇÃO"
-          }
-        }
-      },
-      "Educação em tempo integral desenvolvida": {
-        "SAGE": {
-          "DESENV_EDUCACIONAL": {
-            "P_IMPACTO_": "E_ESCOLA_TEMPO_INTEG"
-          }
-        }
-      },
-      "Educação escolar do campo desenvolvida": {
-        "SAGE": {
-          "DESENV_EDUCACIONAL": {
-            "P_EQUIDADE_": "P_EQUIDADE_"
-          }
-        }
-      },
-      "Educação escolar indígena desenvolvida": {
-        "SAGE": {
-          "DESENV_EDUCACIONAL": {
-            "P_EQUIDADE_": "E_EDUC_INDÍGENA"
-          }
-        }
-      },
-      "Educação escolar quilombola desenvolvida": {
-        "SAGE": {
-          "DESENV_EDUCACIONAL": {
-            "P_EQUIDADE_": "E_EDUC_QUILOMBOLA"
-          }
-        }
-      },
-      "Línguas estrangeiras desenvolvidas": {
-        "SAGE": {
-          "DESENV_EDUCACIONAL": {
-            "P_IMPACTO_": "E_LÍNG_ESTRANGEIRAS"
-          }
-        }
-      },
-      "Novo ensino médio e ensino técnico profissionalizante desenvolvido": {
-        "SAGE": {
-          "CURRÍCULO_AMPLIADO": {
-            "P_IMPACTO_": "E_EDUC_PROF_TEC"
-          },
-          "DESENV_EDUCACIONAL": {
-            "P_IMPACTO_": "E_ENSINO_MÉDIO"
-          }
-        }
-      },
-      "Projetos pedagógicos integrados implantados": {
-        "SAGE": {
-          "DESENV_EDUCACIONAL": {
-            "P_TECNOLOGIA_": "E_PROJ_PED_INTEGRAD"
-          }
-        }
-      },
-      "Sistema estruturado de ensino implantado": {
-        "SAGE": {
-          "DESENV_EDUCACIONAL": {
-            "P_IMPACTO_": "E_SISTEMA_ESTRUT"
-          }
-        }
-      },
-      "Formação continuada de professores realizada": {
-        "SAGP": {
-          "VALORIZAÇÃO_PRO": {
-            "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
-          }
-        }
-      },
-      "Acesso e permanência desenvolvido": {
-        "SAGR": {
-          "ACESSO_E_PERM": {
-            "P_EQUIDADE_": "E_BUSCA_ATIVA"
-          }
-        }
-      },
-      "Bem-estar escolar desenvolvido": {
-        "SAGR": {
-          "CULTURA_DE_PAZ": {
-            "P_EQUIDADE_": "E_BEM-ESTAR_ESCOLAR"
-          }
-        }
-      },
-      "Escolas militares desenvolvidas": {
-        "SARC": {
-          "DESENV_EDUCACIONAL": {
-            "P_IMPACTO_": "E_ESCOLAS_MILITARES"
-          }
-        }
-      },
-      "Materiais escolares disponibilizados": {
-        "SAGR": {
-          "ACESSO_E_PERM": {
-            "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
-          }
-        }
-      },
-      "Uniformes escolares disponibilizados": {
-        "SAGR": {
-          "ACESSO_E_PERM": {
-            "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
-          }
-        }
-      }
-    }
-  },
-},
   "534 - Infraestrutura Educacional": {
     "366 - EDUCACAO DE JOVENS E ADULTOS": {
       "2895 - Alimentação Escolar da Educação de Jovens e Adultos": {
-        "Alimentação escolar mantida": {
-          "SAGR": {
-            "ACESSO_E_PERM": {
-              "P_INFRAESTR_": "E_ALIMENTAÇÃO_"
+        "4": {
+          "Alimentação escolar mantida": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_INFRAESTR_": "E_ALIMENTAÇÃO_"
+              }
+            },
+            "SARC": {
+              "ACESSO_E_PERM": {
+                "P_INFRAESTR_": "E_ALIMENTAÇÃO_"
+              }
             }
           }
         }
       },
       "4175 - Infraestrutura da Educação de Jovens e Adultos": {
-        "Gestão do patrimônio realizada": {
-          "SAAS": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+        "4": {
+          "Gestão do patrimônio realizada": {
+            "SAAS": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+              }
+            },
+            "SAIP": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+              }
             }
           },
-          "SAIP": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+          "Tecnologia no ambiente escolar disponibilizada": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_TECNOLOGIA_": "E_TECNOL_AMB_ESCOLAR"
+              }
+            },
+            "SAEX": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_TECNOLOGIA_": "E_TECNOL_AMB_ESCOLAR"
+              }
             }
-          }
-        },
-        "Tecnologia no ambiente escolar disponibilizada": {
-          "SAGE": {
-            "CURRÍCULO_AMPLIADO": {
-              "P_TECNOLOGIA_": "E_TECNOL_AMB_ESCOLAR"
+          },
+          "Gestão escolar desenvolvida": {
+            "SAGR": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": "E_GESTÃO_ESCOLAR"
+              }
             }
-          }
-        },
-        "Gestão escolar desenvolvida": {
-          "SAGR": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_GESTÃO_": "E_GESTÃO_ESCOLAR"
-            }
-          }
-        },
-        "Infraestrutura escolar modernizada": {
-          "SAIP": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+          },
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+              }
             }
           }
         }
@@ -2425,54 +2768,65 @@ const eixoMap = {
     },
     "367 - EDUCACAO ESPECIAL": {
       "2897 - Alimentação Escolar da Educação Especial": {
-        "Alimentação escolar mantida": {
-          "SAGR": {
-            "ACESSO_E_PERM": {
-              "P_INFRAESTR_": "E_ALIMENTAÇÃO_"
+        "5": {
+          "Alimentação escolar mantida": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_INFRAESTR_": "E_ALIMENTAÇÃO_"
+              }
             }
           }
         }
       },
       "4178 - Infraestrutura da Educação Especial": {
-        "Gestão do patrimônio realizada": {
-          "SAAS": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+        "5": {
+          "Gestão do patrimônio realizada": {
+            "SAAS": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+              }
+            },
+            "SAIP": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+              }
             }
           },
-          "SAIP": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+          "Tecnologia no ambiente escolar disponibilizada": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_TECNOLOGIA_": "E_TECNOL_AMB_ESCOLAR"
+              }
+            },
+            "SAEX": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_TECNOLOGIA_": "E_TECNOL_AMB_ESCOLAR"
+              }
             }
-          }
-        },
-        "Tecnologia no ambiente escolar disponibilizada": {
-          "SAGE": {
-            "CURRÍCULO_AMPLIADO": {
-              "P_TECNOLOGIA_": "E_TECNOL_AMB_ESCOLAR"
+          },
+          "Gestão escolar desenvolvida": {
+            "SAGR": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": "E_GESTÃO_ESCOLAR"
+              }
             }
-          }
-        },
-        "Gestão escolar desenvolvida": {
-          "SAGR": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_GESTÃO_": "E_GESTÃO_ESCOLAR"
-            }
-          }
-        },
-        "Infraestrutura escolar modernizada": {
-          "SAIP": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+          },
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+              }
             }
           }
         }
       },
       "4179 - Transporte Escolar da Educação Especial": {
-        "Transporte escolar mantido": {
-          "SARC": {
-            "REGIME_COLABORAÇÃO": {
-              "P_INFRAESTR_": "E_TRANSPORTE_ESCOLAR"
+        "7": {
+          "Transporte escolar mantido": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": {
+                "P_INFRAESTR_": "E_TRANSPORTE_ESCOLAR"
+              }
             }
           }
         }
@@ -2480,70 +2834,88 @@ const eixoMap = {
     },
     "361 - ENSINO FUNDAMENTAL": {
       "2898 - Alimentação Escolar do Ensino Fundamental": {
-        "Alimentação escolar mantida": {
-          "SAGR": {
-            "ACESSO_E_PERM": {
-              "P_INFRAESTR_": "E_ALIMENTAÇÃO_"
+        "2": {
+          "Alimentação escolar mantida": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_INFRAESTR_": "E_ALIMENTAÇÃO_"
+              }
             }
           }
         }
       },
       "4173 - Infraestrutura do Ensino Fundamental": {
-        "Gestão do patrimônio realizada": {
-          "SAAS": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+        "2": {
+          "Gestão do patrimônio realizada": {
+            "SAAS": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+              }
+            },
+            "SAIP": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+              }
             }
           },
-          "SAIP": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+          "Tecnologia no ambiente escolar disponibilizada": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_TECNOLOGIA_": "E_TECNOL_AMB_ESCOLAR"
+              }
+            },
+            "SAEX": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_TECNOLOGIA_": "E_TECNOL_AMB_ESCOLAR"
+              }
             }
-          }
-        },
-        "Tecnologia no ambiente escolar disponibilizada": {
-          "SAGE": {
-            "CURRÍCULO_AMPLIADO": {
-              "P_TECNOLOGIA_": "E_TECNOL_AMB_ESCOLAR"
+          },
+          "Gestão escolar desenvolvida": {
+            "SAGR": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": "E_GESTÃO_ESCOLAR"
+              }
             }
-          }
-        },
-        "Gestão escolar desenvolvida": {
-          "SAGR": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_GESTÃO_": "E_GESTÃO_ESCOLAR"
-            }
-          }
-        },
-        "Infraestrutura escolar modernizada": {
-          "SAIP": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+          },
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+              }
             }
           }
         }
       },
       "4181 - Transporte Escolar do Ensino Fundamental": {
-        "Transporte escolar mantido": {
-          "SARC": {
-            "REGIME_COLABORAÇÃO": {
-              "P_INFRAESTR_": "E_TRANSPORTE_ESCOLAR"
+        "7": {
+          "Transporte escolar mantido": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": {
+                "P_INFRAESTR_": "E_TRANSPORTE_ESCOLAR"
+              }
             }
           }
         }
-      },
+      },	  
       "4524 - FMTE - Ensino Fundamental": {
-        "Infraestrutura escolar modernizada": {
-          "SAIP": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+        "9": {
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+              }
+            },
+            "EPI": {
+              "EPI": {
+                "EPI": "EPI"
+              }
             }
-          }
-        },
-        "Regime de colaboração desenvolvido": {
-          "SARC": {
-            "REGIME_COLABORAÇÃO": {
-              "P_GESTÃO_": "E_INFRAESTRUTURA_ESC"
+          },
+          "Regime de colaboração desenvolvido": {
+            "SAAS": {
+              "REGIME_COLABORAÇÃO": {
+                "P_GESTÃO_": "E_REGIME_COLABORAÇÃO"
+              }
             }
           }
         }
@@ -2551,54 +2923,70 @@ const eixoMap = {
     },
     "362 - ENSINO MEDIO": {
       "2899 - Alimentação Escolar do Ensino Médio": {
-        "Alimentação escolar mantida": {
-          "SAGR": {
-            "ACESSO_E_PERM": {
-              "P_INFRAESTR_": "E_ALIMENTAÇÃO_"
+        "3": {
+          "Alimentação escolar mantida": {
+            "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_INFRAESTR_": "E_ALIMENTAÇÃO_"
+              }
             }
           }
         }
       },
       "4177 - Infraestrutura do Ensino Médio": {
-        "Gestão do patrimônio realizada": {
-          "SAAS": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+        "3": {
+          "Gestão do patrimônio realizada": {
+            "SAAS": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+              }
+            },
+            "SAIP": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+              }
             }
           },
-          "SAIP": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+          "Tecnologia no ambiente escolar disponibilizada": {
+            "SAGE": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_TECNOLOGIA_": "E_TECNOL_AMB_ESCOLAR"
+              }
+            },
+            "SAEX": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_TECNOLOGIA_": "E_TECNOL_AMB_ESCOLAR"
+              }
             }
-          }
-        },
-        "Tecnologia no ambiente escolar disponibilizada": {
-          "SAGE": {
-            "CURRÍCULO_AMPLIADO": {
-              "P_TECNOLOGIA_": "E_TECNOL_AMB_ESCOLAR"
+          },
+          "Gestão escolar desenvolvida": {
+            "SAGR": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": "E_GESTÃO_ESCOLAR"
+              }
+            },
+            "SAGE": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": "E_GESTÃO_ESCOLAR"
+              }
             }
-          }
-        },
-        "Gestão escolar desenvolvida": {
-          "SAGR": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_GESTÃO_": "E_GESTÃO_ESCOLAR"
-            }
-          }
-        },
-        "Infraestrutura escolar modernizada": {
-          "SAIP": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+          },
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+              }
             }
           }
         }
       },
       "4182 - Transporte Escolar do Ensino Médio": {
-        "Transporte escolar mantido": {
-          "SARC": {
-            "REGIME_COLABORAÇÃO": {
-              "P_INFRAESTR_": "E_TRANSPORTE_ESCOLAR"
+        "7": {
+          "Transporte escolar mantido": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": {
+                "P_INFRAESTR_": "E_TRANSPORTE_ESCOLAR"
+              }
             }
           }
         }
@@ -2606,77 +2994,107 @@ const eixoMap = {
     },
     "122 - ADMINISTRAÇÃO GERAL": {
       "4180 - Infraestrutura de Administração e Gestão": {
-        "Gestão integrada desenvolvida": {
-          "GAB": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+        "6": {
+          "Gestão integrada desenvolvida": {
+            "GAB": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+              }
+            },
+            "SAAS": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+              }
+            },
+            "SAGE": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+              }
+            },
+            "SAGR": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+              }
             }
           },
-          "SAAS": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+          "Gestão do patrimônio realizada": {
+            "SAAS": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+              }
+            },
+            "SAIP": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+              }
             }
           },
-          "SAGE": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+          "Gestão escolar desenvolvida": { 
+            "SAGR": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": "E_GESTÃO_ESCOLAR"
+              }
             }
           },
-          "SAGR": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
-            }
-          }
-        },
-        "Gestão do patrimônio realizada": {
-          "SAAS": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_GESTÃO_DO_PATRIM"
+          "Gestão estratégica de pessoas implementada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_GESTÃO_DE_PESSOAS"
+              }
             }
           },
-          "SAIP": {
-            "INFRAESTRUTURA": {
-              "P_GESTÃO_": "E_GESTÃO_DO_PATRIM"
-            }
-          }
-        },
-        "Gestão escolar desenvolvida": {
-          "SAEX": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+          "Valorização profissional desenvolvida": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
+              }
+            },
+            "GAB": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
+              }
+            },
+            "SAAS": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
+              }
+            },
+            "SAEX": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
+              }
+            },
+            "SAIP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
+              }
+            },
+            "SAGE": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
+              }
+            },
+            "SAGR": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
+              }
+            },
+            "SAEC": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
+              }
             }
           },
-          "SAGR": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_GESTÃO_": "E_GESTÃO_ESCOLAR"
-            }
-          }
-        },
-        "Gestão estratégica de pessoas implementada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": {
-              "P_VALORIZ_PRO": "E_GESTÃO_DE_PESSOAS"
-            }
-          }
-        },
-        "Valorização profissional desenvolvida": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": {
-              "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
-            }
-          }
-        },
-        "Infraestrutura escolar modernizada": {
-          "SAIP": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
-            }
-          }
-        },
-        "Regime de colaboração desenvolvido": {
-          "SARC": {
-            "REGIME_COLABORAÇÃO": {
-              "P_GESTÃO_": "E_REGIME_COLABORAÇÃO"
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+              }
+            },
+            "SAAS": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+              }
             }
           }
         }
@@ -2684,22 +3102,24 @@ const eixoMap = {
     },
     "365 - EDUCACAO INFANTIL": {
       "4525 - FMTE - Educação Infantil": {
-        "Infraestrutura escolar modernizada": {
-          "SAIP": {
-            "INFRAESTRUTURA": {
-              "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+        "10": {
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+              }
+            },
+            "EPI": {
+              "EPI": {
+                "EPI": "EPI"
+              }
             }
           },
-          "EMD": {
-            "EMD": {
-              "EMD": "EMD"
-            }
-          }
-        },
-        "Regime de colaboração desenvolvido": {
-          "SARC": {
-            "REGIME_COLABORAÇÃO": {
-              "P_GESTÃO_": "E_REGIME_COLABORAÇÃO"
+          "Regime de colaboração desenvolvido": {
+            "SAAS": {
+              "REGIME_COLABORAÇÃO": {
+                "P_GESTÃO_": "E_REGIME_COLABORAÇÃO"
+              }
             }
           }
         }
@@ -2709,10 +3129,12 @@ const eixoMap = {
   "996 - Operações especiais: outras": {
     "846 - OUTROS ENCARGOS ESPECIAIS": {
       "8002 - Recolhimento do PIS-PASEP e pagamento do abono": {
-        "Produto exclusivo para ação padronizada": {
-          "SAAS": {
-            "GESTÃO_INOVAÇÃO": {
-              "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "SAAS": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": "E_GESTÃO_INTEGRADA"
+              }
             }
           }
         }
@@ -2720,10 +3142,12 @@ const eixoMap = {
     },
     "845 - OUTRAS TRANSFERÊNCIAS": {
       "8026 - Pagamento de emendas parlamentares impositivas": {
-        "Produto exclusivo para ação padronizada": {
-          "EMD": {
-            "EMD": {
-              "EMD": "EMD"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "EPI": {
+              "EPI": {
+                "EPI": "EPI"
+              }
             }
           }
         }
@@ -2733,10 +3157,12 @@ const eixoMap = {
   "997 - Previdência de inativos e pensionistas do Estado": {
     "272 - PREVIDENCIA DO REGIME ESTATUTARIO": {
       "8040 - Recolhimento de encargos e obrigações previdenciárias de inativos e pensionistas do Estado de Mato Grosso": {
-        "Produto exclusivo para ação padronizada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": {
-              "P_VALORIZ_PRO": "E_GESTÃO_DE_PESSOAS"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_GESTÃO_DE_PESSOAS"
+              }
             }
           }
         }
@@ -2746,10 +3172,12 @@ const eixoMap = {
   "998 - Operações especiais: cumprimento de sentenças judiciais": {
     "846 - OUTROS ENCARGOS ESPECIAIS": {
       "8003 - Cumprimento de sentenças judiciais transitadas em julgado - Adm. Direta": {
-        "Produto exclusivo para ação padronizada": {
-          "SAGP": {
-            "VALORIZAÇÃO_PRO": {
-              "P_VALORIZ_PRO": "E_GESTÃO_DE_PESSOAS"
+        "1": {
+          "Produto exclusivo para ação padronizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_GESTÃO_DE_PESSOAS"
+              }
             }
           }
         }
@@ -2764,64 +3192,55 @@ function carregarEixo(programa, subfuncao, paoe, ug, produto, adj, macropolitica
 
   select.innerHTML = '<option value="">Selecione</option>';
 
-  // ✅ Validação extra para evitar erro de .normalize em não-strings
-  const campos = { programa, subfuncao, paoe, ug, produto, adj, macropolitica, pilar };
-  for (let [chave, valor] of Object.entries(campos)) {
-    if (typeof valor !== 'string') {
-      console.warn(`⚠️ O campo '${chave}' recebido não é string:`, valor);
-      return;
-    }
-  }
-
   try {
-    const paoeCodigo = paoe.trim(); // ✅ usa PAOE completo como no eixoMap
-    const produtoNorm = normalizarTexto(produto);
-    const adjNorm = normalizarTexto(adj);
-    const macroNorm = normalizarTexto(macropolitica);
-    const pilarNorm = normalizarTexto(pilar);
+    const paoeCompleto = paoe.trim();
+    const produtoNormalizado = normalizarTexto(produto);
+    const adjNormalizado = normalizarTexto(adj);
+    const macroNormalizado = normalizarTexto(macropolitica);
+    const pilarNormalizado = normalizarTexto(pilar);
 
     console.log("📦 Dados recebidos para carregar EIXO:");
     console.log("Programa:", programa);
     console.log("Subfunção:", subfuncao);
-    console.log("PAOE:", paoeCodigo);
+    console.log("PAOE:", paoeCompleto);
     console.log("UG:", ug);
     console.log("Produto:", produto);
     console.log("ADJ:", adj);
     console.log("Macropolítica:", macropolitica);
     console.log("Pilar:", pilar);
 
-    const produtos = eixoMap?.[programa]?.[subfuncao]?.[paoeCodigo];
-    if (!produtos) {
-      console.warn("⚠️ PAOE não encontrado no eixoMap.");
+    const produtoMap = eixoMap?.[programa]?.[subfuncao]?.[paoeCompleto]?.[ug];
+    if (!produtoMap) {
+      console.warn("⚠️ Caminho até UG não encontrado no eixoMap.");
       return;
     }
 
     let eixoEncontrado = [];
 
-    for (let nomeProduto in produtos) {
+    for (let nomeProduto in produtoMap) {
       const nomeProdutoNorm = normalizarTexto(nomeProduto);
       if (
-        nomeProdutoNorm === produtoNorm ||
-        nomeProdutoNorm.includes(produtoNorm) ||
-        produtoNorm.includes(nomeProdutoNorm)
+        nomeProdutoNorm === produtoNormalizado ||
+        nomeProdutoNorm.includes(produtoNormalizado) ||
+        produtoNormalizado.includes(nomeProdutoNorm)
       ) {
-        const adjs = produtos[nomeProduto];
+        const adjs = produtoMap[nomeProduto];
         for (let adjChave in adjs) {
-          const adjNormChave = normalizarTexto(adjChave);
-          if (adjNormChave === adjNorm) {
-            const macros = adjs[adjChave];
-            for (let macroChave in macros) {
-              const macroNormChave = normalizarTexto(macroChave);
-              if (macroNormChave === macroNorm) {
-                const pilares = macros[macroChave];
-                for (let pilarChave in pilares) {
-                  const pilarNormChave = normalizarTexto(pilarChave);
-                  if (pilarNormChave === pilarNorm) {
-                    const eixo = pilares[pilarChave];
-                    if (Array.isArray(eixo)) {
-                      eixoEncontrado.push(...eixo);
-                    } else if (typeof eixo === "string") {
-                      eixoEncontrado.push(eixo);
+          const adjNorm = normalizarTexto(adjChave);
+          if (adjNorm === adjNormalizado) {
+            const macroMap = adjs[adjChave];
+            for (let macroChave in macroMap) {
+              const macroNorm = normalizarTexto(macroChave);
+              if (macroNorm === macroNormalizado) {
+                const pilarMap = macroMap[macroChave];
+                for (let pilarChave in pilarMap) {
+                  const pilarNorm = normalizarTexto(pilarChave);
+                  if (pilarNorm === pilarNormalizado) {
+                    const eixoValor = pilarMap[pilarChave];
+                    if (Array.isArray(eixoValor)) {
+                      eixoEncontrado.push(...eixoValor);
+                    } else {
+                      eixoEncontrado.push(eixoValor);
                     }
                   }
                 }
@@ -2845,9 +3264,9 @@ function carregarEixo(programa, subfuncao, paoe, ug, produto, adj, macropolitica
       select.appendChild(opt);
     });
 
-    console.log("✅ Eixo(s) carregado(s):", unicos);
+    console.log("✅ Eixo carregado:", unicos);
   } catch (e) {
-    console.error("❌ Erro ao carregar Eixo:", e);
+    console.error("❌ Erro ao carregar EIXO:", e);
   }
 }
 
@@ -2870,7 +3289,7 @@ const politicaMap = {
     },
     "122 - ADMINISTRAÇÃO GERAL": {
       "2010 - Manutenção de órgãos colegiados": {
-        "6": {
+        "1": {
           "Produto exclusivo para ação padronizada": {
             "GAB": {
               "GESTÃO_INOVAÇÃO": {
@@ -2883,7 +3302,7 @@ const politicaMap = {
         }
       },
       "2284 - Manutenção do Conselho Estadual de Educação - CEE": {
-        "6": {
+        "1": {
           "Conselho mantido": {
             "GAB": {
               "GESTÃO_INOVAÇÃO": {
@@ -2896,9 +3315,16 @@ const politicaMap = {
         }
       },
       "4491 - Pagamento de verbas indenizatórias a servidores estaduais": {
-        "6": {
+        "1": {
           "Produto exclusivo para ação padronizada": {
             "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_GESTÃO_DE_PESSOAS": "_GESTÃO_PESSOAS"
+                }
+              }
+            },
+            "SARC": {
               "VALORIZAÇÃO_PRO": {
                 "P_VALORIZ_PRO": {
                   "E_GESTÃO_DE_PESSOAS": "_GESTÃO_PESSOAS"
@@ -2940,11 +3366,14 @@ const politicaMap = {
           },
           "Educação para jovens e adultos (EJA) desenvolvida": {
             "SAGE": {
-              "DESENV_EDUCACIONAL": {
+              "EQUIDADE_DIVERSID": {
                 "P_EQUIDADE_": {
-                  "E_EDUC_EJA": "_EDUC_EJA"
+                  "E_EDUC_EJA": "_EDUC_EJA",
+                  "E_IMIGRANTES": "_EDUC_EJA"
                 }
-              },
+              }
+            },
+            "SARC": {
               "EQUIDADE_DIVERSID": {
                 "P_EQUIDADE_": {
                   "E_EDUC_EJA": "_EDUC_EJA"
@@ -2986,6 +3415,27 @@ const politicaMap = {
                   "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
                 }
               }
+            },
+            "SAGE": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
+                }
+              }
+            },
+            "SAGR": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
+                }
+              }
+            },
+            "SARC": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
+                }
+              }
             }
           },
           "Acesso e permanência desenvolvido": {
@@ -3010,7 +3460,14 @@ const politicaMap = {
             "SAGR": {
               "ACESSO_E_PERM": {
                 "P_EQUIDADE_": {
-                  "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+                  "E_MATERIAIS_UNIFORM": "_UNIFORMES_"
+                }
+              }
+            },
+            "SAGE": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": {
+                  "E_MATERIAIS_UNIFORM": "_UNIFORMES_"
                 }
               }
             }
@@ -3040,6 +3497,15 @@ const politicaMap = {
               }
             }
           },
+		  "Regime de colaboração desenvolvido": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": {
+                "P_GESTÃO_": {
+                  "E_REGIME_COLABORAÇÃO": "_REGIME_COLAB"
+                }
+              }
+            }
+          },  
           "Avaliação (Avalia MT) desenvolvida": {
             "SAGE": {
               "AVALIAÇÃO": {
@@ -3166,13 +3632,14 @@ const politicaMap = {
             "SAGR": {
               "CULTURA_DE_PAZ": {
                 "P_EQUIDADE_": {
-                  "E_BEM-ESTAR_ESCOLAR": "_BEM-ESTAR_"
+                  "E_BEM-ESTAR_ESCOLAR": "_BEM-ESTAR_",
+                  "E_CULTURA_DE_PAZ": "_BEM-ESTAR_"
                 }
               }
             }
           },
           "Escolas militares desenvolvidas": {
-            "SARC": {
+            "SAEX": {
               "GESTÃO_INOVAÇÃO": {
                 "P_IMPACTO_": {
                   "E_ESCOLAS_MILITARES": "_ESCOLAS_MILITAR"
@@ -3188,9 +3655,9 @@ const politicaMap = {
         "5": {
           "Alfabetização desenvolvida": {
             "SARC": {
-              "EQUIDADE_DIVERSID": {
+              "REGIME_COLABORAÇÃO": {
                 "P_IMPACTO_": {
-                  "E_EDUC_ESPECIAL": "_ALFABETIZAÇÃO"
+                  "E_ALFABETIZAÇÃO": "_ALFABETIZAÇÃO"
                 }
               }
             }
@@ -3206,14 +3673,11 @@ const politicaMap = {
           },
           "Educação especial desenvolvida": {
             "SAGE": {
-              "DESENV_EDUCACIONAL": {
-                "P_EQUIDADE_": {
-                  "E_ENSINO_FUNDAMENTAL": "_EDUC_ESPECIAL"
-                }
-              },
               "EQUIDADE_DIVERSID": {
                 "P_EQUIDADE_": {
-                  "E_EDUC_ESPECIAL": "_EDUC_ESPECIAL"
+                  "E_EDUC_ESPECIAL": "_EDUC_ESPECIAL",
+                  "E_DISTÚRB_APRENDIZ": "_EDUC_ESPECIAL",
+                  "E_ALTAS_HABILIDADES": "_EDUC_ESPECIAL"
                 }
               }
             }
@@ -3247,6 +3711,27 @@ const politicaMap = {
           },
           "Formação continuada de professores realizada": {
             "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
+                }
+              }
+            },
+            "SAGE": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
+                }
+              }
+            },
+            "SAGR": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
+                }
+              }
+            },
+            "SARC": {
               "VALORIZAÇÃO_PRO": {
                 "P_VALORIZ_PRO": {
                   "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
@@ -3289,6 +3774,13 @@ const politicaMap = {
                   "E_MATERIAIS_UNIFORM": "_UNIFORMES_"
                 }
               }
+            },
+            "SARC": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": {
+                  "E_MATERIAIS_UNIFORM": "_UNIFORMES_"
+                }
+              }
             }
           }
         }
@@ -3299,9 +3791,9 @@ const politicaMap = {
         "2": {
           "Alfabetização desenvolvida": {
             "SARC": {
-              "DESENV_EDUCACIONAL": {
+              "REGIME_COLABORAÇÃO": {
                 "P_IMPACTO_": {
-                  "E_ENSINO_FUNDAMENTAL": "_ALFABETIZAÇÃO"
+                  "E_ALFABETIZAÇÃO": "_ALFABETIZAÇÃO"
                 }
               }
             }
@@ -3317,21 +3809,15 @@ const politicaMap = {
           },
           "Educação em tempo integral desenvolvida": {
             "SAGE": {
-              "DESENV_EDUCACIONAL": {
+              "CURRÍCULO_AMPLIADO": {
                 "P_IMPACTO_": {
-                  "E_ENSINO_FUNDAMENTAL": "_ED_TEMPO_INTEGR",
-                  "E_ESCOLA_TEMPO_INTEG": "_ED_TEMPO_INTEGR"
+                  "E_ESCOLA_TEMPO_INTEG": "_ED_TEMPO_INTEGR"	// CORRETO
                 }
               }
             }
           },
           "Educação escolar do campo desenvolvida": {
             "SAGE": {
-              "DESENV_EDUCACIONAL": {
-                "P_EQUIDADE_": {
-                  "E_ENSINO_FUNDAMENTAL": "_EDUC_CAMPO"
-                }
-              },
               "EQUIDADE_DIVERSID": {
                 "P_EQUIDADE_": {
                   "E_EDUC_CAMPO": "_EDUC_CAMPO"
@@ -3341,11 +3827,6 @@ const politicaMap = {
           },
           "Educação escolar indígena desenvolvida": {
             "SAGE": {
-              "DESENV_EDUCACIONAL": {
-                "P_EQUIDADE_": {
-                  "E_ENSINO_FUNDAMENTAL": "_EDUC_INDÍGENA"
-                }
-              },
               "EQUIDADE_DIVERSID": {
                 "P_EQUIDADE_": {
                   "E_EDUC_INDÍGENA": "_EDUC_INDÍGENA"
@@ -3355,11 +3836,6 @@ const politicaMap = {
           },
           "Educação escolar quilombola desenvolvida": {
             "SAGE": {
-              "DESENV_EDUCACIONAL": {
-                "P_EQUIDADE_": {
-                  "E_ENSINO_FUNDAMENTAL": "_EDUC_QUILOMBOLA"
-                }
-              },
               "EQUIDADE_DIVERSID": {
                 "P_EQUIDADE_": {
                   "E_EDUC_QUILOMBOLA": "_EDUC_QUILOMBOLA"
@@ -3380,9 +3856,12 @@ const politicaMap = {
             "SAGE": {
               "DESENV_EDUCACIONAL": {
                 "P_TECNOLOGIA_": {
-                  "E_PROJ_PED_INTEGRAD": "_PROJ_PED_INTEGR"
+                  "E_PROJ_PED_INTEGRAD": "_PROJ_PED_INTEGR"	
+                },
+                "P_IMPACTO_": {
+                  "E_ENSINO_FUNDAMENTAL": "_PROJ_PED_INTEGR"
                 }
-              }
+			        }
             }
           },
           "Sistema estruturado de ensino implantado": {
@@ -3396,6 +3875,27 @@ const politicaMap = {
           },
           "Formação continuada de professores realizada": {
             "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
+                }
+              }
+            },
+            "SAGE": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
+                }
+              }
+            },
+            "SAGR": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
+                }
+              }
+            },
+            "SARC": {
               "VALORIZAÇÃO_PRO": {
                 "P_VALORIZ_PRO": {
                   "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
@@ -3450,10 +3950,10 @@ const politicaMap = {
             }
           },
           "Escolas militares desenvolvidas": {
-            "SARC": {
-              "DESENV_EDUCACIONAL": {
+            "SAEX": {
+              "GESTÃO_INOVAÇÃO": {
                 "P_IMPACTO_": {
-                  "P_IMPACTO_": "E_ESCOLAS_MILITARES"
+                  "E_ESCOLAS_MILITARES": "_ESCOLAS_MILITAR"
                 }
               }
             }
@@ -3469,6 +3969,13 @@ const politicaMap = {
           },
           "Uniformes escolares disponibilizados": {
             "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": {
+                  "E_MATERIAIS_UNIFORM": "_UNIFORMES_"
+                }
+              }
+            },
+            "SARC": {
               "ACESSO_E_PERM": {
                 "P_EQUIDADE_": {
                   "E_MATERIAIS_UNIFORM": "_UNIFORMES_"
@@ -3493,7 +4000,7 @@ const politicaMap = {
           },
           "Educação em tempo integral desenvolvida": {
             "SAGE": {
-              "DESENV_EDUCACIONAL": {
+              "CURRÍCULO_AMPLIADO": {
                 "P_IMPACTO_": {
                   "E_ESCOLA_TEMPO_INTEG": "_ED_TEMPO_INTEGR"
                 }
@@ -3502,16 +4009,16 @@ const politicaMap = {
           },
           "Educação escolar do campo desenvolvida": {
             "SAGE": {
-              "DESENV_EDUCACIONAL": {
+              "EQUIDADE_DIVERSID": {
                 "P_EQUIDADE_": {
-                  "P_EQUIDADE_": "E_EDUC_CAMPO"
+                  "E_EDUC_CAMPO": "_EDUC_CAMPO"
                 }
               }
             }
           },
           "Educação escolar indígena desenvolvida": {
             "SAGE": {
-              "DESENV_EDUCACIONAL": {
+              "EQUIDADE_DIVERSID": {
                 "P_EQUIDADE_": {
                   "E_EDUC_INDÍGENA": "_EDUC_INDÍGENA"
                 }
@@ -3520,7 +4027,7 @@ const politicaMap = {
           },
           "Educação escolar quilombola desenvolvida": {
             "SAGE": {
-              "DESENV_EDUCACIONAL": {
+              "EQUIDADE_DIVERSID": {
                 "P_EQUIDADE_": {
                   "E_EDUC_QUILOMBOLA": "_EDUC_QUILOMBOLA"
                 }
@@ -3575,6 +4082,27 @@ const politicaMap = {
                   "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
                 }
               }
+            },
+            "SAGE": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
+                }
+              }
+            },
+            "SAGR": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
+                }
+              }
+            },
+            "SARC": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
+                }
+              }
             }
           },
           "Acesso e permanência desenvolvido": {
@@ -3597,8 +4125,8 @@ const politicaMap = {
             }
           },
           "Escolas militares desenvolvidas": {
-            "SARC": {
-              "DESENV_EDUCACIONAL": {
+            "SAEX": {
+              "GESTÃO_INOVAÇÃO": {
                 "P_IMPACTO_": {
                   "E_ESCOLAS_MILITARES": "_ESCOLAS_MILITAR"
                 }
@@ -3621,6 +4149,13 @@ const politicaMap = {
                   "E_MATERIAIS_UNIFORM": "_UNIFORMES_"
                 }
               }
+            },
+            "SARC": {
+              "ACESSO_E_PERM": {
+                "P_EQUIDADE_": {
+                  "E_MATERIAIS_UNIFORM": "_UNIFORMES_"
+                }
+              }
             }
           }
         }
@@ -3633,6 +4168,13 @@ const politicaMap = {
         "4": {
           "Alimentação escolar mantida": {
             "SAGR": {
+              "ACESSO_E_PERM": {
+                "P_INFRAESTR_": {
+                  "E_ALIMENTAÇÃO_": "_ALIMENTAÇÃO_"
+                }
+              }
+            },
+            "SARC": {
               "ACESSO_E_PERM": {
                 "P_INFRAESTR_": {
                   "E_ALIMENTAÇÃO_": "_ALIMENTAÇÃO_"
@@ -3662,6 +4204,13 @@ const politicaMap = {
           },
           "Tecnologia no ambiente escolar disponibilizada": {
             "SAGE": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_TECNOLOGIA_": {
+                  "E_TECNOL_AMB_ESCOLAR": "_TECNOLOGIA_ESC"
+                }
+              }
+            },
+            "SAEX": {
               "CURRÍCULO_AMPLIADO": {
                 "P_TECNOLOGIA_": {
                   "E_TECNOL_AMB_ESCOLAR": "_TECNOLOGIA_ESC"
@@ -3724,6 +4273,13 @@ const politicaMap = {
           },
           "Tecnologia no ambiente escolar disponibilizada": {
             "SAGE": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_TECNOLOGIA_": {
+                  "E_TECNOL_AMB_ESCOLAR": "_TECNOLOGIA_ESC"
+                }
+              }
+            },
+            "SAEX": {
               "CURRÍCULO_AMPLIADO": {
                 "P_TECNOLOGIA_": {
                   "E_TECNOL_AMB_ESCOLAR": "_TECNOLOGIA_ESC"
@@ -3804,6 +4360,13 @@ const politicaMap = {
                   "E_TECNOL_AMB_ESCOLAR": "_TECNOLOGIA_ESC"
                 }
               }
+            },
+            "SAEX": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_TECNOLOGIA_": {
+                  "E_TECNOL_AMB_ESCOLAR": "_TECNOLOGIA_ESC"
+                }
+              }
             }
           },
           "Gestão escolar desenvolvida": {
@@ -3839,6 +4402,9 @@ const politicaMap = {
           }
         }
       },
+	  
+	  // INCLUIR EPI NO PAOE 4524 TAMBÉM
+	  
       "4524 - FMTE - Ensino Fundamental": {
         "9": {
           "Infraestrutura escolar modernizada": {
@@ -3848,13 +4414,20 @@ const politicaMap = {
                   "E_INFRAESTRUTURA_ESC": "_INFRAESTRUTURA"
                 }
               }
+            },
+            "EPI": {
+              "EPI": {
+                "EPI": {
+                  "EPI": "EPI"
+                }
+              }
             }
           },
           "Regime de colaboração desenvolvido": {
-            "SARC": {
+            "SAAS": {
               "REGIME_COLABORAÇÃO": {
                 "P_GESTÃO_": {
-                  "E_INFRAESTRUTURA_ESC": "_INFRAESTRUTURA"
+                  "E_REGIME_COLABORAÇÃO": "_REGIME_COLAB"
                 }
               }
             }
@@ -3901,10 +4474,24 @@ const politicaMap = {
                   "E_TECNOL_AMB_ESCOLAR": "_TECNOLOGIA_ESC"
                 }
               }
+            },
+            "SAEX": {
+              "CURRÍCULO_AMPLIADO": {
+                "P_TECNOLOGIA_": {
+                  "E_TECNOL_AMB_ESCOLAR": "_TECNOLOGIA_ESC"
+                }
+              }
             }
           },
           "Gestão escolar desenvolvida": {
             "SAGR": {
+              "GESTÃO_INOVAÇÃO": {
+                "P_GESTÃO_": {
+                  "E_GESTÃO_ESCOLAR": "_GESTÃO_ESCOLAR"
+                }
+              }
+            },
+            "SAGE": {
               "GESTÃO_INOVAÇÃO": {
                 "P_GESTÃO_": {
                   "E_GESTÃO_ESCOLAR": "_GESTÃO_ESCOLAR"
@@ -3980,20 +4567,13 @@ const politicaMap = {
             },
             "SAIP": {
               "INFRAESTRUTURA": {
-                "P_GESTÃO_": {
+                "P_INFRAESTR_": {
                   "E_GESTÃO_DO_PATRIM": "_GESTÃO_PATRIM"
                 }
               }
             }
           },
-          "Gestão escolar desenvolvida": {
-            "SAEX": {
-              "GESTÃO_INOVAÇÃO": {
-                "P_GESTÃO_": {
-                  "E_GESTÃO_INTEGRADA": "_GESTÃO_INTEGR"
-                }
-              }
-            },
+          "Gestão escolar desenvolvida": { 
             "SAGR": {
               "GESTÃO_INOVAÇÃO": {
                 "P_GESTÃO_": {
@@ -4018,6 +4598,55 @@ const politicaMap = {
                   "E_VALORIZAÇÃO_PROF": "_VALORIZ_PROF"
                 }
               }
+            },
+            "GAB": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_VALORIZAÇÃO_PROF": "_VALORIZ_PROF"
+                }
+              }
+            },
+            "SAAS": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_VALORIZAÇÃO_PROF": "_VALORIZ_PROF"
+                }
+              }
+            },
+            "SAEX": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_VALORIZAÇÃO_PROF": "_VALORIZ_PROF"
+                }
+              }
+            },
+            "SAIP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_VALORIZAÇÃO_PROF": "_VALORIZ_PROF"
+                }
+              }
+            },
+            "SAGE": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_VALORIZAÇÃO_PROF": "_VALORIZ_PROF"
+                }
+              }
+            },
+            "SAGR": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_VALORIZAÇÃO_PROF": "_VALORIZ_PROF"
+                }
+              }
+            },
+            "SAEC": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_VALORIZAÇÃO_PROF": "_VALORIZ_PROF"
+                }
+              }
             }
           },
           "Infraestrutura escolar modernizada": {
@@ -4027,13 +4656,11 @@ const politicaMap = {
                   "E_INFRAESTRUTURA_ESC": "_INFRAESTRUTURA"
                 }
               }
-            }
-          },
-          "Regime de colaboração desenvolvido": {
-            "SARC": {
-              "REGIME_COLABORAÇÃO": {
-                "P_GESTÃO_": {
-                  "E_REGIME_COLABORAÇÃO": "_REGIME_COLAB"
+            },
+            "SAAS": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": {
+                  "E_INFRAESTRUTURA_ESC": "_INFRAESTRUTURA"
                 }
               }
             }
@@ -4052,16 +4679,16 @@ const politicaMap = {
                 }
               }
             },
-            "EMD": {
-              "EMD": {
-                "EMD": {
-                  "EMD": "EMD"
+            "EPI": {
+              "EPI": {
+                "EPI": {
+                  "EPI": "EPI"
                 }
               }
             }
           },
           "Regime de colaboração desenvolvido": {
-            "SARC": {
+            "SAAS": {
               "REGIME_COLABORAÇÃO": {
                 "P_GESTÃO_": {
                   "E_REGIME_COLABORAÇÃO": "_REGIME_COLAB"
@@ -4093,10 +4720,10 @@ const politicaMap = {
       "8026 - Pagamento de emendas parlamentares impositivas": {
         "1": {
           "Produto exclusivo para ação padronizada": {
-            "EMD": {
-              "EMD": {
-                "EMD": {
-                  "EMD": "EMD"
+            "EPI": {
+              "EPI": {
+                "EPI": {
+                  "EPI": "EPI"
                 }
               }
             }
@@ -4279,6 +4906,18 @@ window.abrirFormularioSubacao = function (alterar = false) {
     }
 };
 
+// === Helpers numéricos (evitam erro de ponto flutuante) ===
+function brToNumber(s) {
+    if (s == null) return 0;
+    return Number(String(s).replace(/\./g, '').replace(',', '.')) || 0;
+}
+function numberToBR(n, dec = 2) {
+    return Number(n).toFixed(dec).replace('.', ',');
+}
+function toCents(n) {
+    return Math.round(Number(n) * 100);
+}
+
 // ✅ NOVA FUNÇÃO para preencher os campos encadeados diretamente
 function preencherCamposEncadeadosDiretamente(data) {
   const campos = ["adj", "macropolitica", "pilar", "eixo", "politica_decreto"];
@@ -4408,6 +5047,7 @@ function excluirSubacao() {
 }
 
 const subfuncaoUGToUGMap = {
+  "122.1": "1 - Sede",
   "122.6": "6 - Administração Geral",
   "122.8": "8 - Outr Modal Ens",
   "126.1": "1 - Sede",
@@ -4764,7 +5404,7 @@ window.abrirFormularioMunicipio = function (alterar = false) {
         selectCodigo.value = codigo;
         inputNome.value = nome;
         document.getElementById("unidadeMedidaMunicipio").value = m.un_medida || m.unidade_medida || "";
-        document.getElementById("quantidade_municipio").value = m.quantidade?.toString().replace(".", ",") || "";
+        document.getElementById("quantidade_municipio").value = (m.quantidade ?? "").toString().replace(".", ",");
     }
 
     const modal = new bootstrap.Modal(document.getElementById("modalMunicipio"));
@@ -4773,33 +5413,37 @@ window.abrirFormularioMunicipio = function (alterar = false) {
 
 // ✅ Atualiza a tabela de municípios com base no array
 function atualizarTabelaMunicipios() {
-    const corpoTabela = document.getElementById("corpoTabelaMunicipios");
-    corpoTabela.innerHTML = "";
+  const corpoTabela = document.getElementById("corpoTabelaMunicipios");
+  corpoTabela.innerHTML = "";
 
-    if (!Array.isArray(window.municipiosTemp)) {
-        console.warn("⚠️ municipiosTemp não é um array.");
-        return;
-    }
+  if (!Array.isArray(window.municipiosTemp)) {
+    console.warn("⚠️ municipiosTemp não é um array.");
+    return;
+  }
 
-    window.municipiosTemp.forEach((m, index) => {
-        const codigo = m.codigo_municipio || m.codigo || "❓";
-        const nome = m.nome_municipio || m.nome || "❓";
-        const quantidade = parseFloat(m.quantidade || 0).toFixed(2).replace(".", ",");
+  window.municipiosTemp.forEach((m, index) => {
+    const codigo = m.codigo_municipio || m.codigo || "❓";
+    const nome   = m.nome_municipio   || m.nome   || "❓";
 
-        const id = m.id !== undefined ? m.id : index;
+    // 👇 converte de forma robusta: aceita número ou string "1,56"
+    const qNum = Number(m.quantidade);
+    const qVal = !isNaN(qNum) ? qNum : brToNumber(m.quantidade);
+    const quantidade = numberToBR(qVal); // "1,56"
 
-        const linha = `
-            <tr>
-                <td><input type="radio" name="municipioSelecionado" value="${index}"></td>
-                <td>${codigo}</td>
-                <td>${nome}</td>
-                <td>${quantidade}</td>
-            </tr>
-        `;
-        corpoTabela.insertAdjacentHTML("beforeend", linha);
-    });
+    const id = m.id !== undefined ? m.id : index;
 
-    console.log("✅ Tabela de municípios atualizada.");
+    const linha = `
+      <tr>
+        <td><input type="radio" name="municipioSelecionado" value="${index}"></td>
+        <td>${codigo}</td>
+        <td>${nome}</td>
+        <td>${quantidade}</td>
+      </tr>
+    `;
+    corpoTabela.insertAdjacentHTML("beforeend", linha);
+  });
+
+  console.log("✅ Tabela de municípios atualizada.");
 }
 
 // ✅ Função para alterar município da tabela
@@ -4824,7 +5468,7 @@ document.querySelector("#btnAlterarMunicipio")?.addEventListener("click", functi
     document.getElementById("codigoMunicipioSelect").value = codigo;
     document.getElementById("nomeMunicipioInput").value = nome;
     document.getElementById("unidadeMedidaMunicipio").value = municipio.un_medida || "";
-    document.getElementById("quantidade_municipio").value = municipio.quantidade?.toString().replace(".", ",") || "";
+    document.getElementById("quantidade_municipio").value = (municipio.quantidade ?? "").toString().replace(".", ",");
     document.getElementById("municipio_id").value = municipio.id !== undefined ? municipio.id : index;
 
     const modal = new bootstrap.Modal(document.getElementById("modalMunicipio"));
@@ -5003,12 +5647,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🔹 Validação completa antes de enviar a subação
     if (formSubacao) {
         formSubacao.addEventListener("submit", function (e) {
-            const quantidadeStr = quantidadeInput?.value?.replace(",", ".");
-            const quantidadeSubacao = parseFloat(quantidadeStr);
+            const quantidadeSubacao = brToNumber(quantidadeInput?.value);
             const unidade = unidadeSelect?.value;
 
             // 🚫 Quantidade inválida
-            if (isNaN(quantidadeSubacao) || quantidadeSubacao <= 0) {
+            if (!quantidadeSubacao || quantidadeSubacao <= 0) {
                 alert("Informe uma quantidade válida maior que 0 para a Subação.");
                 quantidadeInput.focus();
                 e.preventDefault();
@@ -5030,24 +5673,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // 🔍 Soma dos municípios deve ser igual à quantidade da subação
-            let somaMunicipios = 0;
-            window.municipiosTemp.forEach(m => {
-                somaMunicipios += parseFloat(m.quantidade);
-            });
+            // 🔍 Soma dos municípios deve ser IGUAL à quantidade da subação (em centavos)
+            const totalC = toCents(quantidadeSubacao);
+            const somaMunicipiosC = window.municipiosTemp.reduce((acc, m) => {
+                return acc + toCents(Number(m.quantidade) || brToNumber(m.quantidade));
+            }, 0);
 
-            const diferenca = quantidadeSubacao - somaMunicipios;
+            const diffC = totalC - somaMunicipiosC;
 
-            if (diferenca > 0) {
+            if (diffC > 0) {
                 alert(`A meta física dos municípios está menor que a da Subação.
-Faltam ${diferenca.toFixed(2)} ${unidade} para completar.`);
+Faltam ${numberToBR(diffC/100)} ${unidade} para completar.`);
                 e.preventDefault();
                 return;
             }
 
-            if (diferenca < 0) {
+            if (diffC < 0) {
                 alert(`A soma das quantidades dos municípios excede a quantidade da Subação.
-Excesso de ${Math.abs(diferenca).toFixed(2)} ${unidade}.`);
+Excesso de ${numberToBR(Math.abs(diffC)/100)} ${unidade}.`);
                 e.preventDefault();
                 return;
             }
@@ -5056,104 +5699,108 @@ Excesso de ${Math.abs(diferenca).toFixed(2)} ${unidade}.`);
         });
     }
 
-    // ✅ Salvar Municipio Temporario
-// ✅ Função para salvar município na tabela temporária
-window.salvarMunicipioTemporario = function () {
-    const codigo = document.getElementById("codigoMunicipioSelect")?.value;
-    const unidade_medida = document.getElementById("unidadeMedidaMunicipio")?.value;
-    const quantidadeRaw = document.getElementById("quantidade_municipio")?.value;
-    const idBanco = document.getElementById("municipio_id")?.value;
-    const regiao = document.querySelector('select[name="regiao"]')?.value;
+    // ✅ Salvar Municipio Temporario (com validação em centavos e permitindo igualdade)
+    window.salvarMunicipioTemporario = function () {
+        const codigo = document.getElementById("codigoMunicipioSelect")?.value;
+        const unidade_medida = document.getElementById("unidadeMedidaMunicipio")?.value;
+        const quantidadeRaw = document.getElementById("quantidade_municipio")?.value;
+        const idBanco = document.getElementById("municipio_id")?.value;
+        const regiao = document.querySelector('select[name="regiao"]')?.value;
 
-    // ✅ Busca segura do nome do município
-    const nome = codigo && regiao && regioesMunicipios?.[regiao]?.[codigo] 
-        ? regioesMunicipios[regiao][codigo] 
-        : document.getElementById("nomeMunicipioInput")?.value?.trim() || "";
+        // ✅ Busca segura do nome do município
+        const nome = codigo && regiao && regioesMunicipios?.[regiao]?.[codigo] 
+            ? regioesMunicipios[regiao][codigo] 
+            : document.getElementById("nomeMunicipioInput")?.value?.trim() || "";
 
-    if (!codigo || !nome || !unidade_medida || !quantidadeRaw) {
-        alert("Preencha todos os campos obrigatórios.");
-        return;
-    }
-
-    const quantidade = parseFloat(quantidadeRaw.replace(",", "."));
-    if (isNaN(quantidade) || quantidade <= 0) {
-        alert("Quantidade inválida.");
-        return;
-    }
-
-    const unSubacao = document.getElementById("unidade_medida")?.value;
-    if (unidade_medida !== unSubacao) {
-        alert(`A unidade de medida do município deve ser igual à unidade da Subação (${unSubacao}).`);
-        return;
-    }
-
-    const quantidadeSubacaoRaw = document.getElementById("quantidade")?.value;
-    const quantidadeSubacao = parseFloat(quantidadeSubacaoRaw.replace(",", "."));
-    if (isNaN(quantidadeSubacao) || quantidadeSubacao <= 0) {
-        alert("A quantidade total da Subação é inválida ou igual a zero.");
-        return;
-    }
-
-    let totalAtual = 0;
-    window.municipiosTemp.forEach((m, i) => {
-        const mesmoRegistro = m.id?.toString() === idBanco || i.toString() === idBanco;
-        if (!mesmoRegistro) {
-            totalAtual += parseFloat(m.quantidade || 0);
+        if (!codigo || !nome || !unidade_medida || !quantidadeRaw) {
+            alert("Preencha todos os campos obrigatórios.");
+            return;
         }
-    });
 
-    if (totalAtual + quantidade > quantidadeSubacao) {
-        const restante = quantidadeSubacao - totalAtual;
-        alert(`A quantidade excede o limite da Subação. Máximo permitido: ${restante.toFixed(2)} ${unSubacao}.`);
-        return;
-    }
+        const quantidade = brToNumber(quantidadeRaw);
+        if (!quantidade || quantidade <= 0) {
+            alert("Quantidade inválida.");
+            return;
+        }
 
-    const novoRegistro = {
-        id: idBanco && !isNaN(idBanco) && parseInt(idBanco) >= 0 ? parseInt(idBanco) : undefined,
-        codigo_municipio: codigo,
-        nome_municipio: nome,
-        un_medida: unidade_medida,
-        quantidade
+        const unSubacao = document.getElementById("unidade_medida")?.value;
+        if (unidade_medida !== unSubacao) {
+            alert(`A unidade de medida do município deve ser igual à unidade da Subação (${unSubacao}).`);
+            return;
+        }
+
+        const quantidadeSubacao = brToNumber(document.getElementById("quantidade")?.value);
+        if (!quantidadeSubacao || quantidadeSubacao <= 0) {
+            alert("A quantidade total da Subação é inválida ou igual a zero.");
+            return;
+        }
+
+        // 🔐 Comparação em centavos (permite IGUALDADE)
+        const totalSubacaoC = toCents(quantidadeSubacao);
+        const novaQtdC = toCents(quantidade);
+
+        let totalAtualC = 0;
+        window.municipiosTemp.forEach((m, i) => {
+            const mesmoRegistro = m.id?.toString() === idBanco || i.toString() === idBanco;
+            if (!mesmoRegistro) {
+                const q = Number(m.quantidade) || brToNumber(m.quantidade);
+                totalAtualC += toCents(q);
+            }
+        });
+
+        const restanteC = totalSubacaoC - totalAtualC;
+
+        if (novaQtdC > restanteC) {
+            alert(`A quantidade excede o limite da Subação. Máximo permitido: ${numberToBR(restanteC/100)} ${unSubacao}.`);
+            return;
+        }
+
+        const novoRegistro = {
+            id: idBanco && !isNaN(idBanco) && parseInt(idBanco) >= 0 ? parseInt(idBanco) : undefined,
+            codigo_municipio: codigo,
+            nome_municipio: nome,
+            un_medida: unidade_medida,
+            quantidade
+        };
+
+        console.log("✅ Salvando município temporário:", novoRegistro);
+
+        const index = window.municipiosTemp.findIndex(m =>
+            m.id?.toString() === idBanco || window.municipiosTemp.indexOf(m).toString() === idBanco
+        );
+
+        if (idBanco !== "" && index !== -1) {
+            window.municipiosTemp[index] = novoRegistro;
+        } else {
+            window.municipiosTemp.push(novoRegistro);
+        }
+
+        atualizarTabelaMunicipios();
+
+        const modalEl = document.getElementById("modalMunicipio");
+        bootstrap.Modal.getInstance(modalEl).hide();
     };
 
-    console.log("✅ Salvando município temporário:", novoRegistro);
+    // ✅ Função para excluir município da tabela
+    document.querySelector("#btnExcluirMunicipio")?.addEventListener("click", function () {
+        const selecionado = document.querySelector("input[name='municipioSelecionado']:checked");
+        if (!selecionado) {
+            alert("Selecione um município da tabela para excluir.");
+            return;
+        }
 
-    const index = window.municipiosTemp.findIndex(m =>
-        m.id?.toString() === idBanco || window.municipiosTemp.indexOf(m).toString() === idBanco
-    );
+        const index = parseInt(selecionado.value);
 
-    if (idBanco !== "" && index !== -1) {
-        window.municipiosTemp[index] = novoRegistro;
-    } else {
-        window.municipiosTemp.push(novoRegistro);
-    }
+        if (!window.municipiosTemp[index]) {
+            alert("Município inválido.");
+            return;
+        }
 
-    atualizarTabelaMunicipios();
-
-    const modalEl = document.getElementById("modalMunicipio");
-    bootstrap.Modal.getInstance(modalEl).hide();
-};
-
-// ✅ Função para excluir município da tabela
-document.querySelector("#btnExcluirMunicipio")?.addEventListener("click", function () {
-    const selecionado = document.querySelector("input[name='municipioSelecionado']:checked");
-    if (!selecionado) {
-        alert("Selecione um município da tabela para excluir.");
-        return;
-    }
-
-    const index = parseInt(selecionado.value);
-
-    if (!window.municipiosTemp[index]) {
-        alert("Município inválido.");
-        return;
-    }
-
-    if (confirm("Tem certeza que deseja excluir este município?")) {
-        window.municipiosTemp.splice(index, 1);
-        atualizarTabelaMunicipios();
-    }
-});
+        if (confirm("Tem certeza que deseja excluir este município?")) {
+            window.municipiosTemp.splice(index, 1);
+            atualizarTabelaMunicipios();
+        }
+    });
 
 });
 
@@ -5176,14 +5823,13 @@ function validarSubacaoAntesDeEnviar() {
     const quantidadeInput = document.getElementById("quantidade");
 
     const unidadeMedida = unidadeMedidaSelect?.value?.trim();
-    const quantidadeRaw = quantidadeInput?.value?.trim();
-    const quantidadeSubacao = parseFloat(quantidadeRaw.replace(",", "."));
+    const quantidadeSubacao = brToNumber(quantidadeInput?.value?.trim());
 
     const municipios = window.municipiosTemp || [];
 
     // 🔒 Validação específica para "Percentual"
     if (unidadeMedida === "Percentual") {
-        if (isNaN(quantidadeSubacao) || quantidadeSubacao <= 0) {
+        if (!quantidadeSubacao || quantidadeSubacao <= 0) {
             alert("A quantidade em percentual deve ser maior que zero.");
             return false;
         }
@@ -5194,7 +5840,7 @@ function validarSubacaoAntesDeEnviar() {
     }
 
     // 🔒 Validação geral de quantidade > 0
-    if (isNaN(quantidadeSubacao) || quantidadeSubacao <= 0) {
+    if (!quantidadeSubacao || quantidadeSubacao <= 0) {
         alert("A quantidade da subação deve ser maior que zero.");
         return false;
     }
@@ -5205,19 +5851,22 @@ function validarSubacaoAntesDeEnviar() {
         return false;
     }
 
-    // 🔒 Valida soma total dos municípios com meta da subação
-    let soma = 0;
-    municipios.forEach(m => soma += parseFloat(m.quantidade));
+    // 🔒 Valida soma total dos municípios com meta da subação (em centavos)
+    const totalC = toCents(quantidadeSubacao);
+    const somaC = municipios.reduce((acc, m) => {
+        const q = Number(m.quantidade) || brToNumber(m.quantidade);
+        return acc + toCents(q);
+    }, 0);
 
-    if (soma < quantidadeSubacao) {
-        const restante = quantidadeSubacao - soma;
-        alert(`⚠️ A meta física dos municípios está abaixo da meta da subação. Faltam ${restante.toFixed(2)} unidade(s).`);
+    if (somaC < totalC) {
+        const restante = (totalC - somaC) / 100;
+        alert(`⚠️ A meta física dos municípios está abaixo da meta da subação. Faltam ${numberToBR(restante)} unidade(s).`);
         return false;
     }
 
-    if (soma > quantidadeSubacao) {
-        const excesso = soma - quantidadeSubacao;
-        alert(`⚠️ A meta física dos municípios ultrapassa a da subação em ${excesso.toFixed(2)} unidade(s). Ajuste antes de prosseguir.`);
+    if (somaC > totalC) {
+        const excesso = (somaC - totalC) / 100;
+        alert(`⚠️ A meta física dos municípios ultrapassa a da subação em ${numberToBR(excesso)} unidade(s). Ajuste antes de prosseguir.`);
         return false;
     }
 
@@ -5302,5 +5951,3 @@ window.excluirSubacao = excluirSubacao;
 window.carregarPilar = carregarPilar;
 window.carregarEixo = carregarEixo;
 window.carregarPoliticaDecreto = carregarPoliticaDecreto;
-
-

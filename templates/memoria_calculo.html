@@ -104,8 +104,8 @@
 
                     <div class="mb-3">
                         <label>Itens de Despesa:</label>
-                        <input type="text" name="itens_despesa" id="item_despesa" class="form-control" maxlength="50" required autocomplete="off" oninput="atualizarContadorItem()">
-                        <small id="contador_item" class="form-text text-muted">0 / 50 caracteres</small>
+                        <input type="text" name="itens_despesa" id="item_despesa" class="form-control" maxlength="120" required autocomplete="off" oninput="atualizarContadorItem()">
+                        <small id="contador_item" class="form-text text-muted">0 / 120 caracteres</small>
                     </div>
 
                     <div class="mb-3">
@@ -286,90 +286,19 @@
                         <label for="fonte_recursos">Fonte de Recursos:</label>
                         <select name="fonte_recursos" id="fonte_recursos" class="form-select" required>
                             <option value="">Selecione</option>
-                            <option>1.500.0000 - Recursos não vinculados de Impostos</option>
-                            <option>1.500.0106 - Recursos destinados ao FUNGEFAZ</option>
-                            <option>1.500.0116 - Recursos de Vinculações Constitucionais destinados a Municípios</option>
-                            <option>1.500.0122 - Recursos destinados ao FUNDEB</option>
-                            <option>1.500.0192 - Recursos destinados a Pesquisa, Ciência e Tecnologia</option>
-                            <option>1.500.0196 - Recursos destinados ao Fundo de Política Cultural</option>
-                            <option>1.500.1001 - Recursos destinados à Manutenção e Desenvolvimento do Ensino</option>
-                            <option>1.500.1002 - Recursos destinados ao Desenvolvimento das Ações de Saúde</option>
-                            <option>1.501.0000 - Outros Recursos não Vinculados</option>
-                            <option>1.501.0100 - Outros Recursos não vinculados destinados ao Tesouro</option>
-                            <option>1.501.0196 - Outros Recursos não Vinculados com finalidades específicas</option>
-                            <option>1.502.0000 - Recursos não vinculados da compensação de impostos</option>
-                            <option>1.502.0116 - Recursos não vinculados da compensação de impostos - Destinado aos Municípios</option>
-                            <option>1.502.0122 - Recursos não vinculados da compensação de impostos - Destinado ao FUNDEB</option>
-                            <option>1.502.1001 - Recursos não vinculados da compensação de impostos - Destinado ao Ensino</option>
-                            <option>1.502.1002 - Recursos não vinculados da compensação de impostos - Destinado à Saúde</option>
-                            <option>1.540.0000 - Transferência de recursos do FUNDEB desenvolvimento do Ensino</option>
-                            <option>1.540.1070 - Transferência de recursos do FUNDEB Remuneração Educação Básica</option>
-                            <option>1.550.0000 - Recursos da Contribuição ao Salário Educação</option>
-                            <option>1.551.0000 - Transferências de Recursos do FNDE referente ao Programa Dinheiro Direto na Escola (PDDE)</option>
-                            <option>1.552.0000 - Transferências de Recursos do FNDE referente ao Programa Nacional de Alimentação Escolar (PNAE)</option>
-                            <option>1.553.0000 - Transferências de Recursos do FNDE referente ao P. N. de Apoio ao Transporte Escolar (PNATE)</option>
-                            <option>1.569.0000 - Outras Transferências de Recursos do FNDE</option>
-                            <option>1.570.0000 - Transferências do Governo Federal ref. a Convênios e outros Repasses vinculados à Educação</option>
-                            <option>1.574.0000 - Recursos de Operações de Crédito Educação</option>
-                            <option>1.600.0000 - Recursos para Apoio das Ações e Serviços de Saúde - Bloco Manutenção</option>
-                            <option>1.600.3110 - Recursos para Apoio das Ações e Serviços de Saúde - Bloco Manutenção por E. P. Individual</option>
-                            <option>1.600.3120 - Recursos para Apoio das Ações e Serviços de Saúde - Bloco Manutenção por E. P. de Bancada</option>
-                            <option>1.601.0000 - Recursos para Apoio das Ações e Serviços de Saúde - Bloco Investimento</option>
-                            <option>1.601.3110 - Recursos para Apoio das Ações e Serviços de Saúde - Bloco Investimento por E. P. Individuais</option>
-                            <option>1.601.3120 - Recursos para Apoio das Ações e Serviços de Saúde - Bloco Investimento por E. P. de Bancada</option>
-                            <option>1.602.0000 - Recursos para Apoio das Ações e Serviços de Saúde - Bloco Manutenção COVID</option>
-                            <option>1.603.0000 - Recursos para Apoio das Ações e Serviços de Saúde - Bloco Investimento COVID</option>
-                            <option>1.631.0000 - Transferências do Governo Federal referentes a Convênios e outros Repasses vinculados à Saúde</option>
-                            <option>1.634.0000 - Recursos de Operações de Crédito Saúde</option>
-                            <option>1.659.0000 - Outros Recursos Vinculados à Saúde</option>
-                            <option>1.660.0000 - Transferência de Recursos do Fundo Nacional de Assistência Social - FNAS</option>
-                            <option>1.665.0000 - Transferências de Convênios e outros Repasses vinculados à Assistência Social</option>
-                            <option>1.669.0000 - Outros Recursos Vinculados à Assistência Social</option>
-                            <option>1.669.0002 - Recursos de Fundos Administrados pela Assistência Social e Cidadania</option>
-                            <option>1.700.0000 - Outras Transferências de Convênios ou Repasses da União</option>
-                            <option>1.700.3110 - O. Transf. de Convênios ou Repasses da União decorrentes de EPs Individuais</option>
-                            <option>1.700.3120 - O. Transf. de Convênios ou Repasses da União decorrentes de EPs de Bancada</option>
-                            <option>1.702.0000 - Outras Transferências de Convênios ou Repasses dos Municípios</option>
-                            <option>1.703.0000 - Outras Transferências de Convênios ou Contratos de Repasse de outras Entidades</option>
-                            <option>1.704.0000 - Recursos do Fundo Especial do Petróleo (FEP)</option>
-                            <option>1.704.0001 - Recursos do Fundo Especial do Petróleo (FEP) destinados ao FEHIDRO</option>
-                            <option>1.704.0116 - Recursos do Fundo Especial do Petróleo (FEP) destinados a Municípios</option>
-                            <option>1.706.0000 - Transferência Especial da União referente a emendas parlamentares individuais impositivas</option>
-                            <option>1.706.3110 - Transferências da União de Emendas Individuais Impositivas</option>
-                            <option>1.707.0000 - Transferências da União - Inciso I do art. 5º da LC 173/2020 COVID</option>
-                            <option>1.708.0000 - Recursos da Compensação Financeira de Recursos Minerais (CFRM)</option>
-                            <option>1.708.0001 - CFRM destinados ao FEHIDRO</option>
-                            <option>1.709.0000 - Recursos da Compensação Financeira de Recursos Hídricos (CFRH)</option>
-                            <option>1.709.0001 - CFRH destinados ao FEHIDRO</option>
-                            <option>1.711.0000 - Demais transferências Obrigatórias não decorrentes de repartição de receitas</option>
-                            <option>1.712.0000 - Transferências Fundo a Fundo - FUNPEN</option>
-                            <option>1.713.0000 - Transferências Fundo a Fundo - Fundo de Segurança Pública</option>
-                            <option>1.714.0000 - Transferências Fundo a Fundo - Fundo de Amparo ao Trabalhador</option>
-                            <option>1.715.0000 - Transferências ao Setor Cultural - LC 195/2022 - Art. 5º</option>
-                            <option>1.716.0000 - Transferências ao Setor Cultural - LC 195/2022 - Art. 8º</option>
-                            <option>1.718.0000 - Auxílio Financeiro - Crédito Tributário ICMS - Art. 5º, EC 123/2022</option>
-                            <option>1.719.0000 - Transferências da Política Nacional Aldir Blanc - Lei 14.399/2022</option>
-                            <option>1.749.0000 - Outras vinculações de transferências</option>
-                            <option>1.750.0000 - Recursos da CIDE</option>
-                            <option>1.752.0000 - Multas de Trânsito</option>
-                            <option>17.530.000 - Recursos de taxas, contribuições e preços públicos</option>
-                            <option>1.754.0000 - Recursos de Operações de Crédito</option>
-                            <option>1.755.0000 - Alienação de Bens - Administração Direta</option>
-                            <option>1.756.0000 - Alienação de Bens - Administração Indireta</option>
-                            <option>1.757.0000 - Depósitos Judiciais</option>
-                            <option>1.759.0000 - Recursos vinculados a fundos</option>
-                            <option>1.760.0000 - Recursos de Emolumentos e Taxas Judiciais</option>
-                            <option>1.761.0000 - Fundo de Combate à Pobreza</option>
-                            <option>1.799.0000 - Outras Vinculações legais</option>
-                            <option>1.800.0000 - Recursos Vinculados ao RPPS - Capitalização</option>
-                            <option>1.801.0000 - RPPS - Repartição</option>
-                            <option>1.802.0000 - RPPS - Taxa de Administração</option>
-                            <option>1.803.0000 - SPSM</option>
-                            <option>1.860.0000 - Precatórios</option>
-                            <option>1.861.0000 - Depósitos judiciais</option>
-                            <option>1.862.0000 - Depósitos de terceiros</option>
-                            <option>1.869.0000 - Outros recursos extraorçamentários</option>
-                            <option>1.899.0000 - Outros Recursos Vinculados</option>
+                            <option>15000000 - Recursos não vinculados de Impostos</option>
+                            <option>15001001 - Recursos destinados à Manutenção e Desenvolvimento do Ensino</option>
+                            <option>15010000 - Outros Recursos não Vinculados</option>
+                            <option>15010100 - Outros Recursos não vinculados destinados ao Tesouro</option>
+                            <option>15400000 - Transferência de recursos do FUNDEB desenvolvimento do Ensino</option>
+                            <option>15401070 - Transferência de recursos do FUNDEB Remuneração Educação Básica</option>
+                            <option>15500000 - Recursos da Contribuição ao Salário Educação</option>
+                            <option>15510000 - Transferências de Recursos do FNDE referente ao Programa Dinheiro Direto na Escola (PDDE)</option>
+                            <option>15520000 - Transferências de Recursos do FNDE referente ao Programa Nacional de Alimentação Escolar (PNAE)</option>
+                            <option>15530000 - Transferências de Recursos do FNDE referente ao P. N. de Apoio ao Transporte Escolar (PNATE)</option>
+                            <option>15690000 - Outras Transferências de Recursos do FNDE</option>
+                            <option>15700000 - Transferências do Governo Federal ref. a Convênios e outros Repasses vinculados à Educação</option>
+                            <option>15740000 - Recursos de Operações de Crédito Educação</option>
                         </select>
                     </div>
 

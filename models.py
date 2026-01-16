@@ -1,5 +1,6 @@
 from extensions import db
 from datetime import datetime
+from sqlalchemy import Numeric
 
 class Programa(db.Model):
     __tablename__ = 'programa'
@@ -153,3 +154,38 @@ class MemoriaCalculo(db.Model):
     excluido_em = db.Column(db.DateTime, nullable=True)
 
     etapa = db.relationship("Etapa", backref=db.backref("memorias", lazy=True))
+
+class Momp(db.Model):
+    __tablename__ = 'momp'
+    __table_args__ = {'schema': 'dbo'}
+    id = db.Column(db.Integer, primary_key=True)
+    exercicio = db.Column(db.String(4))  # Novo campo adicionado
+    fonte = db.Column(db.String(255))
+    grupo_despesa = db.Column(db.String(255))
+    teto_despesa_momp = db.Column(db.String(255))
+    subteto_despesa_momp = db.Column(db.String(100))
+    teto_anual = db.Column(Numeric(15, 2))
+    ativo = db.Column(db.Boolean, default=True)
+    alterado_em = db.Column(db.DateTime)
+    excluido_em = db.Column(db.DateTime)
+
+class PoliticaTeto(db.Model):
+    __tablename__ = 'politicateto'
+    __table_args__ = {'schema': 'dbo'}
+
+    id = db.Column(db.Integer, primary_key=True)
+    momp_id = db.Column(db.Integer)
+    regiao = db.Column(db.String(20))
+    subfuncao_ug = db.Column(db.String(20))
+    adj = db.Column(db.String(20))
+    macropolitica = db.Column(db.String(100))
+    pilar = db.Column(db.String(100))
+    eixo = db.Column(db.String(100))
+    politica_decreto = db.Column(db.String(100))
+    acao_paoe = db.Column(db.String(100))
+    teto_politica_decreto = db.Column(db.Numeric(15, 2))
+    chave_planejamento = db.Column(db.String(200))
+    saldo_anual = db.Column(db.Numeric(15, 2))
+    ativo = db.Column(db.Boolean, default=True)
+    alterado_em = db.Column(db.DateTime, default=datetime.now)
+    excluido_em = db.Column(db.DateTime)
