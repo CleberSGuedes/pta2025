@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from flask import Flask, app, flash, jsonify, render_template, request, redirect, url_for
 from sqlalchemy import String, and_, cast, func, not_, or_
 from config import Config
