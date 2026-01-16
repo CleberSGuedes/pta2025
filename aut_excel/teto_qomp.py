@@ -183,8 +183,8 @@ def carregar_teto_post():
         except Exception as e:
             return _respond("error", f"Arquivo salvo (<b>{fname}</b>), mas houve erro na leitura do Excel:<br><code>{str(e)}</code>")
 
-        # ---------------------- FLUXO dbo.momp ----------------------
-        if tabela == "dbo.momp":
+        # ---------------------- FLUXO momp ----------------------
+        if tabela == "momp":
             try:
                 # import local (lazy) para evitar quebra no startup em produção
                 try:
@@ -237,7 +237,7 @@ def carregar_teto_post():
                         rows_old = conn.execute(
                             text("""
                                 SELECT id
-                                  FROM dbo.momp
+                                  FROM momp
                                  WHERE exercicio = :ex
                                    AND fonte = :fon
                                    AND grupo_despesa = :grp
@@ -251,7 +251,7 @@ def carregar_teto_post():
                         # Insere o novo registro (ativo=1) e captura o novo id
                         new_id_row = conn.execute(
                             text("""
-                                INSERT INTO dbo.momp
+                                INSERT INTO momp
                                 (exercicio, fonte, grupo_despesa, teto_despesa_momp, subteto_despesa_momp, teto_anual, ativo)
                                 OUTPUT inserted.id
                                 VALUES (:ex, :fon, :grp, :teto_grp, :subt, :teto_anual, 1)
@@ -276,7 +276,7 @@ def carregar_teto_post():
 
                             conn.execute(
                                 text(f"""
-                                    UPDATE dbo.politicateto
+                                    UPDATE politicateto
                                        SET momp_id = :nid
                                      WHERE momp_id IN ({ph})
                                 """),
@@ -284,7 +284,7 @@ def carregar_teto_post():
                             )
                             conn.execute(
                                 text(f"""
-                                    UPDATE dbo.momp
+                                    UPDATE momp
                                        SET ativo = 0
                                      WHERE id IN ({ph})
                                 """),
@@ -294,13 +294,13 @@ def carregar_teto_post():
                 base = os.path.basename(tratado_path)
                 # limpeza pós-processamento (janela padrão 48h)
                 _cleanup_tmp(tmp_dir, max_age_seconds=48 * 3600)
-                return _respond("success", "Processo concluído. Tabela dbo.momp atualizada.")
+                return _respond("success", "Processo concluído. Tabela momp atualizada.")
 
             except Exception as e:
-                return _respond("error", f"Falha ao processar/atualizar a tabela <code>dbo.momp</code>:<br><code>{e}</code>")
+                return _respond("error", f"Falha ao processar/atualizar a tabela <code>momp</code>:<br><code>{e}</code>")
 
-        # ---------------------- FLUXO dbo.politicateto ----------------------
-        if tabela == "dbo.politicateto":
+        # ---------------------- FLUXO politicateto ----------------------
+        if tabela == "politicateto":
             try:
                 # import local (lazy)
                 try:
@@ -336,7 +336,7 @@ def carregar_teto_post():
                     rows = conn.execute(
                         text("""
                             SELECT id, fonte, grupo_despesa, subteto_despesa_momp
-                              FROM dbo.momp
+                              FROM momp
                              WHERE exercicio = :ex AND ativo = 1
                         """),
                         {"ex": exercicio}
@@ -449,7 +449,7 @@ def carregar_teto_post():
                             params = {f"id{i}": ids_uni[i] for i in range(len(ids_uni))}
                             conn.execute(
                                 text(f"""
-                                    UPDATE dbo.politicateto
+                                    UPDATE politicateto
                                        SET ativo = 0
                                      WHERE ativo = 1
                                        AND momp_id IN ({ph})
@@ -457,7 +457,7 @@ def carregar_teto_post():
                                 params
                             )
                         insert_sql = text("""
-                            INSERT INTO dbo.politicateto
+                            INSERT INTO politicateto
                             (
                                 momp_id,
                                 regiao,
@@ -494,10 +494,10 @@ def carregar_teto_post():
 
                 # limpeza pós-processamento (janela padrão 48h)
                 _cleanup_tmp(tmp_dir, max_age_seconds=48 * 3600)
-                return _respond("success", "Processo concluído. Tabela dbo.politicateto atualizada.")
+                return _respond("success", "Processo concluído. Tabela politicateto atualizada.")
 
             except Exception as e:
-                return _respond("error", f"Falha ao processar/atualizar a tabela <code>dbo.politicateto</code>:<br><code>{e}</code>")
+                return _respond("error", f"Falha ao processar/atualizar a tabela <code>politicateto</code>:<br><code>{e}</code>")
 
         # outras tabelas: só conclui
         _cleanup_tmp(tmp_dir, max_age_seconds=48 * 3600)

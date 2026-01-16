@@ -4,7 +4,6 @@ from sqlalchemy import Numeric
 
 class Programa(db.Model):
     __tablename__ = 'programa'
-    __table_args__ = {'schema': 'dbo'}
 
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(255))
@@ -20,10 +19,9 @@ class Programa(db.Model):
 
 class Acao(db.Model):
     __tablename__ = 'acao'
-    __table_args__ = {'schema': 'dbo'}
 
     id = db.Column(db.Integer, primary_key=True)
-    programa_id = db.Column(db.Integer, db.ForeignKey('dbo.programa.id'))
+    programa_id = db.Column(db.Integer, db.ForeignKey('programa.id'))
     
     subfuncao = db.Column(db.String(100))
     acao_paoe = db.Column(db.String(100))
@@ -39,10 +37,9 @@ class Acao(db.Model):
 
 class ProdutoAcao(db.Model):
     __tablename__ = 'produto_acao'
-    __table_args__ = {'schema': 'dbo'}
 
     id = db.Column(db.Integer, primary_key=True)
-    acao_id = db.Column(db.Integer, db.ForeignKey('dbo.acao.id'), nullable=False)
+    acao_id = db.Column(db.Integer, db.ForeignKey('acao.id'), nullable=False)
     nome = db.Column(db.String(255), nullable=False)
     un_medida = db.Column(db.String(50))  # <- novo campo
     quantidade = db.Column(db.Float)      # <- novo campo
@@ -58,10 +55,9 @@ class ProdutoAcao(db.Model):
     
 class SubacaoEntrega(db.Model):
     __tablename__ = "subacao_entrega"
-    __table_args__ = {'schema': 'dbo'}
 
     id = db.Column(db.Integer, primary_key=True)
-    produto_id = db.Column(db.Integer, db.ForeignKey("dbo.produto_acao.id"), nullable=False)
+    produto_id = db.Column(db.Integer, db.ForeignKey("produto_acao.id"), nullable=False)
     
     subacao_entrega = db.Column(db.String(500), nullable=True)
     produto_subacao = db.Column(db.String(255), nullable=True)
@@ -94,10 +90,9 @@ class SubacaoEntrega(db.Model):
     
 class MunicipioEntrega(db.Model):
     __tablename__ = 'municipio_entrega'
-    __table_args__ = {'schema': 'dbo'}
 
     id = db.Column(db.Integer, primary_key=True)
-    subacao_entrega_id = db.Column(db.Integer, db.ForeignKey('dbo.subacao_entrega.id'), nullable=False)
+    subacao_entrega_id = db.Column(db.Integer, db.ForeignKey('subacao_entrega.id'), nullable=False)
     codigo_municipio = db.Column(db.String(50), nullable=False)
     nome_municipio = db.Column(db.String(255), nullable=False)
     un_medida = db.Column(db.String(50), nullable=True)
@@ -110,10 +105,9 @@ class MunicipioEntrega(db.Model):
 
 class Etapa(db.Model):
     __tablename__ = 'etapa'
-    __table_args__ = {'schema': 'dbo'}
 
     id = db.Column(db.Integer, primary_key=True)
-    subacao_entrega_id = db.Column(db.Integer, db.ForeignKey('dbo.subacao_entrega.id'), nullable=False)
+    subacao_entrega_id = db.Column(db.Integer, db.ForeignKey('subacao_entrega.id'), nullable=False)
     etapa_nome = db.Column(db.String(255), nullable=False)
     data_inicio = db.Column(db.Date, nullable=False)
     data_fim = db.Column(db.Date, nullable=False)
@@ -129,10 +123,9 @@ class Etapa(db.Model):
 
 class MemoriaCalculo(db.Model):
     __tablename__ = "memoria_calculo"
-    __table_args__ = {'schema': 'dbo'}
     
     id = db.Column(db.Integer, primary_key=True)
-    etapa_id = db.Column(db.Integer, db.ForeignKey("dbo.etapa.id"), nullable=False)
+    etapa_id = db.Column(db.Integer, db.ForeignKey("etapa.id"), nullable=False)
     
     itens_despesa = db.Column(db.Text)
     unidade_medida = db.Column(db.String(100))
@@ -157,7 +150,6 @@ class MemoriaCalculo(db.Model):
 
 class Momp(db.Model):
     __tablename__ = 'momp'
-    __table_args__ = {'schema': 'dbo'}
     id = db.Column(db.Integer, primary_key=True)
     exercicio = db.Column(db.String(4))  # Novo campo adicionado
     fonte = db.Column(db.String(255))
@@ -171,7 +163,6 @@ class Momp(db.Model):
 
 class PoliticaTeto(db.Model):
     __tablename__ = 'politicateto'
-    __table_args__ = {'schema': 'dbo'}
 
     id = db.Column(db.Integer, primary_key=True)
     momp_id = db.Column(db.Integer)
