@@ -1,5 +1,6 @@
----
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/proj5954/pta2025/
-    - /bin/cp -R * $DEPLOYPATH
+    - export DEPLOYPATH=/home/proj5954/pta2025
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/cp -a . $DEPLOYPATH
+    - /bin/rm -rf $DEPLOYPATH/.git
