@@ -193,6 +193,43 @@ label {
     border-radius: 0.4rem;
 }
 
+/* Lista da tela Cadastrar Subacao/Entrega */
+.subacao-list-card {
+    max-height: calc(100vh - 190px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.subacao-list-card .card-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.subacao-table-scroll {
+    flex: 1 1 auto;
+    min-height: 120px;
+    max-height: 430px;
+    overflow: auto;
+}
+
+.subacao-table-scroll thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+@media (max-width: 767.98px) {
+    .subacao-list-card {
+        max-height: none;
+    }
+
+    .subacao-table-scroll {
+        max-height: 360px;
+    }
+}
+
 /* Caixa de busca dentro do Select2 (dropdown aberto) */
 .select2-container--default .select2-search--dropdown .select2-search__field {
     background-color: #f0f0f0 !important; /* Cinza claro */

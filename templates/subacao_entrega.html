@@ -18,7 +18,7 @@
 <div class="row">
     <!-- ETAPA 7 - Cadastrar Subação/Entrega -->
     <div class="col-md-6">
-        <div class="card shadow-sm mb-4">
+        <div class="card shadow-sm mb-4 subacao-list-card">
             <div class="card-header etapa-titulo">Cadastrar Subação/Entrega(s)</div>
             <div class="card-body font-sistema">
                 <p><strong>Programa Governo:</strong> {{ programa.nome }}</p>
@@ -27,8 +27,19 @@
                 <p><strong>Ação (PAOE):</strong> {{ acao.acao_paoe }}</p>
                 <p><strong>Produto da Ação:</strong> {{ produto.nome }}</p>
 
+                <div class="mb-3">
+                    <label for="filtroSubacao" class="form-label">Consultar subação/entrega:</label>
+                    <input
+                        type="search"
+                        id="filtroSubacao"
+                        class="form-control"
+                        placeholder="Digite uma palavra-chave"
+                        autocomplete="off"
+                    >
+                </div>
+
                 <!-- Tabela de visualização -->
-                <div class="table-responsive mb-3">
+                <div class="table-responsive mb-3 subacao-table-scroll">
                     <form method="post" id="formExcluirSubacao">
                         <table class="table table-bordered table-hover text-center">
                             <thead class="table-light">
@@ -46,9 +57,9 @@
                                     <th class="text-nowrap">E-mail</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="corpoTabelaSubacoes">
                                 {% for s in registros %}
-                                <tr>
+                                <tr class="subacao-row">
                                     <td><input type="radio" name="subacaoSelecionada" value="{{ s.id }}"></td>
                                     <td>{{ s.subacao_entrega }}</td> <!-- Agora já vem concatenado do backend -->
                                     <td>{{ s.produto_subacao }}</td>
@@ -62,6 +73,9 @@
                                     <td>{{ s.email }}</td>
                                 </tr>
                                 {% endfor %}
+                                <tr id="semResultadoSubacao" class="d-none">
+                                    <td colspan="11" class="text-muted py-3">Nenhum registro encontrado.</td>
+                                </tr>
                             </tbody>
                         </table>
                     </form>

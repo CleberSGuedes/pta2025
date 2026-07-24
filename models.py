@@ -6,6 +6,7 @@ class Programa(db.Model):
     __tablename__ = 'programa'
 
     id = db.Column(db.Integer, primary_key=True)
+    exercicio = db.Column(db.String(4), nullable=False, default="2027")
     nome = db.Column(db.String(255))
     funcao = db.Column(db.String(100))
     responsavel = db.Column(db.String(255))

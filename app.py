@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 load_dotenv()
 
-from flask import Flask, app, flash, jsonify, render_template, request, redirect, url_for
+from flask import Flask, app, abort, flash, jsonify, render_template, request, redirect, url_for
 from sqlalchemy import String, and_, cast, func, not_, or_, text
 from config import Config
 from extensions import db
@@ -20,14 +20,43 @@ from models import MemoriaCalculo
 from models import Momp
 from models import PoliticaTeto
 from flask import session
-from dash_apps.teto_por_fonte import criar_dash_teto_por_fonte
-from aut_excel.teto_qomp import teto_excel_bp
 
 
 app = Flask(__name__)
 app.config.from_object(Config)
 db.init_app(app)
 usuarios_online = {}
+ORCAMENTO_DISABLED_PATHS = (
+    "/teto_orcamentario",
+    "/dashboard-teto",
+    "/cadastrar_momp",
+    "/inserir_momp",
+    "/excluir_momp",
+    "/filtrar_momp",
+    "/politicateto",
+    "/inserir_politicateto",
+    "/excluir_politicateto",
+    "/visualizar_qomp",
+    "/baixar_excel_qomp",
+    "/carregar_teto",
+)
+
+def _pta_exercicio_atual():
+    return str(app.config.get("PTA_EXERCICIO_ATUAL") or "2026").strip()
+
+def _programa_do_exercicio_or_404(programa_id):
+    programa = Programa.query.filter_by(
+        id=programa_id,
+        ativo=True,
+        exercicio=_pta_exercicio_atual()
+    ).first()
+    if not programa:
+        abort(404)
+    return programa
+
+@app.context_processor
+def _inject_pta_context():
+    return {"pta_exercicio_atual": _pta_exercicio_atual()}
 
 # Mantem a conexao valida em hospedagem compartilhada (retry simples no 1o acesso).
 @app.before_request
@@ -40,11 +69,24 @@ def _ping_db():
         db.session.remove()
         db.session.execute(text("SELECT 1")).scalar()
 
-# Cria o Dash e o incorpora ao Flask
-criar_dash_teto_por_fonte(app)
+if app.config.get("ORCAMENTO_MODULE_ENABLED", False):
+    from dash_apps.teto_por_fonte import criar_dash_teto_por_fonte
+    from aut_excel.teto_qomp import teto_excel_bp
 
-# registre o blueprint APÓS criar o app
-app.register_blueprint(teto_excel_bp)
+    # Cria o Dash e registra o processamento de teto apenas quando o modulo estiver ativo.
+    criar_dash_teto_por_fonte(app)
+    app.register_blueprint(teto_excel_bp)
+
+@app.before_request
+def _bloquear_modulo_orcamentario():
+    if app.config.get("ORCAMENTO_MODULE_ENABLED", False):
+        return None
+    if not request.path.startswith(ORCAMENTO_DISABLED_PATHS):
+        return None
+    if request.path.startswith("/dashboard-teto") or request.method != "GET":
+        return jsonify({"success": False, "message": "Modulo orcamentario desativado nesta aplicacao."}), 404
+    flash("Modulo orcamentario desativado nesta aplicacao.", "warning")
+    return redirect(url_for("home"))
 
 with app.app_context():
         from models import Programa, Acao  # ✅ Importamos também o modelo Acao
@@ -56,12 +98,18 @@ with app.app_context():
 
         @app.route('/cadastrar')
         def cadastrar_pta():
-            programas = Programa.query.filter_by(ativo=True).all()
+            programas = Programa.query.filter_by(
+                ativo=True,
+                exercicio=_pta_exercicio_atual()
+            ).all()
             return render_template('cadastrar_programa.html', programas=programas)
 
         @app.route('/excluir_programa/<int:id>', methods=['POST'])
         def excluir_programa(id):
-            programa = Programa.query.get(id)
+            programa = Programa.query.filter_by(
+                id=id,
+                exercicio=_pta_exercicio_atual()
+            ).first()
 
             if not programa:
                 flash('Programa não encontrado.', 'danger')
@@ -93,7 +141,10 @@ with app.app_context():
 
             if programa_id:
                 # Atualização com duplicação (herança)
-                programa_antigo = Programa.query.get(int(programa_id))
+                programa_antigo = Programa.query.filter_by(
+                    id=int(programa_id),
+                    exercicio=_pta_exercicio_atual()
+                ).first()
                 if programa_antigo:
                     # Desativar o programa antigo
                     programa_antigo.ativo = False
@@ -101,6 +152,7 @@ with app.app_context():
 
                     # Criar novo programa com os novos dados
                     novo_programa = Programa(
+                        exercicio=_pta_exercicio_atual(),
                         nome=nome,
                         funcao=funcao,
                         responsavel=responsavel,
@@ -119,6 +171,7 @@ with app.app_context():
             else:
                 # Novo cadastro simples
                 novo_programa = Programa(
+                    exercicio=_pta_exercicio_atual(),
                     nome=nome,
                     funcao=funcao,
                     responsavel=responsavel,
@@ -134,7 +187,7 @@ with app.app_context():
 
         @app.route('/acoes/<int:programa_id>')
         def acoes_por_programa(programa_id):
-            programa = Programa.query.get_or_404(programa_id)
+            programa = _programa_do_exercicio_or_404(programa_id)
             acoes = Acao.query.filter_by(programa_id=programa_id, ativo=True).all()
             return render_template('cadastrar_acao.html', programa=programa, acoes=acoes)
 
@@ -142,6 +195,7 @@ with app.app_context():
         def inserir_acao():
             programa_id = request.form.get('programa_id')
             acao_id = request.form.get('acao_id')
+            programa = _programa_do_exercicio_or_404(int(programa_id))
 
             subfuncao = request.form['subfuncao']
             acao_paoe = request.form['acao_paoe']
@@ -158,7 +212,7 @@ with app.app_context():
 
                     # Criar nova ação com os dados atualizados
                     nova_acao = Acao(
-                        programa_id=programa_id,
+                        programa_id=programa.id,
                         subfuncao=subfuncao,
                         acao_paoe=acao_paoe,
                         responsavel=responsavel,
@@ -176,7 +230,7 @@ with app.app_context():
                         produto.alterado_em = datetime.now()
             else:
                 nova_acao = Acao(
-                    programa_id=programa_id,
+                    programa_id=programa.id,
                     subfuncao=subfuncao,
                     acao_paoe=acao_paoe,
                     responsavel=responsavel,
@@ -188,7 +242,7 @@ with app.app_context():
 
             db.session.commit()
             flash('Ação salva com sucesso.', 'success')
-            return redirect(url_for('acoes_por_programa', programa_id=programa_id))
+            return redirect(url_for('acoes_por_programa', programa_id=programa.id))
 
         @app.route('/excluir_acao/<int:id>', methods=['POST'])
         def excluir_acao(id):
@@ -215,8 +269,10 @@ with app.app_context():
         # === ETAPA 5: Visualizar Produtos da Ação ===
         @app.route('/produtos_acao/<int:programa_id>/<int:acao_id>')
         def cadastrar_produto_acao(programa_id, acao_id):
+            programa = _programa_do_exercicio_or_404(programa_id)
             acao = Acao.query.get_or_404(acao_id)
-            programa = Programa.query.get_or_404(acao.programa_id)
+            if acao.programa_id != programa.id:
+                abort(404)
             produtos = ProdutoAcao.query.filter_by(acao_id=acao_id, ativo=True).all()
             return render_template(
                 'cadastrar_produto_acao.html',
@@ -318,9 +374,11 @@ with app.app_context():
         @app.route('/subacoes_entrega/<int:programa_id>/<int:acao_id>/<int:produto_id>')
         def subacoes_entrega(programa_id, acao_id, produto_id):
             try:
-                programa = Programa.query.get_or_404(programa_id)
+                programa = _programa_do_exercicio_or_404(programa_id)
                 acao = Acao.query.get_or_404(acao_id)
                 produto = ProdutoAcao.query.get_or_404(produto_id)
+                if acao.programa_id != programa.id or produto.acao_id != acao.id:
+                    abort(404)
                 registros = SubacaoEntrega.query.filter_by(produto_id=produto_id, ativo=True).all()
                 subacao_ids = [r.id for r in registros]
                 municipios = MunicipioEntrega.query.filter(
@@ -565,10 +623,16 @@ with app.app_context():
         @app.route('/etapas/<int:programa_id>/<int:acao_id>/<int:produto_id>/<int:subacao_id>')
         def etapas(programa_id, acao_id, produto_id, subacao_id):
             try:
-                programa = Programa.query.get_or_404(programa_id)
+                programa = _programa_do_exercicio_or_404(programa_id)
                 acao = Acao.query.get_or_404(acao_id)
                 produto = ProdutoAcao.query.get_or_404(produto_id)
                 subacao = SubacaoEntrega.query.get_or_404(subacao_id)
+                if (
+                    acao.programa_id != programa.id
+                    or produto.acao_id != acao.id
+                    or subacao.produto_id != produto.id
+                ):
+                    abort(404)
                 etapas = Etapa.query.filter_by(subacao_entrega_id=subacao.id, ativo=True).all()
 
                 mensagem = session.pop('mensagem_popup', None)
@@ -629,7 +693,7 @@ with app.app_context():
 
                 produto = ProdutoAcao.query.get_or_404(subacao.produto_id)
                 acao = Acao.query.get_or_404(produto.acao_id)
-                programa = Programa.query.get_or_404(acao.programa_id)
+                programa = _programa_do_exercicio_or_404(acao.programa_id)
 
                 return redirect(url_for('etapas',
                                         programa_id=programa.id,
@@ -653,7 +717,7 @@ with app.app_context():
                 subacao = SubacaoEntrega.query.get_or_404(etapa.subacao_entrega_id)
                 produto = ProdutoAcao.query.get_or_404(subacao.produto_id)
                 acao = Acao.query.get_or_404(produto.acao_id)
-                programa = Programa.query.get_or_404(acao.programa_id)
+                programa = _programa_do_exercicio_or_404(acao.programa_id)
 
                 session['mensagem_popup'] = "✅ Etapa excluída com sucesso."
 
@@ -675,7 +739,7 @@ with app.app_context():
         @app.route("/memoria_calculo/<int:programa_id>/<int:acao_id>/<int:produto_id>/<int:subacao_id>/<int:etapa_id>")
         def memoria_calculo(programa_id, acao_id, produto_id, subacao_id, etapa_id):
             try:
-                programa = Programa.query.get(programa_id)
+                programa = _programa_do_exercicio_or_404(programa_id)
                 acao = Acao.query.get(acao_id)
                 produto = ProdutoAcao.query.get(produto_id)
                 subacao_entrega = SubacaoEntrega.query.get(subacao_id)
@@ -683,6 +747,14 @@ with app.app_context():
 
                 if not all([programa, acao, produto, subacao_entrega, etapa]):
                     raise Exception("Algum dos objetos está ausente no banco de dados.")
+
+                if (
+                    acao.programa_id != programa.id
+                    or produto.acao_id != acao.id
+                    or subacao_entrega.produto_id != produto.id
+                    or etapa.subacao_entrega_id != subacao_entrega.id
+                ):
+                    abort(404)
 
                 memorias = MemoriaCalculo.query.filter_by(etapa_id=etapa_id, ativo=True).all()
 
@@ -753,7 +825,7 @@ with app.app_context():
             subacao = SubacaoEntrega.query.get(etapa.subacao_entrega_id)
             produto = ProdutoAcao.query.get(subacao.produto_id)
             acao = Acao.query.get(produto.acao_id)
-            programa = Programa.query.get(acao.programa_id)
+            programa = _programa_do_exercicio_or_404(acao.programa_id)
 
             return redirect(url_for("memoria_calculo",
                 programa_id=programa.id,
@@ -777,7 +849,7 @@ with app.app_context():
             subacao = SubacaoEntrega.query.get(etapa.subacao_entrega_id)
             produto = ProdutoAcao.query.get(subacao.produto_id)
             acao = Acao.query.get(produto.acao_id)
-            programa = Programa.query.get(acao.programa_id)
+            programa = _programa_do_exercicio_or_404(acao.programa_id)
 
             return redirect(url_for("memoria_calculo",
                 programa_id=programa.id,
@@ -792,6 +864,7 @@ with app.app_context():
         def visualizar_pta():
             dados = (
                 db.session.query(
+                    Programa.exercicio.label("exercicio"),
                     Programa.nome.label("programa_nome"),
                     Programa.funcao,
                     Programa.responsavel.label("programa_responsavel"),
@@ -861,6 +934,7 @@ with app.app_context():
                 .outerjoin(MemoriaCalculo, MemoriaCalculo.etapa_id == Etapa.id)
                 .filter(
                     Programa.ativo == True,
+                    Programa.exercicio == _pta_exercicio_atual(),
                     (Acao.ativo == True) | (Acao.id == None),
                     (ProdutoAcao.ativo == True) | (ProdutoAcao.id == None),
                     (SubacaoEntrega.ativo == True) | (SubacaoEntrega.id == None),
@@ -895,6 +969,7 @@ with app.app_context():
         def _df_municipios():
             dados = (
                 db.session.query(
+                    Programa.exercicio.label("Exercicio"),
                     Programa.nome.label("Programa"),
                     Programa.funcao.label("Função"),
                     Programa.responsavel.label("Responsável Programa"),
@@ -941,6 +1016,7 @@ with app.app_context():
                 .outerjoin(MunicipioEntrega, MunicipioEntrega.subacao_entrega_id == SubacaoEntrega.id)
                 .filter(
                     Programa.ativo == True,
+                    Programa.exercicio == _pta_exercicio_atual(),
                     (Acao.ativo == True) | (Acao.id == None),
                     (ProdutoAcao.ativo == True) | (ProdutoAcao.id == None),
                     (SubacaoEntrega.ativo == True) | (SubacaoEntrega.id == None),
@@ -953,6 +1029,7 @@ with app.app_context():
         def _df_etapas_memoria():
             dados = (
                 db.session.query(
+                    Programa.exercicio.label("Exercicio"),
                     Programa.nome.label("Programa"),
                     Programa.funcao.label("Função"),
                     Programa.responsavel.label("Responsável Programa"),
@@ -1016,6 +1093,7 @@ with app.app_context():
                 .outerjoin(MemoriaCalculo, MemoriaCalculo.etapa_id == Etapa.id)
                 .filter(
                     Programa.ativo == True,
+                    Programa.exercicio == _pta_exercicio_atual(),
                     (Acao.ativo == True) | (Acao.id == None),
                     (ProdutoAcao.ativo == True) | (ProdutoAcao.id == None),
                     (SubacaoEntrega.ativo == True) | (SubacaoEntrega.id == None),
@@ -1194,6 +1272,7 @@ with app.app_context():
 
                     Programa.ativo == True,
                     Programa.excluido_em.is_(None),
+                    Programa.exercicio == _pta_exercicio_atual(),
 
                     # NOT EXISTS
                     not_(etapa_exists.exists()),
@@ -1213,23 +1292,68 @@ with app.app_context():
 
             return jsonify({
                 "programas": db.session.query(Programa).filter(
-                    Programa.ativo == True, Programa.excluido_em.is_(None)
+                    Programa.ativo == True,
+                    Programa.excluido_em.is_(None),
+                    Programa.exercicio == _pta_exercicio_atual()
                 ).count(),
-                "acoes": db.session.query(Acao).filter(
-                    Acao.ativo == True, Acao.excluido_em.is_(None)
+                "acoes": db.session.query(Acao).join(Programa, Programa.id == Acao.programa_id).filter(
+                    Acao.ativo == True,
+                    Acao.excluido_em.is_(None),
+                    Programa.ativo == True,
+                    Programa.exercicio == _pta_exercicio_atual()
                 ).count(),
-                "produtos": db.session.query(ProdutoAcao).filter(
-                    ProdutoAcao.ativo == True, ProdutoAcao.excluido_em.is_(None)
+                "produtos": db.session.query(ProdutoAcao)
+                .join(Acao, Acao.id == ProdutoAcao.acao_id)
+                .join(Programa, Programa.id == Acao.programa_id)
+                .filter(
+                    ProdutoAcao.ativo == True,
+                    ProdutoAcao.excluido_em.is_(None),
+                    Acao.ativo == True,
+                    Programa.ativo == True,
+                    Programa.exercicio == _pta_exercicio_atual()
                 ).count(),
-                "subacoes": db.session.query(SubacaoEntrega).filter(
-                    SubacaoEntrega.ativo == True, SubacaoEntrega.excluido_em.is_(None)
+                "subacoes": db.session.query(SubacaoEntrega)
+                .join(ProdutoAcao, ProdutoAcao.id == SubacaoEntrega.produto_id)
+                .join(Acao, Acao.id == ProdutoAcao.acao_id)
+                .join(Programa, Programa.id == Acao.programa_id)
+                .filter(
+                    SubacaoEntrega.ativo == True,
+                    SubacaoEntrega.excluido_em.is_(None),
+                    ProdutoAcao.ativo == True,
+                    Acao.ativo == True,
+                    Programa.ativo == True,
+                    Programa.exercicio == _pta_exercicio_atual()
                 ).count(),
-                "etapas": db.session.query(Etapa).filter(
-                    Etapa.ativo == True, Etapa.excluido_em.is_(None)
+                "etapas": db.session.query(Etapa)
+                .join(SubacaoEntrega, SubacaoEntrega.id == Etapa.subacao_entrega_id)
+                .join(ProdutoAcao, ProdutoAcao.id == SubacaoEntrega.produto_id)
+                .join(Acao, Acao.id == ProdutoAcao.acao_id)
+                .join(Programa, Programa.id == Acao.programa_id)
+                .filter(
+                    Etapa.ativo == True,
+                    Etapa.excluido_em.is_(None),
+                    SubacaoEntrega.ativo == True,
+                    ProdutoAcao.ativo == True,
+                    Acao.ativo == True,
+                    Programa.ativo == True,
+                    Programa.exercicio == _pta_exercicio_atual()
                 ).count(),
                 # alinhei memória ao mesmo critério de exclusão lógica
-                "memorias": db.session.query(MemoriaCalculo).filter(
-                    MemoriaCalculo.ativo == True, MemoriaCalculo.excluido_em.is_(None)
+                "memorias": db.session.query(MemoriaCalculo)
+                .join(Etapa, Etapa.id == MemoriaCalculo.etapa_id)
+                .join(SubacaoEntrega, SubacaoEntrega.id == Etapa.subacao_entrega_id)
+                .join(ProdutoAcao, ProdutoAcao.id == SubacaoEntrega.produto_id)
+                .join(Acao, Acao.id == ProdutoAcao.acao_id)
+                .join(Programa, Programa.id == Acao.programa_id)
+                .filter(
+                    MemoriaCalculo.ativo == True,
+                    MemoriaCalculo.excluido_em.is_(None),
+                    Etapa.ativo == True,
+                    SubacaoEntrega.ativo == True,
+                    ProdutoAcao.ativo == True,
+                    Acao.ativo == True,
+                    Programa.ativo == True,
+                    Programa.exercicio == _pta_exercicio_atual()
                 ).count(),
                 "subacoes_sem_etapa": len(subacoes_sem_etapa_detalhes),
                 "subacoes_sem_etapa_detalhes": subacoes_sem_etapa_detalhes,

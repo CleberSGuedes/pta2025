@@ -5951,3 +5951,36 @@ window.excluirSubacao = excluirSubacao;
 window.carregarPilar = carregarPilar;
 window.carregarEixo = carregarEixo;
 window.carregarPoliticaDecreto = carregarPoliticaDecreto;
+
+document.addEventListener("DOMContentLoaded", function () {
+    const filtro = document.getElementById("filtroSubacao");
+    const linhas = Array.from(document.querySelectorAll("#corpoTabelaSubacoes tr.subacao-row"));
+    const semResultado = document.getElementById("semResultadoSubacao");
+
+    if (!filtro || linhas.length === 0) return;
+
+    filtro.addEventListener("input", function () {
+        const termo = normalizarTexto(filtro.value);
+        let visiveis = 0;
+
+        linhas.forEach((linha) => {
+            const subacao = linha.cells[1]?.textContent || "";
+            const produtoEntrega = linha.cells[2]?.textContent || "";
+            const textoBusca = normalizarTexto(`${subacao} ${produtoEntrega}`);
+            const exibir = textoBusca.includes(termo);
+
+            linha.classList.toggle("d-none", !exibir);
+            if (exibir) {
+                visiveis += 1;
+                return;
+            }
+
+            const radio = linha.querySelector('input[name="subacaoSelecionada"]');
+            if (radio?.checked) {
+                radio.checked = false;
+            }
+        });
+
+        semResultado?.classList.toggle("d-none", visiveis > 0);
+    });
+});

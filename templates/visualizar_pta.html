@@ -17,6 +17,7 @@
     <table id="pta-tabela" class="pta-table">
             <thead class="bg-gray-200 text-xs text-gray-700">
                 <tr>
+                    <th class="border px-2 py-1">Exercicio</th>
                     <!-- programa -->
                     <th class="border px-2 py-1">Programa</th>
                     <th class="border px-2 py-1">Função</th>
@@ -89,6 +90,7 @@
             <tbody>
                 {% for linha in dados %}
                 <tr>
+                    <td class="border px-1 py-1">{{ linha.exercicio }}</td>
                     <td class="border px-1 py-1">{{ linha.programa_nome }}</td>
                     <td class="border px-1 py-1">{{ linha.funcao }}</td>
                     <td class="border px-1 py-1">{{ linha.programa_responsavel }}</td>
