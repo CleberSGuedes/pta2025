@@ -1,6 +1,70 @@
 document.addEventListener("DOMContentLoaded", () => {
     const formExcluirHidden = document.getElementById("formExcluirEtapaHidden");
     const formEtapa = document.getElementById("formEtapa");
+    const municipioSelect = document.getElementById("municipio_entrega_id");
+    const etapaInput = document.getElementById("etapa_nome");
+    let ultimoPrefixoMunicipio = "";
+
+    function municipioSelecionadoEstado() {
+        const opt = municipioSelect?.selectedOptions?.[0];
+        const codigo = (opt?.dataset.codigo || "").trim();
+        const nome = (opt?.dataset.nome || opt?.textContent || "").trim().toLowerCase();
+        return codigo.startsWith("5100000") || nome === "estado" || nome.includes("estado mato grosso");
+    }
+
+    function prefixoMunicipioSelecionado() {
+        if (!municipioSelect?.value || municipioSelecionadoEstado()) return "";
+        const opt = municipioSelect.selectedOptions?.[0];
+        const nome = (opt?.dataset.nome || "").trim();
+        return nome ? `${nome} * ` : "";
+    }
+
+    function aplicarPrefixoMunicipioNaEtapa() {
+        if (!etapaInput) return;
+
+        let valor = etapaInput.value || "";
+        if (ultimoPrefixoMunicipio && valor.startsWith(ultimoPrefixoMunicipio)) {
+            valor = valor.slice(ultimoPrefixoMunicipio.length).trimStart();
+        }
+
+        const novoPrefixo = prefixoMunicipioSelecionado();
+        etapaInput.value = novoPrefixo ? `${novoPrefixo}${valor}` : valor;
+        ultimoPrefixoMunicipio = novoPrefixo;
+
+        if (typeof atualizarContador === "function") {
+            atualizarContador();
+        }
+    }
+
+    function municipiosUsados(etapaAtualId = "") {
+        const usados = new Set();
+        document.querySelectorAll('input[name="etapaSelecionada"]').forEach((radio) => {
+            const etapaId = radio.value || "";
+            const municipioId = radio.dataset.municipio_entrega_id || "";
+            if (municipioId && etapaId !== etapaAtualId) {
+                usados.add(municipioId);
+            }
+        });
+        return usados;
+    }
+
+    function atualizarOpcoesMunicipio(etapaAtualId = "") {
+        if (!municipioSelect) return;
+        const usados = municipiosUsados(etapaAtualId);
+        Array.from(municipioSelect.options).forEach((opt) => {
+            if (!opt.value) return;
+            opt.disabled = usados.has(opt.value);
+        });
+    }
+
+    function selecionarMunicipioPadrao() {
+        if (!municipioSelect) return;
+        const opcoesDisponiveis = Array.from(municipioSelect.options).filter((opt) => opt.value && !opt.disabled);
+        if (opcoesDisponiveis.length === 1) {
+            municipioSelect.value = opcoesDisponiveis[0].value;
+            aplicarPrefixoMunicipioNaEtapa();
+        }
+    }
 
     // 👉 Validação de CPF
     function validarCPF(cpf) {
@@ -27,13 +91,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // 👉 Interceptar envio do formulário
     formEtapa.addEventListener("submit", function (e) {
         const nome = document.getElementById("etapa_nome").value.trim();
+        const municipioId = municipioSelect?.value || "";
         const inicio = document.getElementById("data_inicio").value.trim();
         const fim = document.getElementById("data_fim").value.trim();
         const responsavel = document.getElementById("responsavel").value.trim();
         const cpf = document.getElementById("cpf").value.trim();
         const email = document.getElementById("email").value.trim();
 
-        if (!nome || !inicio || !fim || !responsavel || !cpf || !email) {
+        if (!municipioId || !nome || !inicio || !fim || !responsavel || !cpf || !email) {
             Swal.fire("Campos obrigatórios", "Preencha todos os campos do formulário.", "warning");
             e.preventDefault();
             return;
@@ -54,15 +119,16 @@ document.addEventListener("DOMContentLoaded", () => {
         // Verificar duplicidade
         const linhas = document.querySelectorAll("#formExcluirEtapa tbody tr");
         for (const linha of linhas) {
-            const etapaNome = linha.children[1]?.innerText.trim();
-            const dataInicio = linha.children[2]?.innerText.trim();
-            const dataFim = linha.children[3]?.innerText.trim();
+            const radio = linha.querySelector("input[type=radio]");
+            const etapaNome = radio?.dataset.etapa_nome?.trim();
+            const dataInicio = radio?.dataset.data_inicio?.trim();
+            const dataFim = radio?.dataset.data_fim?.trim();
+            const municipioEtapa = radio?.dataset.municipio_entrega_id?.trim();
             const etapaId = document.getElementById("etapa_id").value;
 
-            const mesmaEtapa = etapaNome === nome && dataInicio === inicio && dataFim === fim;
+            const mesmaEtapa = etapaNome === nome && dataInicio === inicio && dataFim === fim && municipioEtapa === municipioId;
 
             if (mesmaEtapa) {
-                const radio = linha.querySelector("input[type=radio]");
                 if (!etapaId || etapaId !== radio.value) {
                     Swal.fire("Etapa duplicada", "Já existe uma etapa com o mesmo nome e datas.", "error");
                     e.preventDefault();
@@ -79,6 +145,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!alterar) {
             limparCamposEtapa();
+            atualizarOpcoesMunicipio();
+            selecionarMunicipioPadrao();
             return;
         }
 
@@ -88,8 +156,11 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        atualizarOpcoesMunicipio(selecionado.value);
         document.getElementById("etapa_id").value = selecionado.value;
+        document.getElementById("municipio_entrega_id").value = selecionado.dataset.municipio_entrega_id || "";
         document.getElementById("etapa_nome").value = selecionado.dataset.etapa_nome;
+        ultimoPrefixoMunicipio = prefixoMunicipioSelecionado();
         document.getElementById("data_inicio").value = selecionado.dataset.data_inicio;
         document.getElementById("data_fim").value = selecionado.dataset.data_fim;
         document.getElementById("responsavel").value = selecionado.dataset.responsavel;
@@ -135,13 +206,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // 👉 Função auxiliar para limpar campos
     function limparCamposEtapa() {
         document.getElementById("etapa_id").value = "";
+        if (municipioSelect) municipioSelect.value = "";
         document.getElementById("etapa_nome").value = "";
+        ultimoPrefixoMunicipio = "";
         document.getElementById("data_inicio").value = "";
         document.getElementById("data_fim").value = "";
         document.getElementById("responsavel").value = "";
         document.getElementById("cpf").value = "";
         document.getElementById("email").value = "";
     }
+
+    municipioSelect?.addEventListener("change", aplicarPrefixoMunicipioNaEtapa);
+    atualizarOpcoesMunicipio();
+    selecionarMunicipioPadrao();
 });
 
 // 👉 Inicialização após carregar DOM

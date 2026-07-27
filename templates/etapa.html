@@ -22,6 +22,7 @@
                             <thead class="table-light">
                                 <tr>
                                     <th>Selecionar</th>
+                                    <th>Município</th>
                                     <th>Etapa</th>
                                     <th>Responsável</th>
                                     <th>CPF</th>
@@ -41,7 +42,15 @@
                                                data-cpf="{{ etapa.cpf }}"
                                                data-email="{{ etapa.email }}"
                                                data-data_inicio="{{ etapa.data_inicio }}"
+                                               data-municipio_entrega_id="{{ etapa.municipio_entrega_id or '' }}"
                                                data-data_fim="{{ etapa.data_fim }}"></td>
+                                    <td>
+                                        {% if etapa.municipio_entrega %}
+                                            {{ etapa.municipio_entrega.codigo_municipio }} - {{ etapa.municipio_entrega.nome_municipio }}
+                                        {% else %}
+                                            Não vinculado
+                                        {% endif %}
+                                    </td>
                                     <td>{{ etapa.etapa_nome }}</td>
                                     <td>{{ etapa.responsavel }}</td>
                                     <td>{{ etapa.cpf }}</td>
@@ -81,6 +90,22 @@
                 <form method="post" action="{{ url_for('inserir_etapa') }}" id="formEtapa">
                     <input type="hidden" name="etapa_id" id="etapa_id">
                     <input type="hidden" name="subacao_entrega_id" value="{{ subacao_entrega.id }}">
+
+                    <div class="mb-3">
+                        <label>Município:</label>
+                        <select name="municipio_entrega_id" id="municipio_entrega_id" class="form-control" required autocomplete="off">
+                            <option value="">Selecione o município</option>
+                            {% for municipio in municipios %}
+                                <option
+                                    value="{{ municipio.id }}"
+                                    data-codigo="{{ municipio.codigo_municipio }}"
+                                    data-nome="{{ municipio.nome_municipio }}"
+                                >
+                                    {{ municipio.codigo_municipio }} - {{ municipio.nome_municipio }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
                     <div class="mb-3">
                         <label>Etapa:</label>

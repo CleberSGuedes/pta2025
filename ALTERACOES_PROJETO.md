@@ -1,5 +1,74 @@
 # Alteracoes do Projeto PTA
 
+## 2026-07-27
+
+- Registrada regra operacional para limpeza futura de testes no banco:
+  - Quando solicitado pelo usuario, a limpeza devera remover/resetar somente dados cadastrados da `Subacao/Entrega` para frente.
+  - Cadastros fixos devem ser preservados: `Programa`, `Acao/PAOE` e `Produto da Acao`.
+  - Escopo de limpeza: `Subacao/Entrega`, `Municipio(s) da Entrega`, `Etapa` e `Memoria de Calculo`.
+  - A limpeza deve respeitar a ordem dos vinculos: primeiro `Memoria de Calculo`, depois `Etapa`, depois `Municipio(s) da Entrega` e por ultimo `Subacao/Entrega`.
+  - Antes de executar qualquer exclusao/reset de IDs, deve ser gerado um relatorio de conferencia com a quantidade de registros que serao afetados.
+  - O reset de IDs deve ser feito somente para as tabelas do escopo de testes, nunca para as tabelas fixas do planejamento.
+
+- Implementado vinculo entre `Etapa` e `MunicipioEntrega`:
+  - Adicionado campo `municipio_entrega_id` ao model `Etapa`.
+  - Criada migracao `db/migrations/2026-07-27_etapa_municipio_entrega.sql`.
+  - Criado script de aplicacao `scripts/apply_etapa_municipio_migration.py`.
+  - Migracao aplicada no banco configurado.
+  - Registros antigos foram vinculados automaticamente somente quando havia um unico municipio ativo na subacao.
+  - Validacao apos migracao: existe 1 etapa ativa antiga ainda sem municipio vinculado, pois a subacao possui mais de um municipio e exige conferencia manual.
+
+- Ajustada a tela `Cadastrar Etapa na Subacao/Entrega`:
+  - Adicionado campo obrigatorio `Municipio`.
+  - A lista de etapas passou a exibir o municipio vinculado.
+  - Ao cadastrar etapa para municipio comum, o nome recebe prefixo `Municipio * Nome da Etapa`.
+  - Ao cadastrar etapa para `5100000 - Estado`, o vinculo e gravado, mas o nome da etapa nao recebe prefixo.
+  - O sistema bloqueia mais de uma etapa ativa para o mesmo municipio da mesma subacao.
+  - Arquivos alterados: `templates/etapa.html`, `static/js/etapa.js`, `app.py`, `models.py`.
+
+- Ajustada visualizacao e exportacao consolidada do PTA:
+  - Consulta da tela `/visualizar` passou a unir municipio por `Etapa.municipio_entrega_id` quando houver etapa.
+  - Etapas antigas sem municipio vinculado nao multiplicam memorias por todos os municipios da subacao.
+  - O download principal `/baixar_excel` passou a gerar uma unica aba `PTA Consolidado`.
+  - O arquivo Excel foi validado com sucesso e gerado com uma unica aba.
+
+- Atualizado o painel da home para nova regra de etapa por municipio:
+  - O alerta passou a contar `municipio(s) da entrega sem etapa vinculada`.
+  - Os detalhes do alerta passaram a incluir o municipio pendente.
+
+- Modernizado o `Painel de Acompanhamento do PTA` na pagina inicial:
+  - Contagens passaram de lista textual para cards de indicadores.
+  - Pendencias de subacoes sem etapa passaram para painel dedicado com resumo, busca e lista com rolagem.
+  - A lista de alertas ficou preparada para muitos registros sem alongar excessivamente a home.
+  - O endpoint `/dashboard_status` passou a retornar o `exercicio` para exibicao no badge do painel.
+  - Arquivos alterados: `templates/home.html`, `static/css/style.css`, `app.py`.
+
+- Ajustada a tela `Cadastrar Subacao/Entrega(s)`:
+  - Corrigida a mascara do campo `CPF`, que nao era aplicada quando a Chave de Planejamento V2 estava ativa.
+  - A mascara passou a ficar em inicializador independente da logica de encadeamento da Chave.
+  - O card/lista do lado esquerdo agora cresce ate a altura do formulario `Incluir Subacao/Entrega(s)` em desktop.
+  - A rolagem vertical da tabela esquerda passa a aparecer somente depois que o painel alcanca a altura do formulario direito.
+  - A sincronizacao usa observacao de redimensionamento para acompanhar mudancas no formulario direito.
+  - Arquivos alterados: `templates/subacao_entrega.html`, `static/css/style.css`, `static/js/subacao_entrega.js`.
+
+- Atualizado documento `CHAVE_PLANEJAMENTO_MAPEAMENTO_COMPLETO.md`:
+  - Documento passou a conter apenas os blocos de codigo dos mapas que alimentam a secao `Chave de Planejamento`.
+  - Mapas incluidos: `regioesPlanejamento`, `subfuncaoUGMap`, `adjMap`, `macropoliticaMap`, `pilarMap`, `eixoMap`, `politicaMap` e `publico_ods`.
+  - Objetivo: permitir analise direta do codigo atual para indicar o que deve sair e o que deve entrar na atualizacao 2027.
+
+- Registrada estrutura padrao para atualizacoes futuras da Chave de Planejamento:
+  - Estrutura anotada em `CHAVE_PLANEJAMENTO_MAPEAMENTO_COMPLETO.md`.
+  - Campos necessarios: `Programa`, `Subfuncao`, `PAOE`, `UG`, `Produto`, `ADJ`, `Macropolitica`, `Pilar`, `Eixo` e `Politica Decreto`.
+  - Nenhum mapa foi alterado nesta etapa; aplicacao futura depende de informacoes formais.
+
+- Iniciada melhoria reversivel no formulario `Chave de Planejamento`:
+  - Criado controlador `static/js/chave_planejamento_v2.js` para encadear os selects sem `setTimeout`.
+  - Adicionada flag `window.USAR_CHAVE_PLANEJAMENTO_V2 = true` em `templates/subacao_entrega.html`.
+  - A cadeia antiga em `static/js/subacao_entrega.js` permanece no codigo e e desativada somente quando a flag V2 esta ligada.
+  - Para rollback rapido, alterar a flag para `false` no template e a pagina volta a usar a logica anterior.
+  - A V2 reaproveita os mapas atuais, sem alterar `subfuncaoUGMap`, `adjMap`, `macropoliticaMap`, `pilarMap`, `eixoMap` ou `politicaMap`.
+  - O JSON de edicao de subacao passou a retornar `produto`, garantindo que a Chave use o `Produto da Acao` correto ao alterar registros.
+
 ## 2026-07-24
 
 - Encerramento da sessao:

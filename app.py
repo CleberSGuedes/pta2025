@@ -54,6 +54,36 @@ def _programa_do_exercicio_or_404(programa_id):
         abort(404)
     return programa
 
+def _is_municipio_estado(municipio):
+    if not municipio:
+        return False
+    codigo = str(getattr(municipio, "codigo_municipio", "") or "").strip()
+    nome = str(getattr(municipio, "nome_municipio", "") or "").strip().lower()
+    return codigo.startswith("5100000") or nome in {"estado", "estado mato grosso"}
+
+def _nome_etapa_com_municipio(etapa_nome, municipio):
+    nome = str(etapa_nome or "").strip()
+    if not municipio or _is_municipio_estado(municipio):
+        return nome
+
+    municipio_nome = str(municipio.nome_municipio or "").strip()
+    prefixo = f"{municipio_nome} * " if municipio_nome else ""
+    if prefixo and not nome.startswith(prefixo):
+        return f"{prefixo}{nome}"
+    return nome
+
+def _municipio_join_condition_for_report():
+    return or_(
+        and_(
+            Etapa.municipio_entrega_id.isnot(None),
+            MunicipioEntrega.id == Etapa.municipio_entrega_id
+        ),
+        and_(
+            Etapa.id.is_(None),
+            MunicipioEntrega.subacao_entrega_id == SubacaoEntrega.id
+        )
+    )
+
 @app.context_processor
 def _inject_pta_context():
     return {"pta_exercicio_atual": _pta_exercicio_atual()}
@@ -563,6 +593,7 @@ with app.app_context():
                     "publico_ods": registro.publico_ods,
                     "subacao_entrega_raw": registro.subacao_entrega.split("*").pop().strip(),
                     "municipios": lista_municipios,
+                    "produto": produto.nome,
                     "programa": f"{programa.id} - {programa.nome}",
                     "subfuncao": acao.subfuncao,
                     "paoe": acao.acao_paoe
@@ -633,7 +664,19 @@ with app.app_context():
                     or subacao.produto_id != produto.id
                 ):
                     abort(404)
-                etapas = Etapa.query.filter_by(subacao_entrega_id=subacao.id, ativo=True).all()
+                etapas = (
+                    Etapa.query
+                    .filter_by(subacao_entrega_id=subacao.id, ativo=True)
+                    .order_by(Etapa.id.asc())
+                    .all()
+                )
+                municipios = (
+                    MunicipioEntrega.query
+                    .filter_by(subacao_entrega_id=subacao.id, ativo=True)
+                    .filter(MunicipioEntrega.excluido_em.is_(None))
+                    .order_by(MunicipioEntrega.codigo_municipio.asc(), MunicipioEntrega.nome_municipio.asc())
+                    .all()
+                )
 
                 mensagem = session.pop('mensagem_popup', None)
 
@@ -644,6 +687,7 @@ with app.app_context():
                     produto=produto,
                     subacao_entrega=subacao,
                     etapas=etapas,
+                    municipios=municipios,
                     mensagem_popup=mensagem
                 )
 
@@ -658,18 +702,60 @@ with app.app_context():
             try:
                 etapa_id = request.form.get("etapa_id")
                 subacao_id = request.form.get("subacao_entrega_id")
+                municipio_entrega_id = request.form.get("municipio_entrega_id")
                 subacao = SubacaoEntrega.query.get_or_404(subacao_id)
+                municipio = (
+                    MunicipioEntrega.query
+                    .filter_by(id=municipio_entrega_id, subacao_entrega_id=subacao.id, ativo=True)
+                    .filter(MunicipioEntrega.excluido_em.is_(None))
+                    .first()
+                )
+                if not municipio:
+                    session['mensagem_popup'] = "Selecione um município válido para a etapa."
+                    produto = ProdutoAcao.query.get_or_404(subacao.produto_id)
+                    acao = Acao.query.get_or_404(produto.acao_id)
+                    programa = _programa_do_exercicio_or_404(acao.programa_id)
+                    return redirect(url_for(
+                        'etapas',
+                        programa_id=programa.id,
+                        acao_id=acao.id,
+                        produto_id=produto.id,
+                        subacao_id=subacao.id
+                    ))
+
+                etapa_id_int = int(etapa_id) if etapa_id else None
+                etapa_duplicada_query = Etapa.query.filter(
+                    Etapa.subacao_entrega_id == subacao.id,
+                    Etapa.municipio_entrega_id == municipio.id,
+                    Etapa.ativo == True,
+                    Etapa.excluido_em.is_(None)
+                )
+                if etapa_id_int:
+                    etapa_duplicada_query = etapa_duplicada_query.filter(Etapa.id != etapa_id_int)
+                if etapa_duplicada_query.first():
+                    session['mensagem_popup'] = "Já existe uma etapa ativa vinculada a este município."
+                    produto = ProdutoAcao.query.get_or_404(subacao.produto_id)
+                    acao = Acao.query.get_or_404(produto.acao_id)
+                    programa = _programa_do_exercicio_or_404(acao.programa_id)
+                    return redirect(url_for(
+                        'etapas',
+                        programa_id=programa.id,
+                        acao_id=acao.id,
+                        produto_id=produto.id,
+                        subacao_id=subacao.id
+                    ))
 
                 etapa_antiga = None
-                if etapa_id:
-                    etapa_antiga = Etapa.query.get_or_404(etapa_id)
+                if etapa_id_int:
+                    etapa_antiga = Etapa.query.get_or_404(etapa_id_int)
                     etapa_antiga.ativo = False
                     etapa_antiga.alterado_em = datetime.now()
                     db.session.flush()
 
                 nova_etapa = Etapa(
                     subacao_entrega_id=subacao.id,
-                    etapa_nome=request.form.get("etapa_nome"),
+                    municipio_entrega_id=municipio.id,
+                    etapa_nome=_nome_etapa_com_municipio(request.form.get("etapa_nome"), municipio),
                     data_inicio=request.form.get("data_inicio"),
                     data_fim=request.form.get("data_fim"),
                     responsavel=request.form.get("responsavel"),
@@ -929,8 +1015,8 @@ with app.app_context():
                 .outerjoin(Acao, Acao.programa_id == Programa.id)
                 .outerjoin(ProdutoAcao, ProdutoAcao.acao_id == Acao.id)
                 .outerjoin(SubacaoEntrega, SubacaoEntrega.produto_id == ProdutoAcao.id)
-                .outerjoin(MunicipioEntrega, MunicipioEntrega.subacao_entrega_id == SubacaoEntrega.id)
                 .outerjoin(Etapa, Etapa.subacao_entrega_id == SubacaoEntrega.id)
+                .outerjoin(MunicipioEntrega, _municipio_join_condition_for_report())
                 .outerjoin(MemoriaCalculo, MemoriaCalculo.etapa_id == Etapa.id)
                 .filter(
                     Programa.ativo == True,
@@ -1065,6 +1151,11 @@ with app.app_context():
                     SubacaoEntrega.politica_decreto.label("Política Decreto"),
                     SubacaoEntrega.publico_ods.label("Público Transversal"),
 
+                    MunicipioEntrega.codigo_municipio.label("Código Município"),
+                    MunicipioEntrega.nome_municipio.label("Nome Município"),
+                    MunicipioEntrega.un_medida.label("Un. Medida Município"),
+                    MunicipioEntrega.quantidade.label("Qtd. Município"),
+
                     Etapa.etapa_nome.label("Etapa"),
                     Etapa.data_inicio.label("Data Início"),
                     Etapa.data_fim.label("Data Fim"),
@@ -1090,6 +1181,7 @@ with app.app_context():
                 .outerjoin(ProdutoAcao, ProdutoAcao.acao_id == Acao.id)
                 .outerjoin(SubacaoEntrega, SubacaoEntrega.produto_id == ProdutoAcao.id)
                 .outerjoin(Etapa, Etapa.subacao_entrega_id == SubacaoEntrega.id)
+                .outerjoin(MunicipioEntrega, _municipio_join_condition_for_report())
                 .outerjoin(MemoriaCalculo, MemoriaCalculo.etapa_id == Etapa.id)
                 .filter(
                     Programa.ativo == True,
@@ -1097,6 +1189,7 @@ with app.app_context():
                     (Acao.ativo == True) | (Acao.id == None),
                     (ProdutoAcao.ativo == True) | (ProdutoAcao.id == None),
                     (SubacaoEntrega.ativo == True) | (SubacaoEntrega.id == None),
+                    (MunicipioEntrega.ativo == True) | (MunicipioEntrega.id == None),
                     (Etapa.ativo == True) | (Etapa.id == None),
                     (MemoriaCalculo.ativo == True) | (MemoriaCalculo.id == None)
                 )
@@ -1165,17 +1258,15 @@ with app.app_context():
 
         # =============================================================================
         # ROTA LEGACY — mantém o link existente no template (/baixar_excel)
-        # Gera UM arquivo com DUAS abas (Subação x Municípios e Etapas x Memória)
+        # Gera UM arquivo com UMA aba consolidada, sem multiplicar memoria por municipio.
         # =============================================================================
         @app.route('/baixar_excel')
         def baixar_excel():
-            df1 = _df_municipios()
-            df2 = _df_etapas_memoria()
+            df = _df_etapas_memoria()
 
             output = io.BytesIO()
             with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
-                _write_sheet_styled(writer, df1, "Subação x Municípios")
-                _write_sheet_styled(writer, df2, "Etapas x Memória")
+                _write_sheet_styled(writer, df, "PTA Consolidado")
             output.seek(0)
 
             return send_file(
@@ -1238,43 +1329,40 @@ with app.app_context():
         # painel de acompanhamento PTA
         @app.route('/dashboard_status')
         def dashboard_status():
-            # subquery: existe etapa ativa e não excluída para a subação?
             etapa_exists = (
                 db.session.query(Etapa.id)
                 .filter(
-                    Etapa.subacao_entrega_id == SubacaoEntrega.id,
-                    Etapa.ativo == True,                    # <-- BIT = 1
-                    Etapa.excluido_em.is_(None),            # <-- IS NULL
+                    Etapa.municipio_entrega_id == MunicipioEntrega.id,
+                    Etapa.ativo == True,
+                    Etapa.excluido_em.is_(None),
                 )
             )
 
-            # subações que NÃO possuem nenhuma etapa ativa
             subacoes_sem_etapa_query = (
                 db.session.query(
                     SubacaoEntrega.subacao_entrega.label("subacao"),
                     ProdutoAcao.nome.label("produto"),
                     Acao.acao_paoe.label("acao"),
                     Programa.nome.label("programa"),
+                    MunicipioEntrega.codigo_municipio.label("codigo_municipio"),
+                    MunicipioEntrega.nome_municipio.label("nome_municipio"),
                 )
+                .join(MunicipioEntrega, MunicipioEntrega.subacao_entrega_id == SubacaoEntrega.id)
                 .join(ProdutoAcao, ProdutoAcao.id == SubacaoEntrega.produto_id)
                 .join(Acao, Acao.id == ProdutoAcao.acao_id)
                 .join(Programa, Programa.id == Acao.programa_id)
                 .filter(
-                    # filtros coerentes em toda a cadeia
                     SubacaoEntrega.ativo == True,
                     SubacaoEntrega.excluido_em.is_(None),
-
+                    MunicipioEntrega.ativo == True,
+                    MunicipioEntrega.excluido_em.is_(None),
                     ProdutoAcao.ativo == True,
                     ProdutoAcao.excluido_em.is_(None),
-
                     Acao.ativo == True,
                     Acao.excluido_em.is_(None),
-
                     Programa.ativo == True,
                     Programa.excluido_em.is_(None),
                     Programa.exercicio == _pta_exercicio_atual(),
-
-                    # NOT EXISTS
                     not_(etapa_exists.exists()),
                 )
                 .all()
@@ -1286,11 +1374,13 @@ with app.app_context():
                     "produto": r.produto,
                     "acao": r.acao,
                     "programa": r.programa,
+                    "municipio": f"{r.codigo_municipio} - {r.nome_municipio}",
                 }
                 for r in subacoes_sem_etapa_query
             ]
 
             return jsonify({
+                "exercicio": _pta_exercicio_atual(),
                 "programas": db.session.query(Programa).filter(
                     Programa.ativo == True,
                     Programa.excluido_em.is_(None),

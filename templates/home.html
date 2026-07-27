@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Página Inicial - PTA 2026{% endblock %}
+{% block title %}Página Inicial - PTA 2027{% endblock %}
 
 {% block content %}
 <div class="text-center">
@@ -24,17 +24,20 @@
 
         <!-- Bloco 2: Painel de Acompanhamento do PTA -->
         <div class="col-12 mb-4">
-            <div class="noticia-box min-altura">
-                <h5><strong>Painel de Acompanhamento do PTA</strong></h5>
-                <small class="text-muted">Atualizado em tempo real</small>
-
-                <!-- Alerta destacado -->
-                <div id="alerta-sem-etapa" class="mt-3 mb-2 text-danger fw-bold"></div>
-
-                <!-- Grade em duas colunas -->
-                <div class="row" id="painel-contagem">
-                    <!-- Conteúdo será preenchido via JS -->
+            <div class="noticia-box min-altura painel-pta-card">
+                <div class="painel-pta-header">
+                    <div>
+                        <h5><strong>Painel de Acompanhamento do PTA</strong></h5>
+                        <small class="text-muted">Atualizado em tempo real</small>
+                    </div>
+                    <span class="painel-pta-badge" id="painel-exercicio">Exercicio PTA</span>
                 </div>
+
+                <div class="painel-pta-grid" id="painel-contagem">
+                    <!-- Conteudo sera preenchido via JS -->
+                </div>
+
+                <div id="alerta-sem-etapa" class="painel-alertas"></div>
             </div>
         </div>
     </div>
@@ -233,6 +236,144 @@
 
 <!-- Script painel -->
 <script>
+function escaparHtml(valor) {
+    return String(valor ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+function normalizarBusca(valor) {
+    return String(valor ?? '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+}
+
+function renderizarIndicadoresPainel(data) {
+    const indicadores = [
+        { rotulo: 'Programas', valor: data.programas, sigla: 'PRG' },
+        { rotulo: 'Acoes/PAOEs', valor: data.acoes, sigla: 'PAOE' },
+        { rotulo: 'Produtos', valor: data.produtos, sigla: 'PROD' },
+        { rotulo: 'Subacoes/Entregas', valor: data.subacoes, sigla: 'SUB' },
+        { rotulo: 'Etapas planejadas', valor: data.etapas, sigla: 'ETP' },
+        { rotulo: 'Memorias de calculo', valor: data.memorias, sigla: 'MEM' },
+    ];
+
+    return indicadores.map(item => `
+        <div class="painel-metric-card">
+            <div class="painel-metric-icon">${item.sigla}</div>
+            <div>
+                <div class="painel-metric-value">${Number(item.valor || 0).toLocaleString('pt-BR')}</div>
+                <div class="painel-metric-label">${item.rotulo}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderizarAlertasPainel(data) {
+    const total = Number(data.subacoes_sem_etapa || 0);
+    const detalhes = Array.isArray(data.subacoes_sem_etapa_detalhes)
+        ? data.subacoes_sem_etapa_detalhes
+        : [];
+
+    if (total <= 0) {
+        return `
+            <div class="painel-alerta-vazio">
+                <div class="painel-alerta-status">OK</div>
+                <div>
+                    <strong>Nenhum municipio da entrega sem etapa vinculada.</strong>
+                    <span>O planejamento cadastrado nao possui pendencias dessa categoria.</span>
+                </div>
+            </div>
+        `;
+    }
+
+    const itens = detalhes.map((item, index) => {
+        const textoBusca = `${item.programa} ${item.acao} ${item.produto} ${item.subacao} ${item.municipio || ''}`;
+
+        return `
+            <article class="painel-alerta-item" data-alerta-texto="${escaparHtml(normalizarBusca(textoBusca))}">
+                <div class="painel-alerta-numero">${index + 1}</div>
+                <div class="painel-alerta-conteudo">
+                    <div class="painel-alerta-linha">
+                        <span>Programa</span>
+                        <strong>${escaparHtml(item.programa)}</strong>
+                    </div>
+                    <div class="painel-alerta-linha">
+                        <span>Acao/PAOE</span>
+                        <strong>${escaparHtml(item.acao)}</strong>
+                    </div>
+                    <div class="painel-alerta-linha">
+                        <span>Produto</span>
+                        <strong>${escaparHtml(item.produto)}</strong>
+                    </div>
+                    <div class="painel-alerta-linha">
+                        <span>Municipio</span>
+                        <strong>${escaparHtml(item.municipio || '-')}</strong>
+                    </div>
+                    <div class="painel-alerta-subacao">${escaparHtml(item.subacao)}</div>
+                </div>
+            </article>
+        `;
+    }).join('');
+
+    return `
+        <div class="painel-alerta-header">
+            <div class="painel-alerta-status">ATENCAO</div>
+            <div>
+                <strong>${total.toLocaleString('pt-BR')} municipio(s) da entrega sem etapa vinculada</strong>
+                <span>Use a busca para localizar programa, PAOE, produto, municipio ou subacao.</span>
+            </div>
+        </div>
+
+        <div class="painel-alerta-tools">
+            <input
+                type="search"
+                id="filtroAlertasPta"
+                class="form-control"
+                placeholder="Buscar nas pendencias"
+                autocomplete="off"
+            >
+            <span id="contadorAlertasPta">${detalhes.length.toLocaleString('pt-BR')} exibida(s)</span>
+        </div>
+
+        <div class="painel-alerta-lista" id="listaAlertasPta">
+            ${itens}
+            <div id="semResultadoAlertasPta" class="painel-alerta-sem-resultado d-none">
+                Nenhuma pendencia encontrada para a busca.
+            </div>
+        </div>
+    `;
+}
+
+function ativarFiltroAlertasPta() {
+    const filtro = document.getElementById('filtroAlertasPta');
+    const contador = document.getElementById('contadorAlertasPta');
+    const semResultado = document.getElementById('semResultadoAlertasPta');
+    const itens = Array.from(document.querySelectorAll('.painel-alerta-item'));
+
+    if (!filtro || itens.length === 0) return;
+
+    filtro.addEventListener('input', () => {
+        const termo = normalizarBusca(filtro.value);
+        let visiveis = 0;
+
+        itens.forEach(item => {
+            const exibir = item.dataset.alertaTexto.includes(termo);
+            item.classList.toggle('d-none', !exibir);
+            if (exibir) visiveis += 1;
+        });
+
+        if (contador) {
+            contador.textContent = `${visiveis.toLocaleString('pt-BR')} exibida(s)`;
+        }
+        semResultado?.classList.toggle('d-none', visiveis > 0);
+    });
+}
+
 function carregarPainelContagem() {
     console.log('carregando painel');
 
@@ -240,46 +381,14 @@ function carregarPainelContagem() {
         .then(res => res.json())
         .then(data => {
             const alertaDiv = document.getElementById('alerta-sem-etapa');
-            if (data.subacoes_sem_etapa > 0) {
-                let detalhes = '';
-                if (data.subacoes_sem_etapa_detalhes && data.subacoes_sem_etapa_detalhes.length > 0) {
-                    detalhes = '<ul class="mt-2 ps-3">';
-                    data.subacoes_sem_etapa_detalhes.forEach((item, index) => {
-                        detalhes += `
-                            <li>
-                                <strong>Programa:</strong> ${item.programa} |
-                                <strong>Ação/PAOE:</strong> ${item.acao} |
-                                <strong>Produto da Ação/PAOE:</strong> ${item.produto} |
-                                <strong>Subação/Entrega:</strong> ${item.subacao}
-                            </li>`;
-                        // Adiciona <hr> se não for o último item
-                        if (index < data.subacoes_sem_etapa_detalhes.length - 1) {
-                            detalhes += `<hr style="border: none; border-top: 2px solid rgba(220, 53, 69, 0.25); margin: 4px 0;">`;
-                        }
-                    });
-                    detalhes += '</ul>';
-                }
-
-                alertaDiv.innerHTML = `
-                    <div class="text-danger fw-bold mb-2">
-                        ⚠ ${data.subacoes_sem_etapa} Subação(ões) sem Etapa vinculada!
-                    </div>
-                    <hr style="border: none; border-top: 2px solid rgba(220, 53, 69, 0.25); margin: 8px 0;">
-                    ${detalhes}
-                `;
-            } else {
-                alertaDiv.innerHTML = '';
-            }
-
+            const exercicioBadge = document.getElementById('painel-exercicio');
             const painel = document.getElementById('painel-contagem');
-            painel.innerHTML = `
-                <div class="col-md-6 mb-2">• Programas: <strong>${data.programas}</strong></div>
-                <div class="col-md-6 mb-2">• Ações/PAOEs: <strong>${data.acoes}</strong></div>
-                <div class="col-md-6 mb-2">• Produtos da Ação/PAOE: <strong>${data.produtos}</strong></div>
-                <div class="col-md-6 mb-2">• Subações/Entregas: <strong>${data.subacoes}</strong></div>
-                <div class="col-md-6 mb-2">• Etapas planejadas: <strong>${data.etapas}</strong></div>
-                <div class="col-md-6 mb-2">• Memórias de cálculo: <strong>${data.memorias}</strong></div>
-            `;
+            if (exercicioBadge && data.exercicio) {
+                exercicioBadge.textContent = `Exercicio ${data.exercicio}`;
+            }
+            painel.innerHTML = renderizarIndicadoresPainel(data);
+            alertaDiv.innerHTML = renderizarAlertasPainel(data);
+            ativarFiltroAlertasPta();
         })
         .catch(err => console.error('Erro ao carregar painel:', err));
 }

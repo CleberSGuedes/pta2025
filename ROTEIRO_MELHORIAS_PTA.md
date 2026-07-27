@@ -170,12 +170,63 @@ Status: em andamento
 
 Status: em andamento
 
+- Estrutura de etapa por municipio implementada:
+  - `Etapa` passou a ter vinculo com `MunicipioEntrega`;
+  - cadastro de etapa exige municipio da entrega;
+  - municipio comum prefixa o nome da etapa como `Municipio * Etapa`;
+  - `5100000 - Estado` vincula a etapa ao municipio Estado sem prefixar o nome;
+  - download principal do PTA passou para aba unica `PTA Consolidado`;
+  - painel da home passou a alertar municipios da entrega sem etapa vinculada;
+  - pendencia operacional: revisar 1 etapa antiga sem municipio vinculado automaticamente.
+- Home ajustada:
+  - `Painel de Acompanhamento do PTA` modernizado com cards de indicadores;
+  - pendencias de subacoes sem etapa organizadas em bloco proprio;
+  - lista de pendencias com busca e rolagem vertical para suportar muitos alertas;
+  - badge do painel passa a exibir o exercicio retornado pelo backend.
 - Tela `Cadastrar Subacao/Entrega(s)` ajustada:
-  - card/lista do lado esquerdo com altura maxima;
+  - card/lista do lado esquerdo sincronizado com a altura do formulario direito em desktop;
+  - rolagem vertical da tabela acionada somente apos o painel esquerdo alcancar a altura do formulario direito;
   - tabela com rolagem vertical quando houver muitos registros;
   - cabecalho da tabela fixo durante a rolagem;
   - campo de consulta por palavra-chave filtrando `Subacao/Entrega` e `Produto da Entrega`;
   - selecao de linha oculta pelo filtro e desmarcada automaticamente.
+- Campo `CPF` do formulario `Cadastrar Subacao/Entrega(s)` corrigido:
+  - mascara `000.000.000-00` aplicada durante a digitacao;
+  - preenchimento em modo alteracao passa a formatar o CPF retornado pelo backend.
+- Formulario `Chave de Planejamento` recebeu controlador V2 reversivel:
+  - arquivo novo: `static/js/chave_planejamento_v2.js`;
+  - flag de ativacao: `window.USAR_CHAVE_PLANEJAMENTO_V2 = true`;
+  - rollback: alterar a flag para `false` em `templates/subacao_entrega.html`;
+  - mapas atuais foram preservados sem alteracao;
+  - objetivo: reduzir travamentos do encadeamento `Subfuncao + UG -> ADJ -> Macropolitica -> Pilar -> Eixo -> Politica Decreto`.
+
+### 9. Limpeza controlada dos testes do PTA 2027
+
+Status: aguardando solicitacao do usuario
+
+- Quando o usuario informar que os testes podem ser removidos, executar uma limpeza controlada no banco.
+- Preservar integralmente a base fixa do planejamento:
+  - `Programa`;
+  - `Acao/PAOE`;
+  - `Produto da Acao`.
+- Remover ou resetar somente os dados operacionais cadastrados da subacao para frente:
+  - `Subacao/Entrega`;
+  - `Municipio(s) da Entrega`;
+  - `Etapa`;
+  - `Memoria de Calculo`.
+- Ordem obrigatoria para evitar erro de vinculo entre tabelas:
+  - 1. `Memoria de Calculo`;
+  - 2. `Etapa`;
+  - 3. `Municipio(s) da Entrega`;
+  - 4. `Subacao/Entrega`.
+- Antes da limpeza definitiva:
+  - gerar relatorio de conferencia com totais por tabela;
+  - confirmar que o filtro esta restrito ao exercicio atual do PTA;
+  - validar que `Programa`, `Acao/PAOE` e `Produto da Acao` nao entram no escopo.
+- Apos a limpeza:
+  - resetar os IDs/autoincrement somente das tabelas limpas, quando tecnicamente seguro;
+  - validar que a tela `/visualizar` ficou sem registros operacionais;
+  - validar que a arvore fixa `Programa -> Acao/PAOE -> Produto da Acao` continua disponivel para novos cadastros.
 
 ## Proxima decisao necessaria
 

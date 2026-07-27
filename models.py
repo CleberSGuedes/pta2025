@@ -109,6 +109,7 @@ class Etapa(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     subacao_entrega_id = db.Column(db.Integer, db.ForeignKey('subacao_entrega.id'), nullable=False)
+    municipio_entrega_id = db.Column(db.Integer, db.ForeignKey('municipio_entrega.id'), nullable=True)
     etapa_nome = db.Column(db.String(255), nullable=False)
     data_inicio = db.Column(db.Date, nullable=False)
     data_fim = db.Column(db.Date, nullable=False)
@@ -120,6 +121,7 @@ class Etapa(db.Model):
     excluido_em = db.Column(db.DateTime, nullable=True)
 
     subacao = db.relationship('SubacaoEntrega', backref=db.backref('etapas', lazy=True))
+    municipio_entrega = db.relationship('MunicipioEntrega', backref=db.backref('etapas', lazy=True))
 
 
 class MemoriaCalculo(db.Model):

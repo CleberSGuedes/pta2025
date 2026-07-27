@@ -15,7 +15,7 @@
   {% endif %}
 {% endwith %}
 
-<div class="row">
+<div class="row subacao-layout-row">
     <!-- ETAPA 7 - Cadastrar Subação/Entrega -->
     <div class="col-md-6">
         <div class="card shadow-sm mb-4 subacao-list-card">
@@ -101,7 +101,7 @@
 
     <!-- ETAPA 8 - Incluir Subação/Entrega(s) -->
     <div class="col-md-6" id="formularioSubacao" style="display: none;">
-        <div class="card shadow-sm mb-4">
+        <div class="card shadow-sm mb-4 subacao-form-card">
             <div class="card-header etapa-titulo">Incluir Subação/Entrega(s)</div>
             <div class="card-body font-sistema">
                 <form id="formSubacaoEntrega" onsubmit="return false;">
@@ -325,6 +325,7 @@
         paoe: "{{ acao.acao_paoe }}",
         produto: "{{ produto.nome }}"
     };
+    window.USAR_CHAVE_PLANEJAMENTO_V2 = true;
     console.log("📦 DADOS_PLANEJAMENTO:", window.DADOS_PLANEJAMENTO);
 </script>
 
@@ -333,6 +334,7 @@
 
 <!-- Script principal -->
 <script src="{{ url_for('static', filename='js/subacao_entrega.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chave_planejamento_v2.js') }}"></script>
 
 <!-- ✅ Bootstrap deve vir antes dos scripts que usam Modal -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
