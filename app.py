@@ -1345,6 +1345,10 @@ with app.app_context():
 
             subacoes_sem_etapa_query = (
                 db.session.query(
+                    Programa.id.label("programa_id"),
+                    Acao.id.label("acao_id"),
+                    ProdutoAcao.id.label("produto_id"),
+                    SubacaoEntrega.id.label("subacao_id"),
                     SubacaoEntrega.subacao_entrega.label("subacao"),
                     ProdutoAcao.nome.label("produto"),
                     Acao.acao_paoe.label("acao"),
@@ -1375,6 +1379,10 @@ with app.app_context():
 
             subacoes_sem_etapa_detalhes = [
                 {
+                    "programa_id": r.programa_id,
+                    "acao_id": r.acao_id,
+                    "produto_id": r.produto_id,
+                    "subacao_id": r.subacao_id,
                     "subacao": r.subacao,
                     "produto": r.produto,
                     "acao": r.acao,

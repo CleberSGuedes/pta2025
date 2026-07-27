@@ -293,6 +293,9 @@ function renderizarAlertasPainel(data) {
 
     const itens = detalhes.map((item, index) => {
         const textoBusca = `${item.programa} ${item.acao} ${item.produto} ${item.subacao} ${item.municipio || ''}`;
+        const etapaUrl = item.programa_id && item.acao_id && item.produto_id && item.subacao_id
+            ? `/etapas/${item.programa_id}/${item.acao_id}/${item.produto_id}/${item.subacao_id}`
+            : '';
 
         return `
             <article class="painel-alerta-item" data-alerta-texto="${escaparHtml(normalizarBusca(textoBusca))}">
@@ -315,6 +318,11 @@ function renderizarAlertasPainel(data) {
                         <strong>${escaparHtml(item.municipio || '-')}</strong>
                     </div>
                     <div class="painel-alerta-subacao">${escaparHtml(item.subacao)}</div>
+                    ${etapaUrl ? `
+                        <div class="painel-alerta-acoes">
+                            <a href="${etapaUrl}" class="painel-alerta-link">Abrir etapa</a>
+                        </div>
+                    ` : ''}
                 </div>
             </article>
         `;

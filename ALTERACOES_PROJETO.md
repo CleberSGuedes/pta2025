@@ -2,6 +2,13 @@
 
 ## 2026-07-27
 
+- Ajustado o `Painel de Acompanhamento do PTA` para direcionar pendencias:
+  - O endpoint `/dashboard_status` passou a retornar os IDs de `Programa`, `Acao/PAOE`, `Produto da Acao` e `Subacao/Entrega` em cada pendencia de municipio sem etapa.
+  - Cada item de pendencia no painel passou a exibir o link `Abrir etapa`.
+  - O link direciona para `/etapas/<programa_id>/<acao_id>/<produto_id>/<subacao_id>`, abrindo diretamente a tela onde a etapa pendente deve ser cadastrada.
+  - Validado localmente com a primeira pendencia retornada pelo painel: `/etapas/8/44/138/1236` respondeu `200`.
+  - Alteracao mantida localmente para teste do usuario; sem commit/push nesta etapa.
+
 - Corrigida robustez da rota `/baixar_excel` para o ambiente online:
   - Criado helper centralizado para gerar e enviar arquivos Excel do PTA.
   - A exportacao principal tenta usar `xlsxwriter` para manter a planilha estilizada.

@@ -494,6 +494,32 @@ label {
     overflow-wrap: anywhere;
 }
 
+.painel-alerta-acoes {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.65rem;
+}
+
+.painel-alerta-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    background: #006b63;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.painel-alerta-link:hover {
+    background: #00554f;
+    color: #ffffff;
+    text-decoration: none;
+}
+
 .painel-alerta-sem-resultado {
     padding: 1rem;
     border: 1px dashed #cbd7d8;
