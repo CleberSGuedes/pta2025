@@ -1256,6 +1256,40 @@ with app.app_context():
             ws.autofilter(0, 0, len(df), ncols)
             ws.freeze_panes(1, 0)
 
+        def _send_excel_file(output: io.BytesIO, filename: str):
+            output.seek(0)
+            mimetype = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            try:
+                return send_file(
+                    output,
+                    as_attachment=True,
+                    download_name=filename,
+                    mimetype=mimetype
+                )
+            except TypeError:
+                output.seek(0)
+                return send_file(
+                    output,
+                    as_attachment=True,
+                    attachment_filename=filename,
+                    mimetype=mimetype
+                )
+
+        def _build_excel_response(sheets, filename: str):
+            output = io.BytesIO()
+            try:
+                with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+                    for sheet_name, df in sheets:
+                        _write_sheet_styled(writer, df, sheet_name)
+            except ImportError:
+                app.logger.exception("xlsxwriter indisponivel; gerando Excel sem estilos com openpyxl.")
+                output = io.BytesIO()
+                with pd.ExcelWriter(output, engine="openpyxl") as writer:
+                    for sheet_name, df in sheets:
+                        df.to_excel(writer, sheet_name=sheet_name, index=False)
+
+            return _send_excel_file(output, filename)
+
         # =============================================================================
         # ROTA LEGACY — mantém o link existente no template (/baixar_excel)
         # Gera UM arquivo com UMA aba consolidada, sem multiplicar memoria por municipio.
@@ -1263,18 +1297,7 @@ with app.app_context():
         @app.route('/baixar_excel')
         def baixar_excel():
             df = _df_etapas_memoria()
-
-            output = io.BytesIO()
-            with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
-                _write_sheet_styled(writer, df, "PTA Consolidado")
-            output.seek(0)
-
-            return send_file(
-                output,
-                as_attachment=True,
-                download_name="pta.xlsx",
-                mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            )
+            return _build_excel_response([("PTA Consolidado", df)], "pta.xlsx")
 
         # =============================================================================
         # ROTAS OPCIONAIS — arquivos separados, caso queira botões específicos
@@ -1282,30 +1305,12 @@ with app.app_context():
         @app.route('/baixar_excel_municipios')
         def baixar_excel_municipios():
             df = _df_municipios()
-            output = io.BytesIO()
-            with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
-                _write_sheet_styled(writer, df, "Subação x Municípios")
-            output.seek(0)
-            return send_file(
-                output,
-                as_attachment=True,
-                download_name="pta_municipios.xlsx",
-                mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            )
+            return _build_excel_response([("Subação x Municípios", df)], "pta_municipios.xlsx")
 
         @app.route('/baixar_excel_etapas')
         def baixar_excel_etapas():
             df = _df_etapas_memoria()
-            output = io.BytesIO()
-            with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
-                _write_sheet_styled(writer, df, "Etapas x Memória")
-            output.seek(0)
-            return send_file(
-                output,
-                as_attachment=True,
-                download_name="pta_etapas_memoria.xlsx",
-                mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            )
+            return _build_excel_response([("Etapas x Memória", df)], "pta_etapas_memoria.xlsx")
 
         # Usuários online
         @app.before_request

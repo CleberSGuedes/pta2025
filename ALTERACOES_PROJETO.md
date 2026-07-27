@@ -2,6 +2,13 @@
 
 ## 2026-07-27
 
+- Corrigida robustez da rota `/baixar_excel` para o ambiente online:
+  - Criado helper centralizado para gerar e enviar arquivos Excel do PTA.
+  - A exportacao principal tenta usar `xlsxwriter` para manter a planilha estilizada.
+  - Se `xlsxwriter` nao estiver disponivel no servidor, a rota passa a gerar o Excel com `openpyxl` sem estilos, evitando erro 500 por dependencia ausente.
+  - O envio do arquivo passou a ter compatibilidade entre versoes do Flask que usam `download_name` e versoes antigas que usam `attachment_filename`.
+  - Rotas ajustadas: `/baixar_excel`, `/baixar_excel_municipios` e `/baixar_excel_etapas`.
+
 - Registrada regra operacional para limpeza futura de testes no banco:
   - Quando solicitado pelo usuario, a limpeza devera remover/resetar somente dados cadastrados da `Subacao/Entrega` para frente.
   - Cadastros fixos devem ser preservados: `Programa`, `Acao/PAOE` e `Produto da Acao`.
