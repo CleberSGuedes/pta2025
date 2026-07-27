@@ -3,4 +3,8 @@ deployment:
     - export DEPLOYPATH=/home/proj5954/pta2025
     - /bin/mkdir -p $DEPLOYPATH
     - /bin/cp -a . $DEPLOYPATH
+    - /bin/chmod 755 $DEPLOYPATH
+    - /bin/chmod 755 $DEPLOYPATH/public
+    - /bin/mkdir -p $DEPLOYPATH/tmp
+    - /bin/touch $DEPLOYPATH/tmp/restart.txt
     - /bin/rm -rf $DEPLOYPATH/.git
