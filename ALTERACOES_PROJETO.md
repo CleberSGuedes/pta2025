@@ -2,6 +2,30 @@
 
 ## 2026-07-27
 
+- Atualizado lote revisado de metas fisicas do Programa `534`, Subfuncao `122`, PAOE `4180`, exercicio `2027`:
+  - Atualizado `static/js/metaMap.js`.
+  - Criado e executado o script `scripts/update_meta_2027_534_122_4180_revisao.py` para aplicar o ajuste no banco remoto.
+  - O lote enviado possuia 13 produtos, sem duplicidades.
+  - Apenas 1 registro exigia alteracao:
+    - `Valorizacao profissional desenvolvida`: `Percentual = 100,00` para `Percentual = 98,00`.
+  - Os demais itens do lote ja estavam iguais no codigo e no banco.
+  - Validado com `node --check static\js\metaMap.js`.
+  - Validado no banco remoto que o produto ficou com `un_medida = Percentual` e `quantidade = 98,00`.
+  - Alteracao mantida localmente para teste do usuario; sem commit/push nesta etapa.
+
+- Atualizado lote revisado de metas fisicas do Programa `533`, Subfuncao `122`, PAOE `2936`, exercicio `2027`:
+  - Atualizado `static/js/metaMap.js`.
+  - Criado e executado o script `scripts/update_meta_2027_533_122_2936_revisao.py` para aplicar o lote no banco remoto.
+  - O lote enviado possuia 26 produtos, sem duplicidades.
+  - PAOE `2900` ja estava igual ao lote no codigo e no banco.
+  - PAOE `2936` teve 3 registros atualizados de `Percentual = 4,00` para `Percentual = 3,00`:
+    - `Bem-estar escolar desenvolvido`;
+    - `Projetos pedagogicos integrados implantados`;
+    - `Formacao continuada de professores realizada`.
+  - Validado com `node --check static\js\metaMap.js`.
+  - Validado no banco remoto que os 3 produtos ficaram com `un_medida = Percentual` e `quantidade = 3,00`.
+  - Alteracao mantida localmente para teste do usuario; sem commit/push nesta etapa.
+
 - Corrigido localmente erro de download Excel no Passenger/LiteSpeed:
   - Log online indicou `io.UnsupportedOperation: fileno` ao acessar a rota de download.
   - A causa provavel e incompatibilidade do `send_file()` com `BytesIO` no wrapper do Passenger/LiteSpeed.

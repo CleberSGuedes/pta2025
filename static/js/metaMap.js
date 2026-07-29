@@ -49,11 +49,11 @@ const metaMap = {
           "Educação especial desenvolvida": "Percentual = 20,00",
           "Educação para jovens e adultos (EJA) desenvolvida": "Percentual = 20,00",
           "Línguas estrangeiras desenvolvidas": "Percentual = 5,00",
-          "Projetos pedagógicos integrados implantados": "Percentual = 4,00",
+          "Projetos pedagógicos integrados implantados": "Percentual = 3,00",
           "Sistema estruturado de ensino implantado": "Percentual = 5,00",
-          "Formação continuada de professores realizada": "Percentual = 4,00",
+          "Formação continuada de professores realizada": "Percentual = 3,00",
           "Acesso e permanência desenvolvido": "Percentual = 5,00",
-          "Bem-estar escolar desenvolvido": "Percentual = 4,00",
+          "Bem-estar escolar desenvolvido": "Percentual = 3,00",
           "Escolas militares desenvolvidas": "Percentual = 5,00"
       }
     },
@@ -178,7 +178,7 @@ const metaMap = {
           "Gestão do patrimônio realizada": "Percentual = 5,00",
           "Gestão escolar desenvolvida": "Percentual = 5,00",
           "Gestão estratégica de pessoas implementada": "Percentual = 100,00",
-          "Valorização profissional desenvolvida": "Percentual = 100,00",
+          "Valorização profissional desenvolvida": "Percentual = 98,00",
           "Infraestrutura escolar modernizada": "Percentual = 5,00"
       }
     },
