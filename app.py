@@ -1068,8 +1068,6 @@ with app.app_context():
 
         # ========= Helpers de consulta (montam DataFrame) =========
         def _df_municipios():
-            import pandas as pd
-
             dados = (
                 db.session.query(
                     Programa.exercicio.label("Exercicio"),
@@ -1127,11 +1125,9 @@ with app.app_context():
                 )
                 .all()
             )
-            return pd.DataFrame([d._asdict() for d in dados])
+            return [d._asdict() for d in dados]
 
         def _df_etapas_memoria():
-            import pandas as pd
-
             dados = (
                 db.session.query(
                     Programa.exercicio.label("Exercicio"),
@@ -1214,7 +1210,7 @@ with app.app_context():
                 )
                 .all()
             )
-            return pd.DataFrame([d._asdict() for d in dados])
+            return [d._asdict() for d in dados]
 
         # ========= Helper: escreve UMA planilha estilizada dentro de um writer aberto =========
         def _write_sheet_styled(writer, df, sheet_name: str):
@@ -1297,20 +1293,145 @@ with app.app_context():
                 )
 
         def _build_excel_response(sheets, filename: str):
-            import pandas as pd
+            from datetime import date
 
-            output = io.BytesIO()
-            try:
-                with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
-                    for sheet_name, df in sheets:
-                        _write_sheet_styled(writer, df, sheet_name)
-            except ImportError:
-                app.logger.exception("xlsxwriter indisponivel; gerando Excel sem estilos com openpyxl.")
+            def normalize_excel_value(value):
+                if value is None:
+                    return ""
+                if isinstance(value, datetime):
+                    return value.strftime("%d/%m/%Y")
+                if isinstance(value, date):
+                    return value.strftime("%d/%m/%Y")
+                if isinstance(value, Decimal):
+                    return float(value)
+                return value
+
+            def build_with_xlsxwriter():
+                import xlsxwriter
+
                 output = io.BytesIO()
-                with pd.ExcelWriter(output, engine="openpyxl") as writer:
-                    for sheet_name, df in sheets:
-                        df.to_excel(writer, sheet_name=sheet_name, index=False)
+                workbook = xlsxwriter.Workbook(output, {"in_memory": True})
+                header_fmt = workbook.add_format({
+                    "font_name": "Helvetica",
+                    "font_size": 8,
+                    "bold": True,
+                    "align": "center",
+                    "valign": "vcenter",
+                    "text_wrap": True,
+                    "border": 1,
+                    "bg_color": "#D9E2F3",
+                })
+                highlight_fmt = workbook.add_format({
+                    "font_name": "Helvetica",
+                    "font_size": 8,
+                    "bold": True,
+                    "align": "center",
+                    "valign": "vcenter",
+                    "text_wrap": True,
+                    "border": 1,
+                    "bg_color": "#FFD966",
+                })
+                body_fmt = workbook.add_format({
+                    "font_name": "Helvetica",
+                    "font_size": 8,
+                    "text_wrap": True,
+                    "valign": "top",
+                    "border": 1,
+                })
+                money_fmt = workbook.add_format({
+                    "font_name": "Helvetica",
+                    "font_size": 8,
+                    "num_format": "#,##0.00",
+                    "border": 1,
+                })
 
+                for sheet_name, rows in sheets:
+                    worksheet = workbook.add_worksheet(sheet_name[:31])
+                    rows = rows or []
+                    columns = list(rows[0].keys()) if rows else []
+
+                    for col_index, column_name in enumerate(columns):
+                        fmt = highlight_fmt if column_name in HIGHLIGHT_COLUMNS else header_fmt
+                        worksheet.write(0, col_index, column_name, fmt)
+
+                    for row_index, row in enumerate(rows, start=1):
+                        for col_index, column_name in enumerate(columns):
+                            value = normalize_excel_value(row.get(column_name))
+                            fmt = money_fmt if column_name in {"Valor Unitário", "Valor Total"} and isinstance(value, (int, float)) else body_fmt
+                            worksheet.write(row_index, col_index, value, fmt)
+
+                    if columns:
+                        worksheet.set_column(0, len(columns) - 1, 18)
+                        worksheet.autofilter(0, 0, len(rows), len(columns) - 1)
+                        worksheet.freeze_panes(1, 0)
+
+                workbook.close()
+                output.seek(0)
+                return output
+
+            def build_with_openpyxl():
+                from openpyxl import Workbook
+                from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
+                from openpyxl.utils import get_column_letter
+
+                workbook = Workbook()
+                workbook.remove(workbook.active)
+
+                header_fill = PatternFill("solid", fgColor="D9E2F3")
+                highlight_fill = PatternFill("solid", fgColor="FFD966")
+                header_font = Font(name="Helvetica", size=8, bold=True)
+                body_font = Font(name="Helvetica", size=8)
+                thin_border = Border(
+                    left=Side(style="thin", color="D9D9D9"),
+                    right=Side(style="thin", color="D9D9D9"),
+                    top=Side(style="thin", color="D9D9D9"),
+                    bottom=Side(style="thin", color="D9D9D9"),
+                )
+                header_alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+                body_alignment = Alignment(vertical="top", wrap_text=True)
+
+                for sheet_name, rows in sheets:
+                    worksheet = workbook.create_sheet(title=sheet_name[:31])
+                    rows = rows or []
+                    columns = list(rows[0].keys()) if rows else []
+
+                    for col_index, column_name in enumerate(columns, start=1):
+                        cell = worksheet.cell(row=1, column=col_index, value=column_name)
+                        cell.font = header_font
+                        cell.fill = highlight_fill if column_name in HIGHLIGHT_COLUMNS else header_fill
+                        cell.alignment = header_alignment
+                        cell.border = thin_border
+
+                    for row_index, row in enumerate(rows, start=2):
+                        for col_index, column_name in enumerate(columns, start=1):
+                            cell = worksheet.cell(
+                                row=row_index,
+                                column=col_index,
+                                value=normalize_excel_value(row.get(column_name))
+                            )
+                            cell.font = body_font
+                            cell.alignment = body_alignment
+                            cell.border = thin_border
+                            if column_name in {"Valor Unitário", "Valor Total"} and isinstance(cell.value, (int, float)):
+                                cell.number_format = '#,##0.00'
+
+                    for col_index, column_name in enumerate(columns, start=1):
+                        worksheet.column_dimensions[get_column_letter(col_index)].width = 18
+
+                    if columns:
+                        worksheet.auto_filter.ref = worksheet.dimensions
+                        worksheet.freeze_panes = "A2"
+
+                output = io.BytesIO()
+                workbook.save(output)
+                output.seek(0)
+                return output
+
+            try:
+                output = build_with_xlsxwriter()
+            except ImportError:
+                app.logger.exception("xlsxwriter indisponivel; gerando Excel com openpyxl.")
+                output = build_with_openpyxl()
             return _send_excel_file(output, filename)
 
         # =============================================================================

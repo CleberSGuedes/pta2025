@@ -2,6 +2,14 @@
 
 ## 2026-07-27
 
+- Ajustada localmente a exportacao Excel do PTA para reduzir erro 500 no ambiente online:
+  - As rotas `/baixar_excel`, `/baixar_excel_municipios` e `/baixar_excel_etapas` deixaram de depender de `pandas` para montar o arquivo.
+  - A geracao principal passou a usar `xlsxwriter` diretamente, sem carregar `pandas`, `numpy` ou `openpyxl`.
+  - `openpyxl` permanece apenas como fallback caso `xlsxwriter` nao esteja disponivel.
+  - Validado localmente que `/baixar_excel` retorna `200`, gera `pta.xlsx` e nao carrega `pandas` nem `numpy` no processo da rota.
+  - Validado que o arquivo abre como planilha com aba `PTA Consolidado`.
+  - Alteracao mantida localmente para teste do usuario; sem commit/push nesta etapa.
+
 - Aplicada localmente a correcao preventiva para erro 503 no Passenger/cPanel:
   - `app.py` passou a limitar threads de bibliotecas numericas antes dos imports da aplicacao.
   - Removido import global de `pandas`; o carregamento passou a ocorrer somente nas rotas/funcoes de planilha.
