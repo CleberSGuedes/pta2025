@@ -1,3 +1,19 @@
+import os
+
+_NUMERICAL_THREAD_LIMITS = {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OMP_THREAD_LIMIT": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "NUMEXPR_MAX_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "BLIS_NUM_THREADS": "1",
+}
+
+for variable_name, variable_value in _NUMERICAL_THREAD_LIMITS.items():
+    os.environ[variable_name] = variable_value
+
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -8,7 +24,6 @@ from extensions import db
 from datetime import datetime, timedelta
 import io
 import uuid
-import pandas as pd
 from decimal import Decimal, InvalidOperation
 from flask import send_file
 from models import Programa, Acao
@@ -1053,6 +1068,8 @@ with app.app_context():
 
         # ========= Helpers de consulta (montam DataFrame) =========
         def _df_municipios():
+            import pandas as pd
+
             dados = (
                 db.session.query(
                     Programa.exercicio.label("Exercicio"),
@@ -1113,6 +1130,8 @@ with app.app_context():
             return pd.DataFrame([d._asdict() for d in dados])
 
         def _df_etapas_memoria():
+            import pandas as pd
+
             dados = (
                 db.session.query(
                     Programa.exercicio.label("Exercicio"),
@@ -1198,7 +1217,9 @@ with app.app_context():
             return pd.DataFrame([d._asdict() for d in dados])
 
         # ========= Helper: escreve UMA planilha estilizada dentro de um writer aberto =========
-        def _write_sheet_styled(writer: pd.ExcelWriter, df: pd.DataFrame, sheet_name: str):
+        def _write_sheet_styled(writer, df, sheet_name: str):
+            import pandas as pd
+
             # 1) Normaliza números para permitir formatação no Excel (sem "R$")
             for money_col in ["Valor Unitário", "Valor Total"]:
                 if money_col in df.columns:
@@ -1276,6 +1297,8 @@ with app.app_context():
                 )
 
         def _build_excel_response(sheets, filename: str):
+            import pandas as pd
+
             output = io.BytesIO()
             try:
                 with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
@@ -1790,6 +1813,8 @@ with app.app_context():
         # Baixar QOMP
         @app.route('/baixar_excel_qomp')
         def baixar_excel_qomp():
+            import pandas as pd
+
             dados = (
                 db.session.query(
                     Momp.exercicio.label("Exercício"),

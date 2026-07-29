@@ -1,0 +1,5 @@
+PassengerEnabled on
+PassengerAppRoot /home/proj5954/pta2025
+PassengerBaseURI /
+PassengerPython /home/proj5954/virtualenv/pta2025/3.11/bin/python
+PassengerAppLogFile /home/proj5954/pta2025/tmp/passenger.log

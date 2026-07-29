@@ -2,6 +2,16 @@
 
 ## 2026-07-27
 
+- Aplicada localmente a correcao preventiva para erro 503 no Passenger/cPanel:
+  - `app.py` passou a limitar threads de bibliotecas numericas antes dos imports da aplicacao.
+  - Removido import global de `pandas`; o carregamento passou a ocorrer somente nas rotas/funcoes de planilha.
+  - Criado `passenger_wsgi.py` com a mesma limitacao de threads antes de importar o app Flask.
+  - Ajustado `.cpanel.yml` para garantir `public`, `tmp`, permissoes `755`, remocao de `.git` no destino e restart do Passenger.
+  - Criado `public/.htaccess` com configuracao Passenger do ambiente `pta2025`.
+  - Criado documento `CORRECAO_ERRO_503_PASSENGER.md` com causa, testes, validacao no cPanel e rollback.
+  - Validado localmente que `pandas` e `numpy` nao carregam no import do app.
+  - Alteracao mantida localmente para teste do usuario; sem commit/push nesta etapa.
+
 - Ajustado o `Painel de Acompanhamento do PTA` para direcionar pendencias:
   - O endpoint `/dashboard_status` passou a retornar os IDs de `Programa`, `Acao/PAOE`, `Produto da Acao` e `Subacao/Entrega` em cada pendencia de municipio sem etapa.
   - Cada item de pendencia no painel passou a exibir o link `Abrir etapa`.
