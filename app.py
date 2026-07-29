@@ -17,7 +17,7 @@ for variable_name, variable_value in _NUMERICAL_THREAD_LIMITS.items():
 from dotenv import load_dotenv
 load_dotenv()
 
-from flask import Flask, app, abort, flash, jsonify, render_template, request, redirect, url_for
+from flask import Flask, Response, app, abort, flash, jsonify, render_template, request, redirect, url_for
 from sqlalchemy import String, and_, cast, func, not_, or_, text
 from config import Config
 from extensions import db
@@ -1276,21 +1276,10 @@ with app.app_context():
         def _send_excel_file(output: io.BytesIO, filename: str):
             output.seek(0)
             mimetype = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            try:
-                return send_file(
-                    output,
-                    as_attachment=True,
-                    download_name=filename,
-                    mimetype=mimetype
-                )
-            except TypeError:
-                output.seek(0)
-                return send_file(
-                    output,
-                    as_attachment=True,
-                    attachment_filename=filename,
-                    mimetype=mimetype
-                )
+            response = Response(output.getvalue(), mimetype=mimetype)
+            response.headers["Content-Disposition"] = f'attachment; filename="{filename}"'
+            response.headers["Cache-Control"] = "no-cache"
+            return response
 
         def _build_excel_response(sheets, filename: str):
             from datetime import date

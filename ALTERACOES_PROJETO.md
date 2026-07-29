@@ -2,6 +2,13 @@
 
 ## 2026-07-27
 
+- Corrigido localmente erro de download Excel no Passenger/LiteSpeed:
+  - Log online indicou `io.UnsupportedOperation: fileno` ao acessar a rota de download.
+  - A causa provavel e incompatibilidade do `send_file()` com `BytesIO` no wrapper do Passenger/LiteSpeed.
+  - O helper `_send_excel_file` passou a retornar `flask.Response` com os bytes do arquivo e headers de download, sem usar `send_file` para os Excels do PTA.
+  - Validado localmente que `/baixar_excel` retorna `200`, `Content-Disposition: attachment; filename="pta.xlsx"` e `Cache-Control: no-cache`.
+  - Alteracao mantida localmente para teste do usuario; sem commit/push nesta etapa.
+
 - Ajustada localmente a exportacao Excel do PTA para reduzir erro 500 no ambiente online:
   - As rotas `/baixar_excel`, `/baixar_excel_municipios` e `/baixar_excel_etapas` deixaram de depender de `pandas` para montar o arquivo.
   - A geracao principal passou a usar `xlsxwriter` diretamente, sem carregar `pandas`, `numpy` ou `openpyxl`.
