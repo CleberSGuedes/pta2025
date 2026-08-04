@@ -21,10 +21,17 @@ const programaSubfuncaoAcoes = {
     },
     "533 - Educação 10 Anos": {
         "366 - EDUCACAO DE JOVENS E ADULTOS": ["2900 - Desenvolvimento da Educação de Jovens e Adultos"],
-        "122 - ADMINISTRAÇÃO GERAL": ["2936 - Desenvolvimento das Modalidades de Ensino"],
+        "122 - ADMINISTRAÇÃO GERAL": [
+            "2936 - Desenvolvimento das Modalidades de Ensino",
+            "4541 - Educação que Protege Meninas"
+        ],
         "367 - EDUCACAO ESPECIAL": ["2957 - Desenvolvimento da Educação Especial"],
-        "361 - ENSINO FUNDAMENTAL": ["4172 - Desenvolvimento do Ensino Fundamental"],
-        "362 - ENSINO MEDIO": ["4174 - Desenvolvimento do Ensino Médio"]
+        "361 - ENSINO FUNDAMENTAL": [
+            "4172 - Desenvolvimento do Ensino Fundamental",
+            "4538 - Desenvolvimento do Regime de Colaboração - Ensino Fundamental"
+        ],
+        "362 - ENSINO MEDIO": ["4174 - Desenvolvimento do Ensino Médio"],
+        "365 - EDUCACAO INFANTIL": ["4537 - Desenvolvimento do Regime de Colaboração - Educação Infantil"]
     },
     "534 - Infraestrutura Educacional": {
         "366 - EDUCACAO DE JOVENS E ADULTOS": [

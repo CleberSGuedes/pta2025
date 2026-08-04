@@ -1,5 +1,59 @@
 # Alteracoes do Projeto PTA
 
+## 2026-08-04
+
+- Atualizada a lista de subfuncoes e acoes do cadastro de Acao/PAOE para o Programa `533 - Educacao 10 Anos`:
+  - Incluida a subfuncao `365 - EDUCACAO INFANTIL`.
+  - Vinculada a nova Acao/PAOE `4537 - Desenvolvimento do Regime de Colaboracao - Educacao Infantil`.
+  - Incluida a nova Acao/PAOE `4538 - Desenvolvimento do Regime de Colaboracao - Ensino Fundamental` na subfuncao `361 - ENSINO FUNDAMENTAL`.
+  - Incluida a nova Acao/PAOE `4541 - Educacao que Protege Meninas` na subfuncao `122 - ADMINISTRACAO GERAL`.
+  - Arquivo alterado: `static/js/selects_dependentes.js`.
+  - Observacao: nao houve insercao direta no banco nesta etapa porque o cadastro da acao exige responsavel, CPF e e-mail.
+
+- Atualizado lote inicial de produtos da acao para novas PAOEs do Programa `533`, exercicio `2027`:
+  - Atualizado `static/js/metaMap.js`.
+  - Criado e executado o script `scripts/update_meta_2027_533_novas_paoes.py` para aplicar o lote no banco remoto.
+  - Lote recebido com 6 produtos, sem duplicidades.
+  - PAOE `4537`, Subfuncao `365`: `Regime de colaboracao desenvolvido` com `Percentual = 10,00`.
+  - PAOE `4538`, Subfuncao `361`: `Regime de colaboracao desenvolvido` com `Percentual = 55,00`.
+  - PAOE `4541`, Subfuncao `122`: 4 produtos com `Percentual = 2,00`.
+  - Primeira execucao no banco remoto inseriu 6 produtos ativos em `produto_acao`.
+  - Segunda execucao de validacao atualizou os mesmos 6 registros e nao criou duplicidades.
+  - Validado com `node --check static\js\metaMap.js`.
+  - Validado com `py -3.11 -m py_compile scripts\update_meta_2027_533_novas_paoes.py`.
+
+- Atualizados os mapas da Chave de Planejamento para a nova PAOE `4541 - Educacao que Protege Meninas`, Programa `533`, Subfuncao `122`, UG `8`:
+  - Atualizado `subfuncaoUGMap`: PAOE `4541` vinculada a UG `8`.
+  - Atualizado `adjMap` para 4 produtos da acao.
+  - Atualizado `macropoliticaMap` para 4 produtos da acao.
+  - Atualizado `pilarMap` para 4 produtos da acao.
+  - Atualizado `eixoMap` para 4 produtos da acao.
+  - Atualizado `politicaMap` para 4 produtos da acao.
+  - Arquivo alterado: `static/js/subacao_entrega.js`.
+  - Validado com `node --check static\js\subacao_entrega.js`.
+
+- Atualizados os mapas da Chave de Planejamento para a nova PAOE `4537 - Desenvolvimento do Regime de Colaboracao - Educacao Infantil`, Programa `533`, Subfuncao `365`, UG `10`:
+  - Atualizado `subfuncaoUGMap`: PAOE `4537` vinculada a UG `10`.
+  - Atualizado `adjMap`: `Regime de colaboracao desenvolvido` -> `SARC`.
+  - Atualizado `macropoliticaMap`: `SARC` -> `REGIME_COLABORACAO`.
+  - Atualizado `pilarMap`: `REGIME_COLABORACAO` -> `P_GESTAO_`.
+  - Atualizado `eixoMap`: `P_GESTAO_` -> `E_REGIME_COLABORACAO`.
+  - Atualizado `politicaMap`: `E_REGIME_COLABORACAO` -> `_REGIME_COLAB`.
+  - Arquivo alterado: `static/js/subacao_entrega.js`.
+  - Validado com `node --check static\js\subacao_entrega.js`.
+
+- Atualizados os mapas da Chave de Planejamento para a nova PAOE `4538 - Desenvolvimento do Regime de Colaboracao - Ensino Fundamental`, Programa `533`, Subfuncao `361`, UG `9`:
+  - Atualizado `subfuncaoUGMap`: PAOE `4538` vinculada a UG `9`.
+  - Atualizado `adjMap`: `Regime de colaboracao desenvolvido` -> `SARC`.
+  - Atualizado `macropoliticaMap`: `SARC` -> `REGIME_COLABORACAO`.
+  - Atualizado `pilarMap`: `REGIME_COLABORACAO` -> `P_GESTAO_`.
+  - Atualizado `eixoMap`: `P_GESTAO_` -> `E_REGIME_COLABORACAO`.
+  - Atualizado `politicaMap`: `E_REGIME_COLABORACAO` -> `_REGIME_COLAB`.
+  - Arquivo alterado: `static/js/subacao_entrega.js`.
+  - Validado com `node --check static\js\subacao_entrega.js`.
+  - Corrigido posicionamento dos blocos `macropoliticaMap`, `pilarMap`, `eixoMap` e `politicaMap`: a PAOE `4538` estava sob `362 - ENSINO MEDIO` e foi movida para `361 - ENSINO FUNDAMENTAL`.
+  - Validado por leitura automatica dos mapas que o caminho `533 -> 361 -> 4538 -> UG 9 -> Regime de colaboracao desenvolvido` retorna valores em todos os mapas e nao existe mais em `362`.
+
 ## 2026-07-27
 
 - Atualizado lote revisado de metas fisicas do Programa `534`, Subfuncao `122`, PAOE `4180`, exercicio `2027`:

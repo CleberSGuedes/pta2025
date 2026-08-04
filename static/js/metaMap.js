@@ -55,6 +55,12 @@ const metaMap = {
           "Acesso e permanência desenvolvido": "Percentual = 5,00",
           "Bem-estar escolar desenvolvido": "Percentual = 3,00",
           "Escolas militares desenvolvidas": "Percentual = 5,00"
+      },
+      "4541 - Educação que Protege Meninas": {
+          "Bem-estar escolar desenvolvido": "Percentual = 2,00",
+          "Projetos pedagógicos integrados implantados": "Percentual = 2,00",
+          "Formação continuada de professores realizada": "Percentual = 2,00",
+          "Valorização profissional desenvolvida": "Percentual = 2,00"
       }
     },
     "367 - EDUCACAO ESPECIAL": {
@@ -92,6 +98,9 @@ const metaMap = {
           "Escolas militares desenvolvidas": "Percentual = 57,18",
           "Materiais escolares disponibilizados": "Percentual = 56,84",
           "Uniformes escolares disponibilizados": "Percentual = 56,84"
+      },
+      "4538 - Desenvolvimento do Regime de Colaboração - Ensino Fundamental": {
+          "Regime de colaboração desenvolvido": "Percentual = 55,00"
       }
     },
     "362 - ENSINO MEDIO": {
@@ -111,6 +120,12 @@ const metaMap = {
           "Escolas militares desenvolvidas": "Percentual = 37,82",
           "Materiais escolares disponibilizados": "Percentual = 36,46",
           "Uniformes escolares disponibilizados": "Percentual = 36,46"
+      }
+    }
+    ,
+    "365 - EDUCACAO INFANTIL": {
+      "4537 - Desenvolvimento do Regime de Colaboração - Educação Infantil": {
+          "Regime de colaboração desenvolvido": "Percentual = 10,00"
       }
     }
   },

@@ -34,10 +34,17 @@ const subfuncaoUGMap = {
 	},
   "533 - Educação 10 Anos": {
     "366 - EDUCACAO DE JOVENS E ADULTOS": {"2900": "4"},
-    "122 - ADMINISTRAÇÃO GERAL": {"2936": "8"},
+    "122 - ADMINISTRAÇÃO GERAL": {
+      "2936": "8",
+      "4541": "8"
+    },
     "367 - EDUCACAO ESPECIAL": {"2957": "5"},
-    "361 - ENSINO FUNDAMENTAL":{ "4172": "2"},
-    "362 - ENSINO MEDIO": {"4174":"3"}
+    "361 - ENSINO FUNDAMENTAL":{
+      "4172": "2",
+      "4538": "9"
+    },
+    "362 - ENSINO MEDIO": {"4174":"3"},
+    "365 - EDUCACAO INFANTIL": {"4537": "10"}
   },
   "534 - Infraestrutura Educacional": {
     "366 - EDUCACAO DE JOVENS E ADULTOS": {
@@ -168,6 +175,14 @@ const adjMap = {
           "Bem-estar escolar desenvolvido": "SAGR",
           "Escolas militares desenvolvidas": "SAEX"
         }
+      },
+      "4541 - Educação que Protege Meninas": {
+        "8": {
+          "Bem-estar escolar desenvolvido": "SAGR",
+          "Projetos pedagógicos integrados implantados": "SAGE",
+          "Formação continuada de professores realizada": "SAGP",
+          "Valorização profissional desenvolvida": "SAGP"
+        }
       }
     },
     "367 - EDUCACAO ESPECIAL": {
@@ -209,6 +224,11 @@ const adjMap = {
           "Materiais escolares disponibilizados": "SAGR",
           "Uniformes escolares disponibilizados": ["SAGR", "SARC"]
         }
+      },
+      "4538 - Desenvolvimento do Regime de Colaboração - Ensino Fundamental": {
+        "9": {
+          "Regime de colaboração desenvolvido": "SARC"
+        }
       }
     },
     "362 - ENSINO MEDIO": {
@@ -229,6 +249,13 @@ const adjMap = {
           "Escolas militares desenvolvidas": "SAEX",
           "Materiais escolares disponibilizados": "SAGR",
           "Uniformes escolares disponibilizados": ["SAGR", "SARC"]
+        }
+      }
+    },
+    "365 - EDUCACAO INFANTIL": {
+      "4537 - Desenvolvimento do Regime de Colaboração - Educação Infantil": {
+        "10": {
+          "Regime de colaboração desenvolvido": "SARC"
         }
       }
     }
@@ -585,6 +612,22 @@ const macropoliticaMap = {
             "SAEX": "GESTÃO_INOVAÇÃO"
           }
         }
+      },
+      "4541 - Educação que Protege Meninas": {
+        "8": {
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": "CULTURA_DE_PAZ"
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": "DESENV_EDUCACIONAL"
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": "VALORIZAÇÃO_PRO"
+          },
+          "Valorização profissional desenvolvida": {
+            "SAGP": "VALORIZAÇÃO_PRO"
+          }
+        }
       }
     },
     "367 - EDUCACAO ESPECIAL": {
@@ -693,7 +736,15 @@ const macropoliticaMap = {
           }
         }
       }
-    },
+  ,
+      "4538 - Desenvolvimento do Regime de Colaboração - Ensino Fundamental": {
+        "9": {
+          "Regime de colaboração desenvolvido": {
+            "SARC": "REGIME_COLABORAÇÃO"
+          }
+        }
+      }
+  },
     "362 - ENSINO MEDIO": {
       "4174 - Desenvolvimento do Ensino Médio": {
         "3": {
@@ -746,6 +797,15 @@ const macropoliticaMap = {
           "Uniformes escolares disponibilizados": {
             "SAGR": "ACESSO_E_PERM",
             "SARC": "ACESSO_E_PERM"
+          }
+        }
+      }
+    },
+    "365 - EDUCACAO INFANTIL": {
+      "4537 - Desenvolvimento do Regime de Colaboração - Educação Infantil": {
+        "10": {
+          "Regime de colaboração desenvolvido": {
+            "SARC": "REGIME_COLABORAÇÃO"
           }
         }
       }
@@ -1292,6 +1352,30 @@ const pilarMap = {
             }
           }
         }
+      },
+      "4541 - Educação que Protege Meninas": {
+        "8": {
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": {
+              "CULTURA_DE_PAZ": "P_EQUIDADE_"
+            }
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": "P_TECNOLOGIA_"
+            }
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            }
+          },
+          "Valorização profissional desenvolvida": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": "P_VALORIZ_PRO"
+            }
+          }
+        }
       }
     },
     "367 - EDUCACAO ESPECIAL": {
@@ -1474,7 +1558,17 @@ const pilarMap = {
           }
         }
       }
-    },
+  ,
+      "4538 - Desenvolvimento do Regime de Colaboração - Ensino Fundamental": {
+        "9": {
+          "Regime de colaboração desenvolvido": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": "P_GESTÃO_"
+            }
+          }
+        }
+      }
+  },
     "362 - ENSINO MEDIO": {
       "4174 - Desenvolvimento do Ensino Médio": {
         "3": {
@@ -1564,6 +1658,17 @@ const pilarMap = {
             },
             "SARC": {
               "ACESSO_E_PERM": "P_EQUIDADE_"
+            }
+          }
+        }
+      }
+    },
+    "365 - EDUCACAO INFANTIL": {
+      "4537 - Desenvolvimento do Regime de Colaboração - Educação Infantil": {
+        "10": {
+          "Regime de colaboração desenvolvido": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": "P_GESTÃO_"
             }
           }
         }
@@ -2306,6 +2411,38 @@ const eixoMap = {
             }
           }
         }
+      },
+      "4541 - Educação que Protege Meninas": {
+        "8": {
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": {
+              "CULTURA_DE_PAZ": {
+                "P_EQUIDADE_": "E_BEM-ESTAR_ESCOLAR"
+              }
+            }
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_TECNOLOGIA_": "E_PROJ_PED_INTEGRAD"
+              }
+            }
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_FORMAÇÃO_DE_PROF"
+              }
+            }
+          },
+          "Valorização profissional desenvolvida": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": "E_VALORIZAÇÃO_PROF"
+              }
+            }
+          }
+        }
       }
     },
     "367 - EDUCACAO ESPECIAL": {
@@ -2567,7 +2704,19 @@ const eixoMap = {
           }
         }
       }
-    },
+  ,
+      "4538 - Desenvolvimento do Regime de Colaboração - Ensino Fundamental": {
+        "9": {
+          "Regime de colaboração desenvolvido": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": {
+                "P_GESTÃO_": "E_REGIME_COLABORAÇÃO"
+              }
+            }
+          }
+        }
+      }
+  },
     "362 - ENSINO MEDIO": {
       "4174 - Desenvolvimento do Ensino Médio": {
         "3": {
@@ -2698,6 +2847,19 @@ const eixoMap = {
             "SARC": {
               "ACESSO_E_PERM": {
                 "P_EQUIDADE_": "E_MATERIAIS_UNIFORM"
+              }
+            }
+          }
+        }
+      }
+    },
+    "365 - EDUCACAO INFANTIL": {
+      "4537 - Desenvolvimento do Regime de Colaboração - Educação Infantil": {
+        "10": {
+          "Regime de colaboração desenvolvido": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": {
+                "P_GESTÃO_": "E_REGIME_COLABORAÇÃO"
               }
             }
           }
@@ -3648,6 +3810,46 @@ const politicaMap = {
             }
           }
         }
+      },
+      "4541 - Educação que Protege Meninas": {
+        "8": {
+          "Bem-estar escolar desenvolvido": {
+            "SAGR": {
+              "CULTURA_DE_PAZ": {
+                "P_EQUIDADE_": {
+                  "E_BEM-ESTAR_ESCOLAR": "_BEM-ESTAR_"
+                }
+              }
+            }
+          },
+          "Projetos pedagógicos integrados implantados": {
+            "SAGE": {
+              "DESENV_EDUCACIONAL": {
+                "P_TECNOLOGIA_": {
+                  "E_PROJ_PED_INTEGRAD": "_PROJ_PED_INTEGR"
+                }
+              }
+            }
+          },
+          "Formação continuada de professores realizada": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_FORMAÇÃO_DE_PROF": "_FORMAÇÃO_PROF"
+                }
+              }
+            }
+          },
+          "Valorização profissional desenvolvida": {
+            "SAGP": {
+              "VALORIZAÇÃO_PRO": {
+                "P_VALORIZ_PRO": {
+                  "E_VALORIZAÇÃO_PROF": "_VALORIZ_PROF"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "367 - EDUCACAO ESPECIAL": {
@@ -3985,7 +4187,21 @@ const politicaMap = {
           }
         }
       }
-    },
+  ,
+      "4538 - Desenvolvimento do Regime de Colaboração - Ensino Fundamental": {
+        "9": {
+          "Regime de colaboração desenvolvido": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": {
+                "P_GESTÃO_": {
+                  "E_REGIME_COLABORAÇÃO": "_REGIME_COLAB"
+                }
+              }
+            }
+          }
+        }
+      }
+  },
     "362 - ENSINO MEDIO": {
       "4174 - Desenvolvimento do Ensino Médio": {
         "3": {
@@ -4154,6 +4370,21 @@ const politicaMap = {
               "ACESSO_E_PERM": {
                 "P_EQUIDADE_": {
                   "E_MATERIAIS_UNIFORM": "_UNIFORMES_"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "365 - EDUCACAO INFANTIL": {
+      "4537 - Desenvolvimento do Regime de Colaboração - Educação Infantil": {
+        "10": {
+          "Regime de colaboração desenvolvido": {
+            "SARC": {
+              "REGIME_COLABORAÇÃO": {
+                "P_GESTÃO_": {
+                  "E_REGIME_COLABORAÇÃO": "_REGIME_COLAB"
                 }
               }
             }
