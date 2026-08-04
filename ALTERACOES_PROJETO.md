@@ -2,6 +2,12 @@
 
 ## 2026-08-04
 
+- Atualizada a lista de `Fonte de Recursos` no formulario `Incluir Memoria de Calculo`:
+  - Substituida a lista fixa anterior de 13 fontes pela nova lista ordenada enviada para 2027.
+  - A lista continua sendo mantida diretamente no template `templates/memoria_calculo.html`.
+  - O campo permanece usando Select2 via `static/js/memoria_calculo.js`, permitindo pesquisa/digitacao.
+  - Arquivo alterado: `templates/memoria_calculo.html`.
+
 - Atualizada a lista de subfuncoes e acoes do cadastro de Acao/PAOE para o Programa `533 - Educacao 10 Anos`:
   - Incluida a subfuncao `365 - EDUCACAO INFANTIL`.
   - Vinculada a nova Acao/PAOE `4537 - Desenvolvimento do Regime de Colaboracao - Educacao Infantil`.
