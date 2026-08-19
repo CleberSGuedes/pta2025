@@ -104,11 +104,15 @@ const idusoMap = {
     "4172 - Desenvolvimento do Ensino Fundamental":[
         "03 - DESPESAS OBRIGATÓRIAS - DO",
         "14 - PRIORIDADE DE GOVERNO - PG",
-        "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd"
+        "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd",
+        "15 - PADIS CONTRAPARTIDA - PADIS CTRP",
+        "16 - PADIS DESEMPENHO-PBCs - PADIS PBCs"
     ],
     "4174 - Desenvolvimento do Ensino Médio":[
         "14 - PRIORIDADE DE GOVERNO - PG",
-        "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd"
+        "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd",
+        "15 - PADIS CONTRAPARTIDA - PADIS CTRP",
+        "16 - PADIS DESEMPENHO-PBCs - PADIS PBCs"
     ],
     "2895 - Alimentação Escolar da Educação de Jovens e Adultos":[
         "Selecione...",
@@ -178,7 +182,9 @@ const idusoMap = {
         "10 - PROFISCO PRINCIPAL - PRF PR",
         "11 - PROFISCO CONTRAPARTIDA - PRF CTRP",
         "12 - PROGESTÃO PRINCIPAL - PROG PR",
-        "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd"
+        "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd",
+        "15 - PADIS CONTRAPARTIDA - PADIS CTRP",
+        "16 - PADIS DESEMPENHO-PBCs - PADIS PBCs"
     ],
     "4175 - Infraestrutura da Educação de Jovens e Adultos":[
         "Selecione...",
@@ -192,7 +198,9 @@ const idusoMap = {
         "10 - PROFISCO PRINCIPAL - PRF PR",
         "11 - PROFISCO CONTRAPARTIDA - PRF CTRP",
         "12 - PROGESTÃO PRINCIPAL - PROG PR",
-        "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd"
+        "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd",
+        "15 - PADIS CONTRAPARTIDA - PADIS CTRP",
+        "16 - PADIS DESEMPENHO-PBCs - PADIS PBCs"
     ],
     "4177 - Infraestrutura do Ensino Médio":[
         "Selecione...",
@@ -206,7 +214,9 @@ const idusoMap = {
         "10 - PROFISCO PRINCIPAL - PRF PR",
         "11 - PROFISCO CONTRAPARTIDA - PRF CTRP",
         "12 - PROGESTÃO PRINCIPAL - PROG PR",
-        "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd"
+        "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd",
+        "15 - PADIS CONTRAPARTIDA - PADIS CTRP",
+        "16 - PADIS DESEMPENHO-PBCs - PADIS PBCs"
     ],
     "4178 - Infraestrutura da Educação Especial":[
         "Selecione...",
@@ -220,7 +230,9 @@ const idusoMap = {
         "10 - PROFISCO PRINCIPAL - PRF PR",
         "11 - PROFISCO CONTRAPARTIDA - PRF CTRP",
         "12 - PROGESTÃO PRINCIPAL - PROG PR",
-        "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd"
+        "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd",
+        "15 - PADIS CONTRAPARTIDA - PADIS CTRP",
+        "16 - PADIS DESEMPENHO-PBCs - PADIS PBCs"
     ],
     "4179 - Transporte Escolar da Educação Especial":[
         "Selecione...",
@@ -305,6 +317,20 @@ const idusoMap = {
         "11 - PROFISCO CONTRAPARTIDA - PRF CTRP",
         "12 - PROGESTÃO PRINCIPAL - PROG PR",
         "13 - OPERAÇÕES DE CRÉDITOS - Opr Créd"
+    ],
+    "4537 - Desenvolvimento do Regime de Colaboração - Educação Infantil":[
+        "Selecione...",
+        "01 - OUTRAS DESPESAS - OD",
+        "04 - CONTRATOS DIVERSOS - CD"
+    ],
+    "4538 - Desenvolvimento do Regime de Colaboração - Ensino Fundamental":[
+        "Selecione...",
+        "01 - OUTRAS DESPESAS - OD",
+        "04 - CONTRATOS DIVERSOS - CD"
+    ],
+    "4541 - Educação que Protege Meninas":[
+        "Selecione...",
+        "19 - PROGRAMA MULHER - PROG MULHER"
     ],
     "8002 - Recolhimento do PIS-PASEP e pagamento do abono":[
         "Selecione...",

@@ -1,5 +1,33 @@
 # Alteracoes do Projeto PTA
 
+## 2026-08-19
+
+- Atualizada a regra de cadastro/alteracao de etapa:
+  - O mesmo municipio da entrega pode ser vinculado a mais de uma etapa na mesma subacao.
+  - A duplicidade passa a ser bloqueada apenas quando existir outra etapa ativa com o mesmo municipio e o mesmo nome final da etapa.
+  - Datas de inicio e fim podem se repetir entre etapas.
+  - A regra vale tanto para inclusao quanto para alteracao.
+  - A mensagem de erro foi ajustada para explicar que o municipio pode ter varias etapas, desde que os nomes sejam diferentes.
+  - Arquivos alterados: `app.py` e `static/js/etapa.js`.
+
+## 2026-08-18
+
+- Reorganizada a documentacao do projeto:
+  - Criada a pasta `docs/`.
+  - Movidos para `docs/` os documentos operacionais de analise, roteiro, checklist, ponto de parada, mapeamento da chave de planejamento, correcao Passenger e alteracoes do projeto.
+  - Mantido `README.md` na raiz por convencao do repositorio.
+
+- Atualizada a lista de Identificador de Uso da memoria de calculo:
+  - Arquivo alterado: `static/js/idusoMap.js`.
+  - Acrescentados os IDs `15 - PADIS CONTRAPARTIDA - PADIS CTRP` e `16 - PADIS DESEMPENHO-PBCs - PADIS PBCs`.
+  - PAOEs atualizadas: `4172 - Desenvolvimento do Ensino Fundamental`, `4173 - Infraestrutura do Ensino Fundamental`, `4174 - Desenvolvimento do Ensino Medio`, `4175 - Infraestrutura da Educacao de Jovens e Adultos`, `4177 - Infraestrutura do Ensino Medio` e `4178 - Infraestrutura da Educacao Especial`.
+
+- Corrigido mapeamento da chave de planejamento da PAOE `4525 - FMTE - Educacao Infantil` no programa `544 - Mato Grosso Mais Educacao`:
+  - Incluidos os produtos `Unidade reformada Total de ampliacao de salas com banheiro`, `Unidade construida salas Total de Escola a Construir` e `Unidade reformada`.
+  - Todos foram mapeados com UG `10`, ADJ `SAAS`, macropolitica `INFRAESTRUTURA`, pilar `P_INFRAESTR_`, eixo `E_INFRAESTRUTURA_ESC` e politica decreto `_INFRAESTRUTURA`.
+  - Arquivo alterado: `static/js/subacao_entrega.js`.
+  - Validado com `node --check static\js\subacao_entrega.js`.
+
 ## 2026-08-04
 
 - Atualizada a lista de `Fonte de Recursos` no formulario `Incluir Memoria de Calculo`:
@@ -252,6 +280,51 @@
   - Produtos que estavam como `Unidade` neste PAOE passaram para `Percentual`, conforme lote enviado.
   - Metas inteiras foram normalizadas no codigo como `70,00`, `30,00`, `100,00` e `54,00`.
   - Validado com `node --check static\js\metaMap.js`.
+
+- Cadastrada nova PAOE no programa `544 - Mato Grosso Mais Educacao`:
+  - Banco remoto: inserida a acao ativa ID `104`.
+  - Subfuncao: `362 - ENSINO MEDIO`.
+  - PAOE: `4545 - FMTE - Ensino Medio`.
+  - Responsavel: `Ane Cristina dos Santos Barros`.
+  - CPF: `014.566.901-75`.
+  - E-mail: `ane.barros@edu.mt.gov.br`.
+  - Atualizado `static/js/selects_dependentes.js` para exibir a PAOE no fluxo de cadastro de acao.
+  - Pendentes para quando as equipes encaminharem as informacoes: produtos da acao, metas fisicas, chave de planejamento e ID Uso.
+
+- Movidas PAOEs `4524` e `4525` do programa `534` para o programa `544` no PTA 2027:
+  - Banco remoto: as acoes ativas `92` e `93` tiveram `programa_id` alterado de `15` para `20`.
+  - PAOE `4524 - FMTE - Ensino Fundamental` passou para `544 - Mato Grosso Mais Educacao`.
+  - PAOE `4525 - FMTE - Educacao Infantil` passou para `544 - Mato Grosso Mais Educacao`.
+  - Produtos e metas ativas foram preservados:
+    - `4524`: `Regime de colaboracao desenvolvido`, `Percentual = 10,00`.
+    - `4525`: `Regime de colaboracao desenvolvido`, `Percentual = 20,00`.
+    - `4525`: `Unidade reformada Total de ampliacao de salas com banheiro`, `Unidade = 17,00`.
+    - `4525`: `Unidade construida salas Total de Escola a Construir`, `Unidade = 23,00`.
+    - `4525`: `Unidade reformada`, `Unidade = 21,00`.
+  - Atualizado `static/js/selects_dependentes.js`: PAOEs removidas do bloco `534` e inseridas no bloco `544`.
+  - Atualizado `static/js/metaMap.js`: metas das PAOEs movidas para o programa `544`.
+  - Atualizado `static/js/subacao_entrega.js`: mapas da chave de planejamento das PAOEs movidos para o programa `544`.
+  - Atualizado `static/js/produto_acao.js`: lista da PAOE `4525` alinhada aos produtos com metas.
+  - Mantidos sem alteracao `static/js/idusoMap.js`, pois a regra de ID Uso e vinculada diretamente a PAOE.
+  - Mantidos sem alteracao os arquivos do modulo orcamentario/MOMP, pois esse modulo esta desativado nesta aplicacao.
+
+- Cadastrado novo programa do PTA 2027:
+  - Programa: `544 - Mato Grosso Mais Educacao`.
+  - Funcao: `12 - EDUCACAO`.
+  - Responsavel: `Flavia Emanuelle de Souza Soares`.
+  - CPF: `956.746.241-00`.
+  - E-mail: `flavia.soares@edu.mt.gov.br`.
+  - Inserido no banco remoto na tabela `programa`, exercicio `2027`, como registro ativo.
+  - ID gerado no banco: `20`.
+  - Atualizada a lista fixa do formulario em `templates/cadastrar_programa.html`.
+  - Atualizado o mapa de funcao do programa em `static/js/programa.js`.
+  - Incluido o programa em `static/js/selects_dependentes.js` com bloco vazio para futuras subfuncoes e PAOEs.
+
+- Atualizada a lista de Identificador de Uso da memoria de calculo para novas PAOEs:
+  - Arquivo alterado: `static/js/idusoMap.js`.
+  - Incluida a PAOE `4537 - Desenvolvimento do Regime de Colaboracao - Educacao Infantil` com IDs `01 - OUTRAS DESPESAS - OD` e `04 - CONTRATOS DIVERSOS - CD`.
+  - Incluida a PAOE `4538 - Desenvolvimento do Regime de Colaboracao - Ensino Fundamental` com IDs `01 - OUTRAS DESPESAS - OD` e `04 - CONTRATOS DIVERSOS - CD`.
+  - Incluida a PAOE `4541 - Educacao que Protege Meninas` com ID `19 - PROGRAMA MULHER - PROG MULHER`.
 
 - Atualizado lote de metas fisicas do Programa `533`, Subfuncao `122`, PAOE `2936`, exercicio `2027`:
   - Atualizado `static/js/metaMap.js`.

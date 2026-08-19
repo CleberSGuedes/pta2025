@@ -739,16 +739,21 @@ with app.app_context():
                     ))
 
                 etapa_id_int = int(etapa_id) if etapa_id else None
+                etapa_nome_final = _nome_etapa_com_municipio(request.form.get("etapa_nome"), municipio)
                 etapa_duplicada_query = Etapa.query.filter(
                     Etapa.subacao_entrega_id == subacao.id,
                     Etapa.municipio_entrega_id == municipio.id,
+                    Etapa.etapa_nome == etapa_nome_final,
                     Etapa.ativo == True,
                     Etapa.excluido_em.is_(None)
                 )
                 if etapa_id_int:
                     etapa_duplicada_query = etapa_duplicada_query.filter(Etapa.id != etapa_id_int)
                 if etapa_duplicada_query.first():
-                    session['mensagem_popup'] = "Já existe uma etapa ativa vinculada a este município."
+                    session['mensagem_popup'] = (
+                        "Já existe uma etapa ativa com este mesmo nome para o município selecionado. "
+                        "O município pode ter várias etapas, mas cada etapa precisa ter um nome diferente."
+                    )
                     produto = ProdutoAcao.query.get_or_404(subacao.produto_id)
                     acao = Acao.query.get_or_404(produto.acao_id)
                     programa = _programa_do_exercicio_or_404(acao.programa_id)
@@ -770,7 +775,7 @@ with app.app_context():
                 nova_etapa = Etapa(
                     subacao_entrega_id=subacao.id,
                     municipio_entrega_id=municipio.id,
-                    etapa_nome=_nome_etapa_com_municipio(request.form.get("etapa_nome"), municipio),
+                    etapa_nome=etapa_nome_final,
                     data_inicio=request.form.get("data_inicio"),
                     data_fim=request.form.get("data_fim"),
                     responsavel=request.form.get("responsavel"),

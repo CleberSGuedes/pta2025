@@ -36,24 +36,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function municipiosUsados(etapaAtualId = "") {
-        const usados = new Set();
-        document.querySelectorAll('input[name="etapaSelecionada"]').forEach((radio) => {
-            const etapaId = radio.value || "";
-            const municipioId = radio.dataset.municipio_entrega_id || "";
-            if (municipioId && etapaId !== etapaAtualId) {
-                usados.add(municipioId);
-            }
-        });
-        return usados;
-    }
-
-    function atualizarOpcoesMunicipio(etapaAtualId = "") {
+    function atualizarOpcoesMunicipio() {
         if (!municipioSelect) return;
-        const usados = municipiosUsados(etapaAtualId);
         Array.from(municipioSelect.options).forEach((opt) => {
             if (!opt.value) return;
-            opt.disabled = usados.has(opt.value);
+            opt.disabled = false;
         });
     }
 
@@ -121,16 +108,18 @@ document.addEventListener("DOMContentLoaded", () => {
         for (const linha of linhas) {
             const radio = linha.querySelector("input[type=radio]");
             const etapaNome = radio?.dataset.etapa_nome?.trim();
-            const dataInicio = radio?.dataset.data_inicio?.trim();
-            const dataFim = radio?.dataset.data_fim?.trim();
             const municipioEtapa = radio?.dataset.municipio_entrega_id?.trim();
             const etapaId = document.getElementById("etapa_id").value;
 
-            const mesmaEtapa = etapaNome === nome && dataInicio === inicio && dataFim === fim && municipioEtapa === municipioId;
+            const mesmaEtapa = etapaNome === nome && municipioEtapa === municipioId;
 
             if (mesmaEtapa) {
                 if (!etapaId || etapaId !== radio.value) {
-                    Swal.fire("Etapa duplicada", "Já existe uma etapa com o mesmo nome e datas.", "error");
+                    Swal.fire(
+                        "Etapa duplicada",
+                        "Já existe uma etapa ativa com este mesmo nome para o município selecionado. O município pode ter várias etapas, mas cada etapa precisa ter um nome diferente.",
+                        "error"
+                    );
                     e.preventDefault();
                     return;
                 }
@@ -156,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        atualizarOpcoesMunicipio(selecionado.value);
+        atualizarOpcoesMunicipio();
         document.getElementById("etapa_id").value = selecionado.value;
         document.getElementById("municipio_entrega_id").value = selecionado.dataset.municipio_entrega_id || "";
         document.getElementById("etapa_nome").value = selecionado.dataset.etapa_nome;

@@ -1,7 +1,12 @@
 // === Mapeamentos ===
 
 const programaFuncoes = {
-    "12 - EDUCAÇÃO": ["036 - Apoio administrativo", "533 - Educação 10 Anos", "534 - Infraestrutura Educacional"],
+    "12 - EDUCAÇÃO": [
+        "036 - Apoio administrativo",
+        "533 - Educação 10 Anos",
+        "534 - Infraestrutura Educacional",
+        "544 - Mato Grosso Mais Educação"
+    ],
     "28 - ENCARGOS ESPECIAIS": [
         "996 - Operações especiais: outras",
         "998 - Operações especiais: cumprimento de sentenças judiciais"
@@ -46,15 +51,18 @@ const programaSubfuncaoAcoes = {
         "361 - ENSINO FUNDAMENTAL": [
             "2898 - Alimentação Escolar do Ensino Fundamental",
             "4173 - Infraestrutura do Ensino Fundamental",
-            "4181 - Transporte Escolar do Ensino Fundamental",
-            "4524 - FMTE - Ensino Fundamental"
+            "4181 - Transporte Escolar do Ensino Fundamental"
         ],
         "362 - ENSINO MEDIO": [
             "2899 - Alimentação Escolar do Ensino Médio",
             "4177 - Infraestrutura do Ensino Médio",
             "4182 - Transporte Escolar do Ensino Médio"
         ],
-        "122 - ADMINISTRAÇÃO GERAL": ["4180 - Infraestrutura de Administração e Gestão"],
+        "122 - ADMINISTRAÇÃO GERAL": ["4180 - Infraestrutura de Administração e Gestão"]
+    },
+    "544 - Mato Grosso Mais Educação": {
+        "361 - ENSINO FUNDAMENTAL": ["4524 - FMTE - Ensino Fundamental"],
+        "362 - ENSINO MEDIO": ["4545 - FMTE - Ensino Médio"],
         "365 - EDUCACAO INFANTIL": ["4525 - FMTE - Educação Infantil"]
     },
     "996 - Operações especiais: outras": {

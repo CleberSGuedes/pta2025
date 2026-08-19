@@ -59,15 +59,17 @@ const subfuncaoUGMap = {
     "361 - ENSINO FUNDAMENTAL": {
       "2898": "2",
       "4173": "2",
-      "4181": "7",	  
-      "4524": "9"
+      "4181": "7"
     },
     "362 - ENSINO MEDIO": {
       "2899": "3",
       "4177": "3",
       "4182": "7"
     },
-    "122 - ADMINISTRAÇÃO GERAL": {"4180": "6"},
+    "122 - ADMINISTRAÇÃO GERAL": {"4180": "6"}
+  },
+  "544 - Mato Grosso Mais Educação": {
+    "361 - ENSINO FUNDAMENTAL": {"4524": "9"},
     "365 - EDUCACAO INFANTIL": {"4525": "10"}
   },
   "996 - Operações especiais: outras": {
@@ -315,12 +317,6 @@ const adjMap = {
           "Transporte escolar mantido": "SARC"
         }
       },	  
-      "4524 - FMTE - Ensino Fundamental": {
-        "9": {
-          "Infraestrutura escolar modernizada": ["SAIP","EPI"],
-          "Regime de colaboração desenvolvido": "SAAS"
-        }
-      }
     },
     "362 - ENSINO MEDIO": {
       "2899 - Alimentação Escolar do Ensino Médio": {
@@ -354,11 +350,24 @@ const adjMap = {
         }
       }
     },
+  },
+  "544 - Mato Grosso Mais Educação": {
+    "361 - ENSINO FUNDAMENTAL": {
+      "4524 - FMTE - Ensino Fundamental": {
+        "9": {
+          "Infraestrutura escolar modernizada": ["SAIP","EPI"],
+          "Regime de colaboração desenvolvido": "SAAS"
+        }
+      }
+    },
     "365 - EDUCACAO INFANTIL": {
       "4525 - FMTE - Educação Infantil": {
         "10": {
           "Infraestrutura escolar modernizada": ["SAIP", "EPI"],
-          "Regime de colaboração desenvolvido": "SAAS"
+          "Regime de colaboração desenvolvido": "SAAS",
+          "Unidade construida salas Total de Escola a Construir": "SAAS",
+          "Unidade reformada": "SAAS",
+          "Unidade reformada Total de ampliação de salas com banheiro": "SAAS"
         }
       }
     }
@@ -907,17 +916,6 @@ const macropoliticaMap = {
           }
         }
       },	  
-      "4524 - FMTE - Ensino Fundamental": {
-        "9": {
-          "Infraestrutura escolar modernizada": {
-            "SAIP": "INFRAESTRUTURA",
-            "EPI": "EPI"
-          },
-          "Regime de colaboração desenvolvido": {
-            "SAAS": "REGIME_COLABORAÇÃO"
-          }
-        }
-      }
     },
     "362 - ENSINO MEDIO": {
       "2899 - Alimentação Escolar do Ensino Médio": {
@@ -990,6 +988,21 @@ const macropoliticaMap = {
         }
       }
     },
+  },
+  "544 - Mato Grosso Mais Educação": {
+    "361 - ENSINO FUNDAMENTAL": {
+      "4524 - FMTE - Ensino Fundamental": {
+        "9": {
+          "Infraestrutura escolar modernizada": {
+            "SAIP": "INFRAESTRUTURA",
+            "EPI": "EPI"
+          },
+          "Regime de colaboração desenvolvido": {
+            "SAAS": "REGIME_COLABORAÇÃO"
+          }
+        }
+      }
+    },
     "365 - EDUCACAO INFANTIL": {
       "4525 - FMTE - Educação Infantil": {
         "10": {
@@ -999,6 +1012,15 @@ const macropoliticaMap = {
           },
           "Regime de colaboração desenvolvido": {
             "SAAS": "REGIME_COLABORAÇÃO"
+          },
+          "Unidade construida salas Total de Escola a Construir": {
+            "SAAS": "INFRAESTRUTURA"
+          },
+          "Unidade reformada": {
+            "SAAS": "INFRAESTRUTURA"
+          },
+          "Unidade reformada Total de ampliação de salas com banheiro": {
+            "SAAS": "INFRAESTRUTURA"
           }
         }
       }
@@ -1819,23 +1841,6 @@ const pilarMap = {
           }
         }
       },	  
-      "4524 - FMTE - Ensino Fundamental": {
-        "9": {
-          "Infraestrutura escolar modernizada": {
-            "SAIP": {
-              "INFRAESTRUTURA": "P_INFRAESTR_"
-            },
-            "EPI": {
-              "EPI": "EPI"
-            }
-          },
-          "Regime de colaboração desenvolvido": {
-            "SAAS": {
-              "REGIME_COLABORAÇÃO": "P_GESTÃO_"
-            }
-          }
-        }
-      }
     },
     "362 - ENSINO MEDIO": {
       "2899 - Alimentação Escolar do Ensino Médio": {
@@ -1962,6 +1967,27 @@ const pilarMap = {
         }
       }
     },
+  },
+  "544 - Mato Grosso Mais Educação": {
+    "361 - ENSINO FUNDAMENTAL": {
+      "4524 - FMTE - Ensino Fundamental": {
+        "9": {
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            },
+            "EPI": {
+              "EPI": "EPI"
+            }
+          },
+          "Regime de colaboração desenvolvido": {
+            "SAAS": {
+              "REGIME_COLABORAÇÃO": "P_GESTÃO_"
+            }
+          }
+        }
+      }
+    },
     "365 - EDUCACAO INFANTIL": {
       "4525 - FMTE - Educação Infantil": {
         "10": {
@@ -1976,6 +2002,21 @@ const pilarMap = {
           "Regime de colaboração desenvolvido": {
             "SAAS": {
               "REGIME_COLABORAÇÃO": "P_GESTÃO_"
+            }
+          },
+          "Unidade construida salas Total de Escola a Construir": {
+            "SAAS": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            }
+          },
+          "Unidade reformada": {
+            "SAAS": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
+            }
+          },
+          "Unidade reformada Total de ampliação de salas com banheiro": {
+            "SAAS": {
+              "INFRAESTRUTURA": "P_INFRAESTR_"
             }
           }
         }
@@ -3059,29 +3100,6 @@ const eixoMap = {
           }
         }
       },	  
-      "4524 - FMTE - Ensino Fundamental": {
-        "9": {
-          "Infraestrutura escolar modernizada": {
-            "SAIP": {
-              "INFRAESTRUTURA": {
-                "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
-              }
-            },
-            "EPI": {
-              "EPI": {
-                "EPI": "EPI"
-              }
-            }
-          },
-          "Regime de colaboração desenvolvido": {
-            "SAAS": {
-              "REGIME_COLABORAÇÃO": {
-                "P_GESTÃO_": "E_REGIME_COLABORAÇÃO"
-              }
-            }
-          }
-        }
-      }
     },
     "362 - ENSINO MEDIO": {
       "2899 - Alimentação Escolar do Ensino Médio": {
@@ -3262,6 +3280,33 @@ const eixoMap = {
         }
       }
     },
+  },
+  "544 - Mato Grosso Mais Educação": {
+    "361 - ENSINO FUNDAMENTAL": {
+      "4524 - FMTE - Ensino Fundamental": {
+        "9": {
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+              }
+            },
+            "EPI": {
+              "EPI": {
+                "EPI": "EPI"
+              }
+            }
+          },
+          "Regime de colaboração desenvolvido": {
+            "SAAS": {
+              "REGIME_COLABORAÇÃO": {
+                "P_GESTÃO_": "E_REGIME_COLABORAÇÃO"
+              }
+            }
+          }
+        }
+      }
+    },
     "365 - EDUCACAO INFANTIL": {
       "4525 - FMTE - Educação Infantil": {
         "10": {
@@ -3281,6 +3326,27 @@ const eixoMap = {
             "SAAS": {
               "REGIME_COLABORAÇÃO": {
                 "P_GESTÃO_": "E_REGIME_COLABORAÇÃO"
+              }
+            }
+          },
+          "Unidade construida salas Total de Escola a Construir": {
+            "SAAS": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+              }
+            }
+          },
+          "Unidade reformada": {
+            "SAAS": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
+              }
+            }
+          },
+          "Unidade reformada Total de ampliação de salas com banheiro": {
+            "SAAS": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": "E_INFRAESTRUTURA_ESC"
               }
             }
           }
@@ -4636,35 +4702,6 @@ const politicaMap = {
 	  
 	  // INCLUIR EPI NO PAOE 4524 TAMBÉM
 	  
-      "4524 - FMTE - Ensino Fundamental": {
-        "9": {
-          "Infraestrutura escolar modernizada": {
-            "SAIP": {
-              "INFRAESTRUTURA": {
-                "P_INFRAESTR_": {
-                  "E_INFRAESTRUTURA_ESC": "_INFRAESTRUTURA"
-                }
-              }
-            },
-            "EPI": {
-              "EPI": {
-                "EPI": {
-                  "EPI": "EPI"
-                }
-              }
-            }
-          },
-          "Regime de colaboração desenvolvido": {
-            "SAAS": {
-              "REGIME_COLABORAÇÃO": {
-                "P_GESTÃO_": {
-                  "E_REGIME_COLABORAÇÃO": "_REGIME_COLAB"
-                }
-              }
-            }
-          }
-        }
-      }
     },
     "362 - ENSINO MEDIO": {
       "2899 - Alimentação Escolar do Ensino Médio": {
@@ -4899,6 +4936,39 @@ const politicaMap = {
         }
       }
     },
+  },
+  "544 - Mato Grosso Mais Educação": {
+    "361 - ENSINO FUNDAMENTAL": {
+      "4524 - FMTE - Ensino Fundamental": {
+        "9": {
+          "Infraestrutura escolar modernizada": {
+            "SAIP": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": {
+                  "E_INFRAESTRUTURA_ESC": "_INFRAESTRUTURA"
+                }
+              }
+            },
+            "EPI": {
+              "EPI": {
+                "EPI": {
+                  "EPI": "EPI"
+                }
+              }
+            }
+          },
+          "Regime de colaboração desenvolvido": {
+            "SAAS": {
+              "REGIME_COLABORAÇÃO": {
+                "P_GESTÃO_": {
+                  "E_REGIME_COLABORAÇÃO": "_REGIME_COLAB"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "365 - EDUCACAO INFANTIL": {
       "4525 - FMTE - Educação Infantil": {
         "10": {
@@ -4923,6 +4993,33 @@ const politicaMap = {
               "REGIME_COLABORAÇÃO": {
                 "P_GESTÃO_": {
                   "E_REGIME_COLABORAÇÃO": "_REGIME_COLAB"
+                }
+              }
+            }
+          },
+          "Unidade construida salas Total de Escola a Construir": {
+            "SAAS": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": {
+                  "E_INFRAESTRUTURA_ESC": "_INFRAESTRUTURA"
+                }
+              }
+            }
+          },
+          "Unidade reformada": {
+            "SAAS": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": {
+                  "E_INFRAESTRUTURA_ESC": "_INFRAESTRUTURA"
+                }
+              }
+            }
+          },
+          "Unidade reformada Total de ampliação de salas com banheiro": {
+            "SAAS": {
+              "INFRAESTRUTURA": {
+                "P_INFRAESTR_": {
+                  "E_INFRAESTRUTURA_ESC": "_INFRAESTRUTURA"
                 }
               }
             }

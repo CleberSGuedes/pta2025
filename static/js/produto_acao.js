@@ -16,7 +16,7 @@ const produtosPorAcao = {
     "4178": ["Gestão do patrimônio realizada", "Gestão escolar desenvolvida", "Infraestrutura escolar modernizada", "Tecnologia no ambiente escolar disponibilizada"],
     "4180": ["Gestão do patrimônio realizada", "Gestão escolar desenvolvida", "Gestão estratégica de pessoas implementada", "Gestão integrada desenvolvida", "Infraestrutura escolar modernizada", "Valorização profissional desenvolvida"],
     "4524": ["Infraestrutura escolar modernizada", "Regime de colaboração desenvolvido"],
-    "4525": ["Infraestrutura escolar modernizada", "Regime de colaboração desenvolvido"],
+    "4525": ["Infraestrutura escolar modernizada", "Regime de colaboração desenvolvido", "Unidade construida salas Total de Escola a Construir", "Unidade reformada", "Unidade reformada Total de ampliação de salas com banheiro"],
     "4179": ["Transporte escolar mantido"],
     "4181": ["Transporte escolar mantido"],
     "4182": ["Transporte escolar mantido"],

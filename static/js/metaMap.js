@@ -167,10 +167,6 @@ const metaMap = {
       },
       "4181 - Transporte Escolar do Ensino Fundamental": {
           "Transporte escolar mantido": "Percentual = 58,65"
-      },	  
-      "4524 - FMTE - Ensino Fundamental": {
-          "Infraestrutura escolar modernizada": "Percentual = 2,00",
-          "Regime de colaboração desenvolvido": "Percentual = 10,00"
       }
     },
     "362 - ENSINO MEDIO": {
@@ -195,6 +191,16 @@ const metaMap = {
           "Gestão estratégica de pessoas implementada": "Percentual = 100,00",
           "Valorização profissional desenvolvida": "Percentual = 98,00",
           "Infraestrutura escolar modernizada": "Percentual = 5,00"
+      }
+    },
+    "365 - EDUCACAO INFANTIL": {
+    }
+  },
+  "544 - Mato Grosso Mais Educação": {
+    "361 - ENSINO FUNDAMENTAL": {
+      "4524 - FMTE - Ensino Fundamental": {
+          "Infraestrutura escolar modernizada": "Percentual = 2,00",
+          "Regime de colaboração desenvolvido": "Percentual = 10,00"
       }
     },
     "365 - EDUCACAO INFANTIL": {

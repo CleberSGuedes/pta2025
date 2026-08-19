@@ -3,6 +3,7 @@ const programaFuncoes = {
     "036 - Apoio administrativo": "12 - EDUCAÇÃO",
     "533 - Educação 10 Anos": "12 - EDUCAÇÃO",
     "534 - Infraestrutura Educacional": "12 - EDUCAÇÃO",
+    "544 - Mato Grosso Mais Educação": "12 - EDUCAÇÃO",
     "997 - Previdência de inativos e pensionistas do Estado": "09 - PREVIDÊNCIA SOCIAL",
     "996 - Operações especiais: outras": "28 - ENCARGOS ESPECIAIS",
     "998 - Operações especiais: cumprimento de sentenças judiciais": "28 - ENCARGOS ESPECIAIS"
